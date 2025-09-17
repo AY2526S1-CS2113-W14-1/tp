@@ -24,9 +24,11 @@ Format: `/newAthlete <Athlete Name>`
 
 Example of usage: 
 
-`/newAthlete Jonas Hardwell`
+```
+/newAthlete Jonas Hardwell
 
-`New athlete created: Jonas Hardwell`
+New athlete created: Jonas Hardwell
+```
 
 
 ### Viewing Athlete Details: `/viewAthlete`
@@ -36,10 +38,10 @@ Format: `/viewAthlete <Athlete Name>`
 
 Example of usage: 
 
-`/viewAthlete Jonas Hardwell`
+```
+/viewAthlete Jonas Hardwell
 
-
-```Athlete: Jonas Hardwell  
+Athlete: Jonas Hardwell  
  Sessions:  
   - 1 Chest Workout  
   - 2 Legs Day  
