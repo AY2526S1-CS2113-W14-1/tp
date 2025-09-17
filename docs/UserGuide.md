@@ -147,24 +147,6 @@ Session 3 completed by Jonas Hardwell
 =========================================================
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Adding to a Exercise isCompleted : `/complete`
 Marks the specified Exercise as completed
 
@@ -193,6 +175,132 @@ Session: conditioning
 
 ```
 
+### Viewing Athlete's all Sessions  : `/viewSession`
+Marks the specified Exercise as completed
+
+
+Format: `/viewSession <Athlete Name>`
+
+Example of usage: 
+
+```
+/viewSession Jonas Hardwell
+
+```
+
+Output:
+
+```
+=========================================================
+Athlete Name: Jonas Hardwell
+
+4.   [X] pre training warmup
+5.   [ ] post training cool down
+6.   [ ] conditioning
+=========================================================
+
+```
+
+### Viewing Session's all Exercises  : `/viewExercise`
+This function is used to view  the Exercises that are assigned to a specific Session ID and a specific Athlete Name
+
+
+Format: `/viewExercise <Athlete Name> <Session ID>`
+
+Example of usage: 
+
+```
+/viewExercise Jonas Hardwell 3
+
+```
+
+Output:
+
+```
+=========================================================
+Athlete Name: Jonas Hardwell
+Session Note: keep_energetic :)
+Session ID : 3
+
+
+7.   [X] Push Ups (10x3)
+8.   [ ] Dips (5x2)
+9.   [ ] Ben (10x4)
+=========================================================
+
+```
+
+### Deleting Exercise from Session  : `/deleteExercise`
+This function is used to delete a specific exercise that is assigned to a specific session ID and a specific Athlete Name
+
+
+Format: `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+
+Example of usage: 
+
+```
+/deleteExercise Jonas Hardwell 3 5
+
+```
+
+Output:
+
+```
+=========================================================
+Exercise 5 deleted in Session 3 for Jonas Hardwell
+=========================================================
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Deleting Session from Athlete  : `/deleteSession`
+This function is used to delete a specific session that is assigned to a specific athlete
+
+
+Format: `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+
+Example of usage: 
+
+```
+/deleteSession Jonas Hardwell 3
+
+```
+
+Output:
+
+```
+=========================================================
+Session 3 deleted for Jonas Hardwell
+=========================================================
+
+```
 
 ## FAQ
 
