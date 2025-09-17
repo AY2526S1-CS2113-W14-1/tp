@@ -29,7 +29,12 @@ Example of usage:
 
 New athlete created: Jonas Hardwell
 ```
-
+Output:
+```
+=========================================================
+New athlete created: Jonas Hardwell
+=========================================================
+```
 
 ### Viewing Athlete Details: `/viewAthlete`
 Views the Sessions that are assigned to the specified Athlete
