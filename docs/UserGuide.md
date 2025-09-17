@@ -38,14 +38,14 @@ Example of usage:
 
 `/viewAthlete Jonas Hardwell`
 
-`/viewAthlete Jonas Hardwell
+`/viewAthlete Jonas Hardwell`
 
-Athlete: Jonas Hardwell  
-Sessions:  
-  - 1 Chest Workout  
-  - 2 Legs Day  
-  - 3 mystery input
-`
+`Athlete: Jonas Hardwell  `
+`Sessions:  `
+  `- 1 Chest Workout  `
+ ` - 2 Legs Day  `
+ ` - 3 mystery input`
+
 
 
 ## FAQ
