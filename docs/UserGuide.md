@@ -26,10 +26,9 @@ Example of usage:
 
 ```
 /newAthlete Jonas Hardwell
-
-New athlete created: Jonas Hardwell
 ```
 Output:
+
 ```
 =========================================================
 New athlete created: Jonas Hardwell
@@ -45,14 +44,154 @@ Example of usage:
 
 ```
 /viewAthlete Jonas Hardwell
+```
+Output:
 
-Athlete: Jonas Hardwell  
- Sessions:  
-  - 1 Chest Workout  
-  - 2 Legs Day  
-  - 3 mystery input
+```
+=========================================================
+Athlete: Jonas Hardwell
+Sessions:
+-   1 Chest Workout
+-   2 Legs Day
+-   3 mystery input
+=========================================================
+
 ```
 
+### Adding to an Athlete a new Session: `/newSession`
+Adds a Session to the specified Athlete
+Specifies the Description for the Session
+
+Format: `/newSession <Athlete Name> <Session ID> <Description>`
+
+Example of usage: 
+
+```
+/newSession Jonas Hardwell 3 chest workout
+
+```
+
+Output:
+
+```
+=========================================================
+New session created: Jonas Hardwell
+Session ID: 3
+=========================================================
+
+```
+
+### Adding to a Session a new Exercise : `/newSession`
+Adds an Exercise to the specified Session.
+Sessions are specified via Athlete Name + Session ID
+
+Format: `/newExercise <Athlete Name> <Session ID> <Description>`
+
+Example of usage: 
+
+```
+/newExercise Jonas Hardwell 3 Benchpress 5x5 80kg
+
+```
+
+Output:
+
+```
+=========================================================
+New Exercise for Jonas Hardwell created for session 3:
+Benchpress 5x5 80kg
+=========================================================
+
+```
+
+### Adding to a Session Trainings Notes : `/trainingNotes`
+Adds training notes to specified Session.
+
+Format: `/trainingNotes <Athlete Name> <Session ID> <Notes>`
+
+Example of usage: 
+
+```
+/trainingNotes Jonas Hardwell 3 keep_energetic:)
+
+```
+
+Output:
+
+```
+=========================================================
+Training notes for Jonas Hardwell added for session 3:
+keep_energetic:)
+=========================================================
+
+```
+
+### Adding to a Session isCompleted : `/complete`
+Marks the specified Session as completed.
+
+
+Format: `/complete <Athlete Name> <Session ID>`
+
+Example of usage: 
+
+```
+/complete Jonas Hardwell 3
+
+```
+
+Output:
+
+```
+=========================================================
+Session 3 completed by Jonas Hardwell
+=========================================================
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Adding to a Exercise isCompleted : `/complete`
+Marks the specified Exercise as completed
+
+
+Format: `/complete <Athlete Name> <Session ID> <Exercise ID>`
+
+Example of usage: 
+
+```
+/complete Jonas Hardwell 3 1
+
+```
+
+Output:
+
+```
+=========================================================
+Exercise “Push Ups (10x3)” completed.
+Athlete Name: Jonas Hardwell
+Session: conditioning
+
+1.   [X] Chest Workout
+2.   [ ] Legs Day
+3.   [ ] mystery input
+=========================================================
+
+```
 
 
 ## FAQ
