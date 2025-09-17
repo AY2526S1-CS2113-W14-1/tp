@@ -1,8 +1,10 @@
-# User Guide
+# User Guide : FitnessONE
 
 ## Introduction
 
-{Give a product intro}
+FitnessONE is designed for professional fitness coaches to streamline the monitoring and managing of their student’s training routines. This involves their training schedules, nutritional intake, and overall fitness progress. 
+
+(The CLI Application offers coaches an efficient and data-driven platform for exercise logging, macronutrients consumption, and provides deep analysis of team performance. It is simple to use, with deep data integration to be used for progress reports and long-term planning.)
 
 ## Quick Start
 
@@ -15,19 +17,34 @@
 
 {Give detailed description of each feature}
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### Adding a new Athlete: `/newAthlete`
+Creates a new Log for a new Athlete with a specified name.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
-
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+Format: `/newAthlete <Athlete Name>`
 
 Example of usage: 
 
-`todo n/Write the rest of the User Guide d/next week`
+`/newAthlete Jonas Hardwell`
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+`New athlete created: Jonas Hardwell`
+
+
+### Viewing Athlete Details: `/viewAthlete`
+Views the Sessions that are assigned to the specified Athlete
+
+Format: `/viewAthlete <Athlete Name>`
+
+Example of usage: 
+
+`/viewAthlete Jonas Hardwell`
+
+`Athlete: Jonas Hardwell
+ Sessions:
+ 1 Chest Workout
+ 2 Legs Day
+ 3 mystery input
+`
+
 
 ## FAQ
 
