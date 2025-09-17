@@ -274,25 +274,6 @@ Session 3 deleted for Jonas Hardwell
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -313,4 +294,4 @@ Session 3 deleted for Jonas Hardwell
 * View Athletes all Session `/viewSession <Athlete Name>`
 * View all Exercise of a Session `/viewExercise <Athlete Name> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
-* 
+* Delete Session from Athlete `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
