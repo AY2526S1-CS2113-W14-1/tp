@@ -2,9 +2,11 @@
 
 ## Introduction
 
-FitnessONE is designed for professional fitness coaches to streamline the monitoring and managing of their student’s training routines. This involves their training schedules, nutritional intake, and overall fitness progress. 
+FitnessONE is a powerful CLI application designed for professional fitness coaches to streamline the monitoring and management of their students' training routines. The platform provides an efficient, data-driven solution for exercise logging, tracking training schedules, and analyzing team performance.
 
-The CLI Application offers coaches an efficient and data-driven platform for exercise logging, macronutrients consumption, and provides deep analysis of team performance. It is simple to use, with deep data integration to be used for progress reports and long-term planning.
+Target Users: Professional fitness coaches who need to manage multiple athletes' training programs, track progress, and maintain detailed training records.
+
+Value Proposition: FitnessONE offers coaches a simple yet comprehensive platform with deep data integration capabilities, enabling efficient progress reports and long-term training planning
 
 ## Quick Start
 
