@@ -1,4 +1,6 @@
-# Duke project template
+# FitnessONE
+
+W14 Team 1 CS2113 tp
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
