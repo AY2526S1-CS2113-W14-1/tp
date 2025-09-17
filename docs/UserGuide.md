@@ -81,7 +81,7 @@ Session ID: 3
 
 ```
 
-### Adding to a Session a new Exercise : `/newSession`
+### Adding to a Session a new Exercise : `/newExercise`
 Adds an Exercise to the specified Session.
 Sessions are specified via Athlete Name + Session ID
 
