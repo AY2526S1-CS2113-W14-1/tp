@@ -4,7 +4,7 @@
 
 FitnessONE is designed for professional fitness coaches to streamline the monitoring and managing of their student’s training routines. This involves their training schedules, nutritional intake, and overall fitness progress. 
 
-(The CLI Application offers coaches an efficient and data-driven platform for exercise logging, macronutrients consumption, and provides deep analysis of team performance. It is simple to use, with deep data integration to be used for progress reports and long-term planning.)
+The CLI Application offers coaches an efficient and data-driven platform for exercise logging, macronutrients consumption, and provides deep analysis of team performance. It is simple to use, with deep data integration to be used for progress reports and long-term planning.
 
 ## Quick Start
 
@@ -252,34 +252,6 @@ Exercise 5 deleted in Session 3 for Jonas Hardwell
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Deleting Session from Athlete  : `/deleteSession`
 This function is used to delete a specific session that is assigned to a specific athlete
 
@@ -302,6 +274,25 @@ Session 3 deleted for Jonas Hardwell
 
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -312,4 +303,14 @@ Session 3 deleted for Jonas Hardwell
 
 {Give a 'cheat sheet' of commands here}
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Add a new Athlete `/newAthlete <Athlete Name>`
+* View Athlete Details `/viewAthlete <Athlete Name>`
+* Add a Session to an Athlete `/newSession <Athlete Name> <Session ID> <Description>`
+* Add to a Exercise to a Session `/newExercise <Athlete Name> <Session ID> <Description>`
+* Add a Training Note to a Session `/trainingNotes <Athlete Name> <Session ID> <Notes>`
+* Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
+* Mark a Session as Completed `/complete <Athlete Name> <Session ID> <Exercise ID>`
+* View Athletes all Session `/viewSession <Athlete Name>`
+* View all Exercise of a Session `/viewExercise <Athlete Name> <Session ID>`
+* Delete Exercise from Session `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+* 
