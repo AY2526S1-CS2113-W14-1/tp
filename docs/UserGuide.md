@@ -258,7 +258,7 @@ Exercise 5 deleted in Session 3 for Jonas Hardwell
 This function is used to delete a specific session that is assigned to a specific athlete
 
 
-Format: `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+Format: `/deleteSession <Athlete Name> <Session ID>`
 
 Example of usage: 
 
@@ -296,4 +296,4 @@ Session 3 deleted for Jonas Hardwell
 * View Athletes all Session `/viewSession <Athlete Name>`
 * View all Exercise of a Session `/viewExercise <Athlete Name> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
-* Delete Session from Athlete `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+* Delete Session from Athlete `/deleteSession <Athlete Name> <Session ID>`
