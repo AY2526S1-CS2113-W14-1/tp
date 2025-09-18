@@ -178,7 +178,7 @@ Session: conditioning
 ```
 
 ### Viewing Athlete's all Sessions  : `/viewSession`
-Marks the specified Exercise as completed
+View the Session ID which is used in other commands
 
 
 Format: `/viewSession <Athlete Name>`
