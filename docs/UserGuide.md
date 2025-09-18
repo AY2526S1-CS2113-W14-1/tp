@@ -13,7 +13,7 @@ Value Proposition: FitnessONE offers coaches a simple yet comprehensive platform
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+1. Down the latest version of `FitnessONE` from [here](https://github.com/AY2526S1-CS2113-W14-1/tp).
 
 ## Features 
 
@@ -128,7 +128,7 @@ keep_energetic:)
 
 ```
 
-### Adding to a Session isCompleted : `/complete`
+### Marking a Session as Completed : `/complete`
 Marks the specified Session as completed.
 
 
@@ -149,7 +149,7 @@ Session 3 completed by Jonas Hardwell
 =========================================================
 ```
 
-### Adding to a Exercise isCompleted : `/complete`
+### Marking an Exercise as Completed : `/complete`
 Marks the specified Exercise as completed
 
 
@@ -263,7 +263,7 @@ Format: `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
 Example of usage: 
 
 ```
-/deleteSession Jonas Hardwell 3
+/deleteExercise Jonas Hardwell 3
 
 ```
 
@@ -292,7 +292,7 @@ Session 3 deleted for Jonas Hardwell
 * Add to a Exercise to a Session `/newExercise <Athlete Name> <Session ID> <Description>`
 * Add a Training Note to a Session `/trainingNotes <Athlete Name> <Session ID> <Notes>`
 * Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
-* Mark a Session as Completed `/complete <Athlete Name> <Session ID> <Exercise ID>`
+* Mark an Exercise as Completed `/complete <Athlete Name> <Session ID> <Exercise ID>`
 * View Athletes all Session `/viewSession <Athlete Name>`
 * View all Exercise of a Session `/viewExercise <Athlete Name> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
