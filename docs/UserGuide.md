@@ -263,7 +263,7 @@ Format: `/deleteSession <Athlete Name> <Session ID>`
 Example of usage: 
 
 ```
-/deleteExercise Jonas Hardwell 3
+/deleteSession Jonas Hardwell 3
 
 ```
 
