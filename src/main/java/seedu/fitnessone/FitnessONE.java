@@ -6,8 +6,6 @@ import seedu.fitnessone.Exception.InvalidCommandException;
 import seedu.fitnessone.UI.Parser;
 import seedu.fitnessone.UI.Ui;
 
-import java.util.Scanner;
-
 public class FitnessONE {
     private Ui _ui;
     private Coach _coach;
@@ -20,7 +18,7 @@ public class FitnessONE {
         _ui.showWelcome();
     }
 
-    private void Run() {
+    private void run() {
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -42,7 +40,7 @@ public class FitnessONE {
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        new FitnessONE().Run();
+        new FitnessONE().run();
     }
 
 }

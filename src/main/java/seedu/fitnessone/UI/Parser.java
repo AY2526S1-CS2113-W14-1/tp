@@ -1,6 +1,8 @@
 package seedu.fitnessone.UI;
 
-import seedu.fitnessone.Command.*;
+
+import seedu.fitnessone.Command.Command;
+import seedu.fitnessone.Command.ExitCommand;
 import seedu.fitnessone.Exception.InvalidCommandException;
 
 public class Parser {
@@ -18,12 +20,12 @@ public class Parser {
         String trimmedInput = input.trim();
         String commandWord = trimmedInput.split("\\s+", 2)[0];
         switch (commandWord) {
-            case "bye":
-                return new ExitCommand();
+        case "bye":
+            return new ExitCommand();
 
 
-            default:
-                throw new InvalidCommandException("input keyword not found");
+        default:
+            throw new InvalidCommandException("input keyword not found");
         }
     }
 }
