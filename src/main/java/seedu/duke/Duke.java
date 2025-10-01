@@ -18,4 +18,8 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
     }
+
+    private void print(String text) {
+        System.out.println(text);
+    }
 }
