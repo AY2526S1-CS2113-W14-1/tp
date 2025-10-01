@@ -1,9 +1,5 @@
 # About us
 
-Display | Name | Github Profile | Portfolio 
---------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+Display |      Name       |            Github Profile             | Portfolio 
+--------|:---------------:|:-------------------------------------:|:---------:
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIuMYVXS2hHUDW2NYYtyvDFLETIMuwEd2wYQ&s) | Toh Ee Sen Izen | [Github](https://github.com/Izen9835) | [Portfolio](docs/team/izen9835.md)

@@ -1,7 +1,9 @@
 package seedu.fitnessone.UI;
 
+import seedu.fitnessone.Command.AddAthleteCommand;
 import seedu.fitnessone.Command.Command;
 import seedu.fitnessone.Command.ExitCommand;
+import seedu.fitnessone.Command.ListAthleteCommand;
 import seedu.fitnessone.Exception.InvalidCommandException;
 
 public class Parser {
@@ -21,6 +23,12 @@ public class Parser {
         switch (commandWord) {
             case "bye":
                 return new ExitCommand();
+
+            case "list":
+                return new ListAthleteCommand();
+
+            case "addAthlete":
+                return new AddAthleteCommand(trimmedInput);
 
             default:
                 throw new InvalidCommandException("input keyword not found");
