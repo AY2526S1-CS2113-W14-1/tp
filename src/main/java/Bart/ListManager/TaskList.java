@@ -3,9 +3,7 @@
  * Manages the user's list of tasks, including todos, deadlines, and events.
  * Provides methods to add, remove, mark, unmark, and search for tasks.
  */
-package seedu.Bart.ListManager;
-
-import Bart.Exceptions.BartException;
+package Bart.ListManager;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

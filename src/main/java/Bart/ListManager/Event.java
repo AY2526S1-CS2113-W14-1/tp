@@ -1,4 +1,4 @@
-package seedu.Bart.ListManager;
+package Bart.ListManager;
 
 public class Event extends ListItem {
     private String start;

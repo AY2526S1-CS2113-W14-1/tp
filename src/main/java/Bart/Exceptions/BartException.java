@@ -1,4 +1,4 @@
-package seedu.Bart.Exceptions;
+package Bart.Exceptions;
 
 public class BartException extends Exception {
     public BartException(String message) {

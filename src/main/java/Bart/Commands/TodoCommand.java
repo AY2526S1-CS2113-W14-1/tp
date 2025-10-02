@@ -3,7 +3,7 @@
  * Represents a command to add a todo task to the task list.
  * Parses user input for the todo description and adds the todo when executed.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.TaskList;

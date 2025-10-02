@@ -3,7 +3,7 @@
  * Parses user input and returns the corresponding command object.
  * Responsible for interpreting user instructions for the chatbot.
  */
-package seedu.Bart.Ui;
+package Bart.Ui;
 
 import Bart.Commands.*;
 import Bart.Exceptions.InvalidCommandException;

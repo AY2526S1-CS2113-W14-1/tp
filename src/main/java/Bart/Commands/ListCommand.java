@@ -3,7 +3,7 @@
  * Represents a command to list all tasks in the task list.
  * When executed, displays all tasks to the user.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.ListManager.TaskList;
 import Bart.Ui.Ui;

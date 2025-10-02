@@ -1,4 +1,4 @@
-package seedu.Bart;
+package Bart;
 
 import java.time.format.DateTimeParseException;
 
@@ -8,7 +8,6 @@ import Bart.Exceptions.FileMissingException;
 import Bart.Exceptions.InvalidCommandException;
 import Bart.Exceptions.StorageException;
 import Bart.IO.Storage;
-import Bart.ListManager.ListItem;
 import Bart.ListManager.TaskList;
 import Bart.Ui.Parser;
 import Bart.Ui.Ui;

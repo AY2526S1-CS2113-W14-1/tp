@@ -3,7 +3,7 @@
  * Represents a command to unmark a task as done in the task list.
  * Parses user input for the index and unmarks the task when executed.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.TaskList;

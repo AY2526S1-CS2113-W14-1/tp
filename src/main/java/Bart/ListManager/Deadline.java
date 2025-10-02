@@ -1,6 +1,4 @@
-package seedu.Bart.ListManager;
-
-import Bart.Exceptions.InvalidCommandException;
+package Bart.ListManager;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

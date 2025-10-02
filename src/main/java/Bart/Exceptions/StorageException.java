@@ -1,4 +1,4 @@
-package seedu.Bart.Exceptions;
+package Bart.Exceptions;
 
 public class StorageException extends RuntimeException {
     public StorageException(String message) {

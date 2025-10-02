@@ -3,7 +3,7 @@
  * Handles loading and saving of task data to and from a file.
  * Responsible for persisting the user's task list between sessions.
  */
-package seedu.Bart.IO;
+package Bart.IO;
 
 import Bart.Exceptions.*;
 import Bart.ListManager.*;

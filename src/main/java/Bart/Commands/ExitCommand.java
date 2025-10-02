@@ -3,7 +3,7 @@
  * Represents a command to exit the application.
  * When executed, displays a farewell message and signals the app to terminate.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.TaskList;

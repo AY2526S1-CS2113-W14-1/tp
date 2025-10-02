@@ -1,4 +1,4 @@
-package seedu.Bart.Exceptions;
+package Bart.Exceptions;
 
 public class InvalidCommandException extends Throwable {
     public InvalidCommandException(String message) {

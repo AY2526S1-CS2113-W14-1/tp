@@ -3,7 +3,7 @@
  * Represents a command to add an event task to the task list.
  * Parses user input for event details and adds the event when executed.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.TaskList;

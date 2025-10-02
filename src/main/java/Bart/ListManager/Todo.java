@@ -1,4 +1,4 @@
-package seedu.Bart.ListManager;
+package Bart.ListManager;
 
 public class Todo extends ListItem {
     // [T][ ] <description>

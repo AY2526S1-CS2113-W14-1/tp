@@ -3,7 +3,7 @@
  * Represents a command to find tasks containing a keyword in the task list.
  * Parses user input for the keyword and displays matching tasks when executed.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.ListItem;

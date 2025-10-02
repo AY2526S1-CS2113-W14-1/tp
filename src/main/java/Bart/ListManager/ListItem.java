@@ -1,4 +1,4 @@
-package seedu.Bart.ListManager;
+package Bart.ListManager;
 
 // needs to be public to be accessible by Bart.IO
 public class ListItem {

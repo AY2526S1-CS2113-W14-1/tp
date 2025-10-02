@@ -3,7 +3,7 @@
  * Represents a command to add a deadline task to the task list.
  * Parses user input for deadline details and adds the deadline when executed.
  */
-package seedu.Bart.Commands;
+package Bart.Commands;
 
 import Bart.Exceptions.InvalidCommandException;
 import Bart.ListManager.TaskList;

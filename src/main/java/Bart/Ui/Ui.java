@@ -3,7 +3,7 @@
  * Handles user interaction for the chatbot, including input and output.
  * Provides methods for displaying messages and reading user commands.
  */
-package seedu.Bart.Ui;
+package Bart.Ui;
 
 import java.util.Scanner;
 
