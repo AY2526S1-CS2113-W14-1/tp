@@ -1,4 +1,4 @@
-package seedu.fitnessone.Exception;
+package seedu.Bart.Exceptions;
 
 public class InvalidCommandException extends Throwable {
     public InvalidCommandException(String message) {

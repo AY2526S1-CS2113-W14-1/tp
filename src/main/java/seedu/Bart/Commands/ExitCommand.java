@@ -3,24 +3,23 @@
  * Represents a command to exit the application.
  * When executed, displays a farewell message and signals the app to terminate.
  */
-package seedu.fitnessone.Command;
+package seedu.Bart.Commands;
 
-
-import seedu.fitnessone.Controller.Coach;
-import seedu.fitnessone.Exception.InvalidCommandException;
-import seedu.fitnessone.UI.Ui;
+import Bart.Exceptions.InvalidCommandException;
+import Bart.ListManager.TaskList;
+import Bart.Ui.Ui;
 
 public class ExitCommand implements Command {
 
 
     /**
      * Executes the command to display a farewell message.
-     * @param _coach The task list (unused).
-     * @param _ui The UI for displaying output.
+     * @param tasks The task list (unused).
+     * @param ui The UI for displaying output.
      */
     @Override
-    public void execute(Coach _coach, Ui _ui) throws InvalidCommandException {
-        _ui.printWithDivider("Bye. Hope to see you again soon!");
+    public void execute(TaskList tasks, Ui ui) throws InvalidCommandException {
+        ui.printWithDivider("Bye. Hope to see you again soon!");
     }
 
     /**
