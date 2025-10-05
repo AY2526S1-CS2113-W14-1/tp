@@ -1,4 +1,4 @@
-package seedu.fitnessone.Model;
+package seedu.fitnessone.model;
 
 import java.util.ArrayList;
 

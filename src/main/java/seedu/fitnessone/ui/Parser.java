@@ -1,9 +1,9 @@
-package seedu.fitnessone.UI;
+package seedu.fitnessone.ui;
 
 
-import seedu.fitnessone.Command.Command;
-import seedu.fitnessone.Command.ExitCommand;
-import seedu.fitnessone.Exception.InvalidCommandException;
+import seedu.fitnessone.command.Command;
+import seedu.fitnessone.command.ExitCommand;
+import seedu.fitnessone.exception.InvalidCommandException;
 
 public class Parser {
 

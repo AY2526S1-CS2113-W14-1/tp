@@ -1,4 +1,4 @@
-package seedu.fitnessone.Model;
+package seedu.fitnessone.model;
 
 public class Exercise {
     private final String exerciseDescription;
