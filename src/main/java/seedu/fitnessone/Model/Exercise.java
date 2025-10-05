@@ -1,15 +1,16 @@
 package seedu.fitnessone.Model;
 
 public class Exercise {
-    String exerciseDescription;
-    int reps;
-    int sets;
-    boolean isCompleted=false;
+    private final String exerciseDescription;
+    private final int reps;
+    private final int sets;
+    private boolean isCompleted;
 
     public Exercise(String exerciseDescription, int sets, int reps) {
         this.exerciseDescription = exerciseDescription;
         this.sets = sets;
         this.reps = reps;
+        this.isCompleted = false;
     }
 
     public String getExerciseDescription() {

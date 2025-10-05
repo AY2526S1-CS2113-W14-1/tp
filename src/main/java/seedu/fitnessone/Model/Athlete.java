@@ -30,9 +30,6 @@ public class Athlete {
         sessions.add(session);
     }
 
-    public void removeSession(Session session) {
-        sessions.remove(session);
-    }
 
     public ArrayList<Session> getSessions() {
         return sessions;
