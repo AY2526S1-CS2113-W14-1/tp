@@ -1,34 +1,33 @@
 package seedu.fitnessone;
 
-import seedu.fitnessone.Command.Command;
-import seedu.fitnessone.Controller.Coach;
-import seedu.fitnessone.Exception.InvalidCommandException;
-import seedu.fitnessone.UI.Parser;
-import seedu.fitnessone.UI.Ui;
+import seedu.fitnessone.command.Command;
+import seedu.fitnessone.controller.Coach;
+import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.ui.Parser;
+import seedu.fitnessone.ui.Ui;
 
 public class FitnessONE {
-    private Ui _ui;
-    private Coach _coach;
+    private final Ui view;
+    private final Coach coachController;
 
 
     public FitnessONE() {
-        _ui = new Ui();
-        _coach = new Coach();
+        view = new Ui();
+        coachController = new Coach();
 
-        _ui.showWelcome();
+        view.showWelcome();
     }
 
     private void run() {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String userInput = _ui.readCommand();
+                String userInput = view.readCommand();
                 Command c = Parser.parse(userInput);
-                c.execute(_coach, _ui);
+                c.execute(coachController, view);
                 isExit = c.isExit();
-            }
-            catch (InvalidCommandException e) {
-                _ui.printWithDivider(e.getMessage());
+            } catch (InvalidCommandException e) {
+                view.printWithDivider(e.getMessage());
             }
 
         }

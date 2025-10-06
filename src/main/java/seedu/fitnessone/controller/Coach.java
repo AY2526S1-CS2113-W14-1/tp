@@ -1,6 +1,6 @@
-package seedu.fitnessone.Controller;
+package seedu.fitnessone.controller;
 
-import seedu.fitnessone.Model.Athlete;
+import seedu.fitnessone.model.Athlete;
 
 import java.util.ArrayList;
 import java.util.List;

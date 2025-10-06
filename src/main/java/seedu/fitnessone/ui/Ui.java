@@ -1,4 +1,4 @@
-package seedu.fitnessone.UI;
+package seedu.fitnessone.ui;
 
 import java.util.Scanner;
 
