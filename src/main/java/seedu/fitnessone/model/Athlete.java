@@ -18,6 +18,10 @@ public class Athlete {
         this.sessions = new ArrayList<>();
     }
 
+    public String toString() {
+        return getAthleteID() + ": " + getAthleteName();
+    }
+
     public String getAthleteID() {
         return athleteID;
     }
@@ -29,7 +33,6 @@ public class Athlete {
     public void addSession(Session session) {
         sessions.add(session);
     }
-
 
     public ArrayList<Session> getSessions() {
         return sessions;

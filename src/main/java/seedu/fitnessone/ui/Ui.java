@@ -19,8 +19,12 @@ public class Ui {
      * Prints a message to the user with indentation.
      * @param msg The message to print.
      */
-    public void print(String msg) {
+    public void println(String msg) {
         System.out.println("    " + msg);
+    }
+
+    public void print(String msg) {
+        System.out.print("    " + msg);
     }
 
 
@@ -38,7 +42,7 @@ public class Ui {
      */
     public void printWithDivider(String text) {
         divider();
-        print(text);
+        println(text);
         divider();
     }
 
@@ -47,7 +51,20 @@ public class Ui {
      * Prints the ASCII art logo of the chatbot.
      */
     public void printASCIIName() {
-
+        String[] logo = {
+            "________  __    __                                              ______   __    __  ________ ",
+            "/        |/  |  /  |                                            /      \\ /  \\  /  |/        |",
+            "$$$$$$$$/ $$/  _$$ |_    _______    ______    _______  _______ /$$$$$$  |$$  \\ $$ |$$$$$$$$/ ",
+            "$$ |__    /  |/ $$   |  /       \\  /      \\  /       |/       |$$ |  $$ |$$$  \\$$ |$$ |__    ",
+            "$$    |   $$ |$$$$$$/   $$$$$$$  |/$$$$$$  |/$$$$$$$//$$$$$$$/ $$ |  $$ |$$$$  $$ |$$    |   ",
+            "$$$$$/    $$ |  $$ | __ $$ |  $$ |$$    $$ |$$      \\$$      \\ $$ |  $$ |$$ $$ $$ |$$$$$/    ",
+            "$$ |      $$ |  $$ |/  |$$ |  $$ |$$$$$$$$/  $$$$$$  |$$$$$$  |$$ \\__$$ |$$ |$$$$ |$$ |_____ ",
+            "$$ |      $$ |  $$  $$/ $$ |  $$ |$$       |/     $$//     $$/ $$    $$/ $$ | $$$ |$$       |",
+            "$$/       $$/    $$$$/  $$/   $$/  $$$$$$$/ $$$$$$$/ $$$$$$$/   $$$$$$/  $$/   $$/ $$$$$$$$/ "
+        };
+        for (String line : logo) {
+            System.out.println(line);
+        }
     }
 
 
@@ -56,7 +73,7 @@ public class Ui {
      * Displays the welcome message and logo to the user.
      */
     public void showWelcome() {
-        print("Hello from");
+        println("Hello from");
         printASCIIName();
         printWithDivider("Hey, welcome to FitnessONE!" + System.lineSeparator() + "      How may we help today?");
     }
