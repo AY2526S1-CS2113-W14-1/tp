@@ -1,5 +1,6 @@
 package seedu.fitnessone.controller;
 
+import seedu.fitnessone.exception.InvalidIDException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.ui.Ui;
 
@@ -21,6 +22,17 @@ public class Coach {
         athletes.add(athlete);
 
         return athlete.toString();
+    }
+
+    public String deleteAthlete(String athleteID) throws InvalidIDException {
+        for (int i = 0; i < athletes.size(); i++) {
+            Athlete athlete = athletes.get(i);
+            if (athlete.getAthleteID().equals(athleteID)) {
+                athletes.remove(i);
+                return athlete.toString();
+            }
+        }
+        throw new InvalidIDException("athleteID " + athleteID + " not found.");
     }
 
     public void printAthletes(Ui view) {
