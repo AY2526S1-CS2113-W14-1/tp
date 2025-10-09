@@ -3,6 +3,9 @@ package seedu.fitnessone.ui;
 
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.command.ExitCommand;
+import seedu.fitnessone.command.NewAthleteCommand;
+import seedu.fitnessone.command.DeleteAthleteCommand;
+import seedu.fitnessone.command.ListAthleteCommand;
 import seedu.fitnessone.exception.InvalidCommandException;
 
 public class Parser {
@@ -22,6 +25,17 @@ public class Parser {
         switch (commandWord) {
         case "bye":
             return new ExitCommand();
+
+        case "newAthlete":
+            return new NewAthleteCommand(trimmedInput);
+
+
+        case "listAthlete":
+            return new ListAthleteCommand();
+
+
+        case "delAthlete":
+            return new DeleteAthleteCommand(trimmedInput);
 
 
         default:

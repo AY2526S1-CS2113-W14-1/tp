@@ -3,6 +3,7 @@ package seedu.fitnessone;
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidIDException;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
@@ -27,8 +28,13 @@ public class FitnessONE {
                 c.execute(coachController, view);
                 isExit = c.isExit();
             } catch (InvalidCommandException e) {
-                view.printWithDivider(e.getMessage());
+                view.printWithDivider("InvalidCommandException: " + e.getMessage());
+
+            } catch (InvalidIDException e) {
+                view.printWithDivider("InvalidIDException: " + e.getMessage());
+
             }
+
 
         }
     }
