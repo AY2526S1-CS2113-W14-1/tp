@@ -2,17 +2,14 @@ package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidCommandException;
-import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.ui.Ui;
 
 public class CompleteSession implements Command {
     private final String athleteName;
     private final int sessionId;
-    private final String trainingNotes;
 
-    public CompleteSession(String trimmedInput) throws InvalidCommandException {
+    public CompleteSession(String trimmedInput){
         try {
-            trimmedInput.substring(9).trim();
 
             String[] parts = trimmedInput.trim().split(" ");
 
@@ -21,17 +18,9 @@ public class CompleteSession implements Command {
             }
 
             String inputAthleteName = parts[0] + " " + parts[1];
-            int partsLength = parts.length;
-
-            StringBuilder builder = new StringBuilder();
-
-            for (int i = 2; i < partsLength; i++) {
-                builder.append(parts[i] + " ");
-            }
 
             this.athleteName = inputAthleteName;
             this.sessionId = Integer.parseInt(parts[2]);
-            this.trainingNotes = builder.toString();
 
         } catch (InvalidCommandException e) {
             throw new RuntimeException(e);
@@ -44,7 +33,11 @@ public class CompleteSession implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        coachController.getAthleteByName(athleteName).getSessions().get(sessionId).setCompleted();
+        try {
+            coachController.getAthleteByName(athleteName).getSessions().get(sessionId).setCompleted();
+        } catch (NullPointerException e) {
+            throw new InvalidCommandException("Athlete with name " + athleteName + " does not exist.");
+        }
     }
 
     @Override
