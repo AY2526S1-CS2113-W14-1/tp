@@ -2,6 +2,7 @@ package seedu.fitnessone.controller;
 
 import seedu.fitnessone.exception.InvalidIDException;
 import seedu.fitnessone.model.Athlete;
+import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
 
 import java.util.ArrayList;
@@ -44,5 +45,31 @@ public class Coach {
         }
         view.println("");
         view.divider();
+    }
+
+    public Athlete getAthleteByName(String name) {
+        Athlete athlete;
+        int athleteIndex = -1;
+        for (int i = 0; i < athletes.size(); i++) {
+            if (athletes.get(i).getAthleteName().equals(name)) {
+                athleteIndex = i;
+            }
+        }
+        if (athleteIndex == -1) {
+            throw new InvalidIDException("There is no such athlete with the name " + name);
+        }
+        return athletes.get(athleteIndex);
+    }
+
+    public Session getSession(Athlete athlete, int sessionID){
+        return athlete.getSessions().get(sessionID);
+    }
+
+    public void addTrainingSession(Session session, String trainingNotes) {
+        session.setTrainingNotes(trainingNotes);
+    }
+
+    public void completeSesssion(Session session) {
+        session.setCompleted();
     }
 }

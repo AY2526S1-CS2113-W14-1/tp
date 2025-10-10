@@ -1,13 +1,14 @@
 package seedu.fitnessone.ui;
 
 
+import seedu.fitnessone.command.AddTrainingNotes;
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.command.ExitCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
 import seedu.fitnessone.command.DeleteAthleteCommand;
 import seedu.fitnessone.command.ListAthleteCommand;
 import seedu.fitnessone.exception.InvalidCommandException;
-
+import seedu.fitnessone.command.CompleteSession;
 public class Parser {
 
     /**
@@ -37,6 +38,17 @@ public class Parser {
         case "delAthlete":
             return new DeleteAthleteCommand(trimmedInput);
 
+            /*
+            * Add a Training Note to a Session `/trainingNotes <Athlete Name> <Session ID> <Notes>`
+            */
+        case "trainingNotes":
+            return new AddTrainingNotes(trimmedInput);
+
+            /*
+            * * Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
+            */
+        case "complete":
+            return new CompleteSession(trimmedInput);
 
         default:
             throw new InvalidCommandException("input keyword not found");
