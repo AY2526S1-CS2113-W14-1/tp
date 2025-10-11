@@ -30,7 +30,8 @@ public class Coach {
         throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
 
-    public void deleteSessionFromAthlete(String athleteName, int sessionID) throws InvalidAthleteException, InvalidSessionException {
+    public void deleteSessionFromAthlete(String athleteName, int sessionID)
+            throws InvalidAthleteException, InvalidSessionException {
 
         for (Athlete athlete : athletes) {
             if (athlete.getAthleteName().equals(athleteName)) {
