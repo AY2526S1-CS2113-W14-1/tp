@@ -21,6 +21,10 @@ public class Athlete {
         this.sessions = new ArrayList<>();
     }
 
+    public String toString() {
+        return getAthleteID() + ": " + getAthleteName();
+    }
+
     public String getAthleteID() {
         return athleteID;
     }
@@ -48,7 +52,6 @@ public class Athlete {
             throw new InvalidSessionException("Session not found: " + sessionID);
         }
     }
-
     public ArrayList<Session> getSessions() {
         return sessions;
     }
