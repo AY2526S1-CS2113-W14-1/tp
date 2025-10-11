@@ -1,6 +1,6 @@
 package seedu.fitnessone.model;
 
-import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidSessionException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,7 +33,7 @@ public class Athlete {
         sessions.add(session);
     }
 
-    public void removeSession(int sessionID) throws InvalidCommandException {
+    public void removeSession(int sessionID) throws InvalidSessionException {
         Iterator<Session> iterator = sessions.iterator();
         boolean found = false;
         while (iterator.hasNext()) {
@@ -45,7 +45,7 @@ public class Athlete {
             }
         }
         if (!found) {
-            throw new InvalidCommandException("Session not found");
+            throw new InvalidSessionException("Session not found: " + sessionID);
         }
     }
 

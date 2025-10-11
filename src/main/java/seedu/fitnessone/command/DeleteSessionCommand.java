@@ -1,7 +1,8 @@
 package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
-import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidAthleteException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Ui;
 
 public class DeleteSessionCommand implements Command {
@@ -24,8 +25,12 @@ public class DeleteSessionCommand implements Command {
      * @param view The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        coachController.deleteSessionFromAthlete(athleteName, sessionID);
+    public void execute(Coach coachController, Ui view){
+        try {
+            coachController.deleteSessionFromAthlete(athleteName, sessionID);
+        } catch (InvalidSessionException | InvalidAthleteException e) {
+            throw new RuntimeException(e);
+        }
         view.printWithDivider("Session " + sessionID + " deleted for " + athleteName);
     }
     /**

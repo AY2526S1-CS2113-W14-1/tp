@@ -1,7 +1,7 @@
 package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
-import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.ui.Ui;
 
 public class NewSessionCommand implements Command{
@@ -26,8 +26,12 @@ public class NewSessionCommand implements Command{
      * @param view The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        coachController.addSessionToAthlete(athleteName, sessionID, trainingNotes);
+    public void execute(Coach coachController, Ui view) {
+        try {
+            coachController.addSessionToAthlete(athleteName, sessionID, trainingNotes);
+        } catch (InvalidAthleteException e) {
+            throw new RuntimeException(e);
+        }
         view.printWithDivider("New session created: "+ athleteName +"\n" +
                 "Session ID: " + sessionID);
     }

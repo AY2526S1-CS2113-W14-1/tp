@@ -1,6 +1,7 @@
 package seedu.fitnessone.controller;
 
-import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidAthleteException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 
@@ -18,7 +19,7 @@ public class Coach {
     }
 
     public void addSessionToAthlete(String athleteName, int sessionID, String sessionTrainingNotes)
-            throws InvalidCommandException {
+            throws InvalidAthleteException {
         for (Athlete athlete : athletes) {
             if (athlete.getAthleteName().equals(athleteName)) {
                 Session newSession = new Session(sessionID, sessionTrainingNotes);
@@ -26,10 +27,10 @@ public class Coach {
                 return;
             }
         }
-        throw new InvalidCommandException("Athlete not found: " + athleteName);
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
 
-    public void deleteSessionFromAthlete(String athleteName, int sessionID) throws InvalidCommandException {
+    public void deleteSessionFromAthlete(String athleteName, int sessionID) throws InvalidAthleteException, InvalidSessionException {
 
         for (Athlete athlete : athletes) {
             if (athlete.getAthleteName().equals(athleteName)) {
@@ -37,6 +38,6 @@ public class Coach {
                 return;
             }
         }
-        throw new InvalidCommandException("Athlete not found: " + athleteName);
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
 }
