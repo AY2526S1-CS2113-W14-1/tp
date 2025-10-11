@@ -1,6 +1,9 @@
 package seedu.fitnessone.model;
 
+import seedu.fitnessone.exception.InvalidSessionException;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  * All athletes will have 0001. 0002 .... auto created.
@@ -34,6 +37,21 @@ public class Athlete {
         sessions.add(session);
     }
 
+    public void removeSession(int sessionID) throws InvalidSessionException {
+        Iterator<Session> iterator = sessions.iterator();
+        boolean found = false;
+        while (iterator.hasNext()) {
+            Session session = iterator.next();
+            if (session.getSessionId() == sessionID) {
+                iterator.remove();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            throw new InvalidSessionException("Session not found: " + sessionID);
+        }
+    }
     public ArrayList<Session> getSessions() {
         return sessions;
     }

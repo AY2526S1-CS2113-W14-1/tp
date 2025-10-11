@@ -2,10 +2,14 @@ package seedu.fitnessone.ui;
 
 
 import seedu.fitnessone.command.Command;
+import seedu.fitnessone.command.DeleteSessionCommand;
 import seedu.fitnessone.command.ExitCommand;
+
+import seedu.fitnessone.command.NewSessionCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
 import seedu.fitnessone.command.DeleteAthleteCommand;
 import seedu.fitnessone.command.ListAthleteCommand;
+
 import seedu.fitnessone.exception.InvalidCommandException;
 
 public class Parser {
@@ -22,9 +26,43 @@ public class Parser {
         }
         String trimmedInput = input.trim();
         String commandWord = trimmedInput.split("\\s+", 2)[0];
+        String info;
+        String[] parts;
+        String athleteName;
+        String[] sessionInfo;
+        int sessionId;
+        String trainingNotes;
         switch (commandWord) {
         case "bye":
             return new ExitCommand();
+        case "/newSession":
+            try{
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionInfo = parts[1].split("\\s+", 2);
+                sessionId = Integer.parseInt(sessionInfo[0]);
+                trainingNotes = sessionInfo[1];
+                return new NewSessionCommand(athleteName, sessionId, trainingNotes);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/newSession <Athlete Name> <Session ID> <Description>");
+            }
+
+        case "/deleteSession":
+            try{
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionId = Integer.parseInt(parts[1]);
+                return new DeleteSessionCommand(athleteName, sessionId);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/deleteSession <Athlete Name> <Session ID>");
+            }
+
 
         case "newAthlete":
             return new NewAthleteCommand(trimmedInput);
