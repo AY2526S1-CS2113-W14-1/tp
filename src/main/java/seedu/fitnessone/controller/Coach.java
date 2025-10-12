@@ -46,6 +46,7 @@ public class Coach {
             }
         }
         throw new InvalidAthleteException("Athlete not found: " + athleteName);
+            }
 
     public String newAthlete (String athleteName) {
         Athlete athlete = new Athlete(athleteName);
