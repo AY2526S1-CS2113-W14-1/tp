@@ -2,8 +2,10 @@ package seedu.fitnessone.controller;
 
 
 import seedu.fitnessone.exception.InvalidAthleteException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
+import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 
 import seedu.fitnessone.exception.InvalidIDException;
@@ -75,5 +77,40 @@ public class Coach {
         }
         view.println("");
         view.divider();
+    }
+
+    public void addExerciseToSession(String athleteName, int sessionID, String exerciseDescription,
+                                     int sets, int reps) throws InvalidAthleteException, InvalidSessionException,
+            InvalidExerciseException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                ArrayList<Session> sessions = athlete.getSessions();
+                for (Session session : athlete.getSessions()) {
+                    if (session.getSessionId() == sessionID) {
+                        Exercise newExercise = new Exercise(exerciseDescription, sets, reps);
+                        session.addExercise(newExercise);
+                        return;
+
+                    }
+                } throw new InvalidSessionException("Session not found: " + sessionID);
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+    }
+
+    public void deleteExerciseFromSession(String athleteName, int sessionID, int exerciseID)
+            throws InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                ArrayList<Session> sessions = athlete.getSessions();
+                for (Session session : athlete.getSessions()) {
+                    if (session.getSessionId() == sessionID) {
+                        session.removeExercise(exerciseID);
+                        return;
+                    }
+                } throw new InvalidSessionException("Session not found: " + sessionID);
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
 }

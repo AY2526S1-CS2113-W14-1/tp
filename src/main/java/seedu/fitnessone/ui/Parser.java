@@ -9,6 +9,8 @@ import seedu.fitnessone.command.NewSessionCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
 import seedu.fitnessone.command.DeleteAthleteCommand;
 import seedu.fitnessone.command.ListAthleteCommand;
+import seedu.fitnessone.command.NewExerciseCommand;
+import seedu.fitnessone.command.DeleteExerciseCommand;
 
 import seedu.fitnessone.exception.InvalidCommandException;
 
@@ -74,6 +76,40 @@ public class Parser {
 
         case "delAthlete":
             return new DeleteAthleteCommand(trimmedInput);
+
+        case "/newExercise":
+            try {
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionInfo = parts[1].split("\\s+", 4);
+                sessionId = Integer.parseInt(sessionInfo[0]);
+                String description = sessionInfo[1];
+                int sets = Integer.parseInt(sessionInfo[2]);
+                int reps = Integer.parseInt(sessionInfo[3]);
+                return new NewExerciseCommand(athleteName, sessionId, description, sets, reps);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/newExercise <Athlete Name> <Session ID> <Description> <Sets> <Reps>");
+            }
+
+
+        case "/deleteExercise":
+            try {
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionInfo = parts[1].split("\\s+", 2);
+                sessionId = Integer.parseInt(sessionInfo[0]);
+                int exerciseId = Integer.parseInt(sessionInfo[1]);
+                return new DeleteExerciseCommand(athleteName, sessionId, exerciseId);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/deleteExercise <Athlete Name> <Session ID> <Exercise ID>");
+            }
+
 
 
         default:

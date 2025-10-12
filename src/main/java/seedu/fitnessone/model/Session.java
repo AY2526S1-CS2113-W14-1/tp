@@ -1,6 +1,7 @@
 package seedu.fitnessone.model;
 
 import java.util.ArrayList;
+import seedu.fitnessone.exception.InvalidExerciseException;
 
 public class Session {
     private final ArrayList<Exercise> exercises;
@@ -45,5 +46,12 @@ public class Session {
 
     public void addExercise(Exercise exercise) {
         this.exercises.add(exercise);
+    }
+
+    public void removeExercise(int exerciseID) throws InvalidExerciseException {
+        if (exerciseID < 0 || exerciseID >= exercises.size()) {
+            throw new InvalidExerciseException("Exercise not found: " + exerciseID);
+        }
+        exercises.remove(exerciseID);
     }
 }
