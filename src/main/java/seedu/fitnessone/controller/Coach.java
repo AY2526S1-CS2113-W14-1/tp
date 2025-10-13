@@ -79,6 +79,37 @@ public class Coach {
         view.divider();
     }
 
+    public Athlete accessAthlete(String athleteName) throws InvalidAthleteException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                return athlete;
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+    }
+
+    public Session accessSession(Athlete athlete, int sessionID) throws InvalidSessionException {
+        ArrayList<Session> sessions = athlete.getSessions();
+        for (Session session : sessions) {
+            if (sessionID == session.getSessionId()) {
+                return session;
+            }
+        }
+        throw new InvalidSessionException("Session not found: " + sessionID);
+    }
+
+    public void completeSession(String athleteName, int sessionID, String sessionTrainingNotes)
+            throws InvalidAthleteException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                Session newSession = new Session(sessionID, sessionTrainingNotes);
+                athlete.addSession(newSession);
+                return;
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+    }
+
     public void addExerciseToSession(String athleteName, int sessionID, String exerciseDescription,
                                      int sets, int reps) throws InvalidAthleteException, InvalidSessionException,
             InvalidExerciseException {
@@ -114,3 +145,6 @@ public class Coach {
         throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
 }
+
+
+

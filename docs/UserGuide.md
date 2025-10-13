@@ -275,6 +275,24 @@ Session 3 deleted for Jonas Hardwell
 =========================================================
 
 ```
+### Exit FitnessONE  : `bye`
+This function exits the program.
+
+Example of usage:
+
+```
+bye
+
+```
+
+Output:
+
+```
+=========================================================
+Bye. Hope to see you again soon!
+=========================================================
+
+```
 
 ## FAQ
 
