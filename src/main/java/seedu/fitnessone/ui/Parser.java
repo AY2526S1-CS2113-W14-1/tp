@@ -79,7 +79,7 @@ public class Parser {
             /*
             * Add a Training Note to a Session `/trainingNotes <Athlete Name> <Session ID> <Notes>`
             */
-        case "trainingNotes":
+        case "/trainingNotes":
             return new AddTrainingNotes(trimmedInput);
 
             /*
