@@ -10,6 +10,8 @@ import seedu.fitnessone.command.NewSessionCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
 import seedu.fitnessone.command.DeleteAthleteCommand;
 import seedu.fitnessone.command.ListAthleteCommand;
+import seedu.fitnessone.command.NewExerciseCommand;
+import seedu.fitnessone.command.DeleteExerciseCommand;
 
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.command.CompleteSession;

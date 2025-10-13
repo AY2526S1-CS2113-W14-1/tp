@@ -2,8 +2,10 @@ package seedu.fitnessone.controller;
 
 
 import seedu.fitnessone.exception.InvalidAthleteException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
+import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 
 import seedu.fitnessone.exception.InvalidIDException;
