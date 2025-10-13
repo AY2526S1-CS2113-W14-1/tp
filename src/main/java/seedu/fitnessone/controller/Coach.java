@@ -109,4 +109,42 @@ public class Coach {
         }
         throw new InvalidAthleteException("Athlete not found: " + athleteName);
     }
+
+    public void addExerciseToSession(String athleteName, int sessionID, String exerciseDescription,
+                                     int sets, int reps) throws InvalidAthleteException, InvalidSessionException,
+            InvalidExerciseException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                ArrayList<Session> sessions = athlete.getSessions();
+                for (Session session : athlete.getSessions()) {
+                    if (session.getSessionId() == sessionID) {
+                        Exercise newExercise = new Exercise(exerciseDescription, sets, reps);
+                        session.addExercise(newExercise);
+                        return;
+
+                    }
+                } throw new InvalidSessionException("Session not found: " + sessionID);
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+    }
+
+    public void deleteExerciseFromSession(String athleteName, int sessionID, int exerciseID)
+            throws InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteName().equals(athleteName)) {
+                ArrayList<Session> sessions = athlete.getSessions();
+                for (Session session : athlete.getSessions()) {
+                    if (session.getSessionId() == sessionID) {
+                        session.removeExercise(exerciseID);
+                        return;
+                    }
+                } throw new InvalidSessionException("Session not found: " + sessionID);
+            }
+        }
+        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+    }
 }
+
+
+
