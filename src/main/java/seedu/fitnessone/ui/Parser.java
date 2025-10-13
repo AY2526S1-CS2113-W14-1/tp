@@ -10,8 +10,6 @@ import seedu.fitnessone.command.NewSessionCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
 import seedu.fitnessone.command.DeleteAthleteCommand;
 import seedu.fitnessone.command.ListAthleteCommand;
-import seedu.fitnessone.command.NewExerciseCommand;
-import seedu.fitnessone.command.DeleteExerciseCommand;
 
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.command.CompleteSession;
@@ -87,7 +85,7 @@ public class Parser {
             /*
             * * Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
             */
-        case "complete":
+        case "/complete":
             return new CompleteSession(trimmedInput);
 
         default:
