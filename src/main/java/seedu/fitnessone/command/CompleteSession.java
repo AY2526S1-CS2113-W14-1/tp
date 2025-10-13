@@ -39,7 +39,9 @@ public class CompleteSession implements Command {
     }
 
     private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) return false;
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
         try {
             Integer.parseInt(s);
             return true;
@@ -58,13 +60,16 @@ public class CompleteSession implements Command {
                 var athlete = coachController.accessAthlete(candidate);
                 try {
                     athlete.getSessions().get(sessionId).setCompleted();
-                    view.print("Athlete " + candidate + " session " + sessionId + " has been marked as completed.");
-
+                    view.print("Athlete " + candidate + " session " +
+                            sessionId + " has been marked as completed.");
                 } catch (IndexOutOfBoundsException | NullPointerException ignored) {
-                    throw new InvalidCommandException("Session ID " + sessionId + " is invalid for athlete " + candidate + ".");
+                    throw new InvalidCommandException("Session ID " +
+                            sessionId + " is invalid for athlete " +
+                            candidate + ".");
                 }
                 return;
             } catch (InvalidAthleteException ignored) {
+                throw new InvalidCommandException("Invalid: Session ID " + sessionId);
             }
         }
         throw new InvalidCommandException("Athlete not found.");

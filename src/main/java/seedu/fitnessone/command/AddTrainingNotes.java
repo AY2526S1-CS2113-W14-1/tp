@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.ui.Ui;
 
 import java.util.ArrayList;
@@ -41,7 +42,9 @@ public class AddTrainingNotes implements Command {
     }
 
     private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) return false;
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
         try {
             Integer.parseInt(s);
             return true;
@@ -59,18 +62,23 @@ public class AddTrainingNotes implements Command {
             try {
                 var athlete = coachController.accessAthlete(candidate);
                 try {
-                    String trainingNotes=compileTrainingNotes();
-                    athlete.getSessions().get(sessionId).setTrainingNotes(trainingNotes);
-                    view.print("Training notes: " + trainingNotes + " has been added to Athlete " + candidate + " for session" + sessionId);
+                    processNotes(view, candidate, athlete);
                 } catch (IndexOutOfBoundsException | NullPointerException ignored) {
-                    throw new InvalidCommandException("Session ID " + sessionId + " is invalid for athlete " + candidate + ".");
+                    throw new InvalidCommandException("Invalid: Session ID " + sessionId + ", athlete " + candidate);
                 }
                 counter++;
                 return;
             } catch (InvalidAthleteException ignored) {
+                throw new InvalidCommandException("Invalid: Session ID " + sessionId);
             }
         }
         throw new InvalidCommandException("Athlete not found.");
+    }
+
+    private void processNotes(Ui view, String candidate, Athlete athlete) {
+        String trainingNotes = compileTrainingNotes();
+        athlete.getSessions().get(sessionId).setTrainingNotes(trainingNotes);
+        view.print("Training notes: " + trainingNotes + " added to " + candidate + " for session" + sessionId);
     }
 
     private String compileTrainingNotes() {
