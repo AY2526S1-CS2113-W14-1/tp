@@ -4,47 +4,65 @@ import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.model.Athlete;
+import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AddTrainingNotes implements Command {
-    private final ArrayList<String> athleteNames = new ArrayList<>();
-    private int sessionId;
-    private ArrayList<String> trainingNotesList = new ArrayList<>();
-    private int counter = 0;
+    private final String athleteName;
+    private final int sessionId;
+    private final String trainingNotes;
 
-    public AddTrainingNotes(String trimmedInput){
-        try {
-
-            String[] parts = trimmedInput.trim().split("\\s+");
-
-            if (parts[1].isEmpty()) {
-                throw new InvalidCommandException("No name provided.");
-            }
-            String candidateName;
-
-            for (int i = 1; i < parts.length; i++) {
-                candidateName = parts[i] + " " + parts[i + 1];
-                athleteNames.add(candidateName);
-            }
-
-            for (int i = 0; i<parts.length; i++) {
-                if(isInteger(parts[i])){
-                    this.sessionId = Integer.parseInt(parts[i]);
-                }
-            }
-
-        } catch (InvalidCommandException e) {
-            throw new RuntimeException(e);
+    public AddTrainingNotes(String rawInput) throws InvalidCommandException {
+        if (rawInput == null) {
+            throw new InvalidCommandException("Usage: /addNotes <Athlete Name> <Session ID> <Training notes>");
+        }
+        String[] parts = rawInput.trim().split("\\s+");
+        // Need at least: [/addNotes, <name>, <id>, <note>]
+        if (parts.length < 4) {
+            throw new InvalidCommandException("Usage: /addNotes <Athlete Name> <Session ID> <Training notes>");
         }
 
+        int idIndex = -1;
+        for (int i = 1; i < parts.length; i++) {
+            if (isInteger(parts[i])) {
+                idIndex = i;
+                break;
+            }
+        }
+        if (idIndex == -1) {
+            throw new InvalidCommandException("Missing session ID. Usage: /addNotes <Athlete Name> <Session ID> <Training notes>");
+        }
+        if (idIndex == 1) {
+            throw new InvalidCommandException("No athlete name provided.");
+        }
+        if (idIndex == parts.length - 1) {
+            throw new InvalidCommandException("No training notes provided.");
+        }
+
+        String name = String.join(" ", Arrays.copyOfRange(parts, 1, idIndex)).trim();
+        if (name.isEmpty()) {
+            throw new InvalidCommandException("No athlete name provided.");
+        }
+        this.athleteName = name;
+
+        int parsedId = Integer.parseInt(parts[idIndex]);
+        if (parsedId <= 0) {
+            throw new InvalidCommandException("Session ID must be a positive number.");
+        }
+        this.sessionId = parsedId;
+
+        String notes = String.join(" ", Arrays.copyOfRange(parts, idIndex + 1, parts.length)).trim();
+        if (notes.isEmpty()) {
+            throw new InvalidCommandException("No training notes provided.");
+        }
+        this.trainingNotes = notes;
     }
 
     private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) {
-            return false;
-        }
+        if (s == null || s.isEmpty()) return false;
         try {
             Integer.parseInt(s);
             return true;
@@ -54,40 +72,33 @@ public class AddTrainingNotes implements Command {
     }
 
     /*
-     * * Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
+     * Add training notes: `/addNotes <Athlete Name> <Session ID> <Training notes...>`
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        for (String candidate : athleteNames) {
-            try {
-                var athlete = coachController.accessAthlete(candidate);
-                try {
-                    processNotes(view, candidate, athlete);
-                } catch (IndexOutOfBoundsException | NullPointerException ignored) {
-                    throw new InvalidCommandException("Invalid: Session ID " + sessionId + ", athlete " + candidate);
-                }
-                counter++;
-                return;
-            } catch (InvalidAthleteException ignored) {
-                throw new InvalidCommandException("Invalid: Session ID " + sessionId);
+        final Athlete athlete;
+        try {
+            athlete = coachController.accessAthlete(athleteName);
+        } catch (InvalidAthleteException e) {
+            throw new InvalidCommandException("Athlete \"" + athleteName + "\" not found.");
+        }
+
+        List<Session> sessions = athlete.getSessions();
+        Session target = null;
+        for (Session s : sessions) {
+            if (s.getSessionId() == sessionId) {
+                target = s;
+                break;
             }
         }
-        throw new InvalidCommandException("Athlete not found.");
-    }
-
-    private void processNotes(Ui view, String candidate, Athlete athlete) {
-        String trainingNotes = compileTrainingNotes();
-        athlete.getSessions().get(sessionId).setTrainingNotes(trainingNotes);
-        view.print("Training notes: " + trainingNotes + " added to " + candidate + " for session" + sessionId);
-    }
-
-    private String compileTrainingNotes() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = counter; i < trainingNotesList.size(); i++) {
-            builder.append(trainingNotesList.get(i)).append(" ");
+        if (target == null) {
+            throw new InvalidCommandException(
+                    "Session ID " + sessionId + " is invalid for athlete " + athleteName + "."
+            );
         }
-        String trainingNotesString = builder.toString().trim();
-        return trainingNotesString;
+
+        target.setTrainingNotes(trainingNotes);
+        view.print("Training notes added to " + athleteName + " (session " + sessionId + "): " + trainingNotes);
     }
 
     @Override
