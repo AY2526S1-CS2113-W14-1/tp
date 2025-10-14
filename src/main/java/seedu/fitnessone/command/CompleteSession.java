@@ -43,7 +43,9 @@ public class CompleteSession implements Command {
     }
 
     private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) return false;
+        if (s == null || s.isEmpty()) {
+        return false;
+        }
         try {
             Integer.parseInt(s);
             return true;

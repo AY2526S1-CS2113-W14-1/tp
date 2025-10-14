@@ -33,7 +33,8 @@ public class AddTrainingNotes implements Command {
             }
         }
         if (idIndex == -1) {
-            throw new InvalidCommandException("Missing session ID. Usage: /addNotes <Athlete Name> <Session ID> <Training notes>");
+            throw new InvalidCommandException("Missing session ID. Usage:" +
+                    " /addNotes <Athlete Name> <Session ID> <Training notes>");
         }
         if (idIndex == 1) {
             throw new InvalidCommandException("No athlete name provided.");
@@ -62,7 +63,9 @@ public class AddTrainingNotes implements Command {
     }
 
     private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) return false;
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
         try {
             Integer.parseInt(s);
             return true;
