@@ -86,9 +86,6 @@ public class Parser {
         /*
          * * Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
          */
-        case "/trainingNotes":
-            return new AddTrainingNotes(trimmedInput);
-
         case "/complete":
             return new CompleteSession(trimmedInput);
 
