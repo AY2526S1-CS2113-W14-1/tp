@@ -10,13 +10,14 @@ public class Ui {
     /**
      * Constructs a Ui object for handling user input and output.
      */
-    public Ui () {
+    public Ui() {
         in = new Scanner(System.in);
     }
 
 
     /**
      * Prints a message to the user with indentation.
+     *
      * @param msg The message to print.
      */
     public void println(String msg) {
@@ -38,6 +39,7 @@ public class Ui {
 
     /**
      * Prints a message surrounded by divider lines.
+     *
      * @param text The message to print.
      */
     public void printWithDivider(String text) {
@@ -68,7 +70,6 @@ public class Ui {
     }
 
 
-
     /**
      * Displays the welcome message and logo to the user.
      */
@@ -81,6 +82,7 @@ public class Ui {
 
     /**
      * Reads the next command entered by the user.
+     *
      * @return The user's input as a string, or null if no input is available.
      */
     public String readCommand() {
