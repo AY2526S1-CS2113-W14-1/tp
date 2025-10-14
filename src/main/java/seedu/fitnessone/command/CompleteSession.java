@@ -7,7 +7,6 @@ import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
 
-
 import java.util.Arrays;
 import java.util.List;
 
