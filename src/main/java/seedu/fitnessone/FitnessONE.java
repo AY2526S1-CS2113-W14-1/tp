@@ -11,7 +11,6 @@ public class FitnessONE {
     private final Ui view;
     private final Coach coachController;
 
-
     public FitnessONE() {
         view = new Ui();
         coachController = new Coach();
@@ -34,12 +33,8 @@ public class FitnessONE {
                 view.printWithDivider("InvalidIDException: " + e.getMessage());
 
             }
-
-
         }
     }
-
-
 
     /**
      * Main entry-point for the java.duke.Duke application.

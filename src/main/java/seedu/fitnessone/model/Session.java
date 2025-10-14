@@ -1,6 +1,7 @@
 package seedu.fitnessone.model;
 
 import java.util.ArrayList;
+
 import seedu.fitnessone.exception.InvalidExerciseException;
 
 public class Session {
