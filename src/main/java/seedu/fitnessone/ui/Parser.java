@@ -13,6 +13,8 @@ import seedu.fitnessone.command.ViewSessionCommand;
 import seedu.fitnessone.command.ViewExerciseCommand;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.command.CompleteSession;
+import seedu.fitnessone.command.NewExerciseCommand;
+import seedu.fitnessone.command.DeleteExerciseCommand;
 
 public class Parser {
 
@@ -114,7 +116,7 @@ public class Parser {
         case "/viewExercise":
             try {
                 info = trimmedInput.split("\\s+", 2)[1]; // 获取剩余参数
-                parts = info.split("\\s+", 2);           // 按空格分成两部分：athleteName 和 sessionID
+                parts = info.split(" (?=\\d)", 2);          // 按空格分成两部分：athleteName 和 sessionID
                 athleteName = parts[0].trim();
                 sessionId = Integer.parseInt(parts[1].trim());
                 return new ViewExerciseCommand(athleteName, sessionId);
@@ -122,6 +124,39 @@ public class Parser {
                 throw new InvalidCommandException("Oops, seems like you forgot something?\n" +
                             "The correct format is\n" +
                             "/viewExercise <Athlete Name> <Session ID>");
+            }
+
+        case "/newExercise":
+            try {
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionInfo = parts[1].split("\\s+", 4);
+                sessionId = Integer.parseInt(sessionInfo[0]);
+                String description = sessionInfo[1];
+                int sets = Integer.parseInt(sessionInfo[2]);
+                int reps = Integer.parseInt(sessionInfo[3]);
+                return new NewExerciseCommand(athleteName, sessionId, description, sets, reps);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/newExercise <Athlete Name> <Session ID> <Description> <Sets> <Reps>");
+            }
+
+
+        case "/deleteExercise":
+            try {
+                info = trimmedInput.split("\\s+", 2)[1];
+                parts = info.split(" (?=\\d)", 2);
+                athleteName = parts[0];
+                sessionInfo = parts[1].split("\\s+", 2);
+                sessionId = Integer.parseInt(sessionInfo[0]);
+                int exerciseId = Integer.parseInt(sessionInfo[1]);
+                return new DeleteExerciseCommand(athleteName, sessionId, exerciseId);
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
+                        "the correct format is\n" +
+                        "/deleteExercise <Athlete Name> <Session ID> <Exercise ID>");
             }
 
         default:
