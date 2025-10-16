@@ -50,9 +50,10 @@ public class Session {
     }
 
     public void removeExercise(int exerciseID) throws InvalidExerciseException {
-        if (exerciseID < 0 || exerciseID >= exercises.size()) {
+        int arrayIndex = exerciseID - 1;
+        if (arrayIndex < 0 || arrayIndex >= exercises.size()) {
             throw new InvalidExerciseException("Exercise not found: " + exerciseID);
         }
-        exercises.remove(exerciseID);
+        exercises.remove(arrayIndex);
     }
 }
