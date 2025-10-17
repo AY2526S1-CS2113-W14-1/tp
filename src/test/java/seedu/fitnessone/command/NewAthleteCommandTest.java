@@ -1,11 +1,14 @@
 package seedu.fitnessone.command;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
+
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NewAthleteCommandTest {
 
