@@ -34,7 +34,8 @@ public class CompleteExerciseCommand implements Command {
         for (Exercise exercise : exercises) {
             if (exercise.getExerciseIDString().equals(exerciseID)) {
                 exercise.setCompleted();
-                view.println("Exercise " + exerciseID + " has been completed.");
+                view.printWithDivider("Exercise (ID: "+ exerciseID +") completed by "
+                        + athlete.getAthleteName() + " (ID: "+ athleteID+").");
                 isFound = true;
                 break;
             }

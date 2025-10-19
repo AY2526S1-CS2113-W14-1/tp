@@ -51,11 +51,18 @@ Output:
 
 ```
 =========================================================
-Athlete: Jonas Hardwell
-Sessions:
--   1 Chest Workout
--   2 Legs Day
--   3 mystery input
+Athlete ID: 0001
+Athlete Name: jonas hardwell
+Sessions: 2
+List:
+   Session 1. | Notes: chest
+   Exercises:
+      1. | Notes: bench press| sets x reps: 5 x 3
+      2. | Notes: cable-press| sets x reps: 5 x 15
+      3. | Notes: leg-press| sets x reps: 5 x 15
+   Session 2. | Notes: legs
+   Exercises:
+      1. | Notes: squat| sets x reps: 5 x 5
 =========================================================
 
 ```
@@ -69,7 +76,7 @@ Format: `/newSession <Athlete ID> <Description>`
 Example of usage: 
 
 ```
-/newSession 0001 chest workout
+/newSession 0001 Legs
 
 ```
 
@@ -77,8 +84,11 @@ Output:
 
 ```
 =========================================================
-New session created: chest workout
-Session ID: 001
+New session created:
+Athlete Name: jonas hardwell | ID: 0001
+
+Session ID: 002
+Session Description: legs
 =========================================================
 
 ```
@@ -92,7 +102,7 @@ Format: `/newExercise <Athlete ID> <Session ID> <Description>`
 Example of usage: 
 
 ```
-/newExercise 0001 002 Benchpress 5x5 80kg
+/newExercise 0001 001 leg-press 5 15
 
 ```
 
@@ -100,8 +110,17 @@ Output:
 
 ```
 =========================================================
-New Exercise for Jonas Hardwell (ID: 0001) created for session (ID: 003):
-Benchpress 5x5 80kg (ID: 01)
+New exercise created!
+
+Athlete (ID) : 0001
+Athlete name: jonas hardwell
+
+Session (ID): 001
+Session Description: chest
+
+Exercise (ID): 03
+Exercise Description: leg-press
+sets x reps: 5 x 15
 =========================================================
 
 ```
@@ -165,13 +184,7 @@ Output:
 
 ```
 =========================================================
-Exercise (ID: 01) “Push Ups (10x3)” completed.
-Athlete Name: Jonas Hardwell
-Session: conditioning
-
-1.   [X] Chest Workout
-2.   [ ] Legs Day
-3.   [ ] mystery input
+Exercise (ID: 01) completed by Jonas Hardwell (ID: 001).
 =========================================================
 
 ```
@@ -193,7 +206,8 @@ Output:
 
 ```
 =========================================================
-Athlete Name: Jonas Hardwell
+Athlete ID | Name: 0001 - Jonas Hardwell
+Status | Session ID | Notes:
 
 4.   [X] pre training warmup
 5.   [ ] post training cool down
@@ -219,14 +233,14 @@ Output:
 
 ```
 =========================================================
+Athlete ID: 0001
 Athlete Name: Jonas Hardwell
-Session Note: keep_energetic :)
 Session ID : 003
+Session Note: keep_energetic :)
 
-
-7.   [X] Push Ups (10x3)
-8.   [ ] Dips (5x2)
-9.   [ ] Ben (10x4)
+1.   [X] Push Ups 10 x 3
+2.   [ ] Dips 5 x 2
+3.   [ ] Leg 10 x 4
 =========================================================
 
 ```

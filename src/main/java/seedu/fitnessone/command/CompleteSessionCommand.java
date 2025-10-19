@@ -19,20 +19,23 @@ public class CompleteSessionCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
+    public void execute(Coach coachController, Ui view) throws InvalidAthleteException,
+            InvalidSessionException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
             session.setCompleted();
 
-            view.printWithDivider("Session has been completed.");
+            view.printWithDivider("Session (ID: "+ sessionID +") completed by "
+                    + athlete.getAthleteName() + " (ID: "+ athleteID+").");
 
         } catch (InvalidAthleteException e) {
             view.printWithDivider("Invalid Athlete ID.");
         } catch (InvalidSessionException e) {
             view.printWithDivider("Invalid Session ID.");
         } catch (RuntimeException e) {
-            view.printWithDivider("There was an error while trying to complete the session." +
+            view.printWithDivider("There was an error while trying to complete " +
+                    "the session." +
                     "\nTry: /completeSession <Athlete ID> <Session ID>");
         }
     }

@@ -26,7 +26,7 @@ public class ViewSessionsCommand implements Command {
             ArrayList<Session> sessions = athlete.getSessions();
 
             view.divider();
-            view.println("Athlete ID | Name: " + athlete.getAthleteID() + " | " + athlete.getAthleteName()+ "\n");
+            view.println("Athlete ID | Name: " + athlete.getAthleteID() + " - " + athlete.getAthleteName()+ "\n");
             view.println("Status | Session ID | Notes: ");
             for (int i = 0; i < sessions.size(); i++) {
                 Session session = sessions.get(i);

@@ -27,19 +27,19 @@ public class ViewAthleteCommand implements Command {
 
 
             view.divider();
-            view.println("Athlete ID: " + athlete.getAthleteName());
+            view.println("Athlete ID: " + athlete.getAthleteID());
             view.println("Athlete Name: " + athlete.getAthleteName());
 
             view.println("Sessions: " + sessions.size());
             view.println("List:");
             for (int i = 0; i < sessions.size(); i++) {
                 Session session = sessions.get(i);
-                view.println("   " + (i + 1) + ". | Notes: " + session.getTrainingNotes());
+                view.println("   Session " + (i + 1) + ". | Notes: " + session.getTrainingNotes());
                 view.println("   " + "Exercises:");
                 for(int j = 0; j < session.getExercises().size(); j++) {
                     Exercise exercise = session.getExercises().get(j);
                     view.println("      " + (j + 1) + ". | Notes: " + exercise.getExerciseDescription()
-                            + "| sets x reps: " + exercise.getSets() + " x " + exercise.getReps());
+                            + " | sets x reps: " + exercise.getSets() + " x " + exercise.getReps());
                 }
             }
             view.divider();
