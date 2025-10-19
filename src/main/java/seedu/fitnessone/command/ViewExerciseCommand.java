@@ -26,13 +26,13 @@ public class ViewExerciseCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) {
         try {
-            Athlete athlete = coachController.accessAthlete(athleteID);
+            Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
             ArrayList<Exercise> exercises = session.getExercises();
 
             view.divider();
-            view.println("Athlete Name: " + athlete.getAthleteID());
             view.println("Athlete ID: " + athleteID);
+            view.println("Athlete Name: " + athlete.getAthleteID());
             view.println("Session ID: " + sessionID + "\n");
             view.println("Session Note: " + session.getTrainingNotes());
 
