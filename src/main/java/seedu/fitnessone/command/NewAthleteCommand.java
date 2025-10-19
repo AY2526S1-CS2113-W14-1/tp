@@ -13,7 +13,6 @@ public class NewAthleteCommand implements Command{
 
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException("athlete name was not specified");
-
         }
     }
 

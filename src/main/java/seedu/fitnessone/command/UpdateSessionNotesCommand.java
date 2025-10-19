@@ -9,40 +9,27 @@ import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
-public class DeleteSessionCommand implements Command {
-    private final String athleteID;
-    private final String sessionID;
+public class UpdateSessionNotesCommand implements Command {
+    private  String athleteID;
+    private  String sessionID;
+    private  String sessionNotes;
 
-    /**
-     * command constructor.
-     * @param inputString String.
-     */
-    public DeleteSessionCommand(String inputString) throws InvalidCommandException {
+    public UpdateSessionNotesCommand(String inputString) throws InvalidCommandException {
         this.athleteID = Parser.checkAthleteIDValidity(inputString);
         this.sessionID = Parser.checkSessionIDValidity(inputString);
+        this.sessionNotes = Parser.isTrainingNotes(inputString);
     }
 
-    /**
-     * Executes the command to delete session for a certain athlete and display the message.
-     * @param coachController The task list.
-     * @param view The UI for displaying output.
-     */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
         Athlete athlete = coachController.accessAthleteID(athleteID);
         Session session = coachController.accessSessionID(athlete, sessionID);
 
-        try {
-            coachController.deleteSessionFromAthlete(athleteID, sessionID);
-        } catch (InvalidSessionException | InvalidAthleteException e) {
-            throw new RuntimeException(e);
-        }
-        view.printWithDivider("Session " + sessionID + " deleted for " + athleteID);
+        session.setTrainingNotes(sessionNotes);
+
+        view.printWithDivider("Successfully updated session notes.");
     }
-    /**
-     * Indicates whether this command should exit the application.
-     * @return false.
-     */
+
     @Override
     public boolean isExit() {
         return false;

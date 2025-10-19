@@ -40,7 +40,7 @@ New athlete created: Jonas Hardwell
 ### Viewing Athlete Details: `/viewAthlete`
 Views the Sessions that are assigned to the specified Athlete
 
-Format: `/viewAthlete <Athlete Name>`
+Format: `/viewAthlete <Athlete ID>`
 
 Example of usage: 
 
@@ -64,12 +64,12 @@ Sessions:
 Adds a Session to the specified Athlete
 Specifies the Description for the Session
 
-Format: `/newSession <Athlete Name> <Session ID> <Description>`
+Format: `/newSession <Athlete ID> <Description>`
 
 Example of usage: 
 
 ```
-/newSession Jonas Hardwell 3 chest workout
+/newSession 0001 chest workout
 
 ```
 
@@ -77,22 +77,22 @@ Output:
 
 ```
 =========================================================
-New session created: Jonas Hardwell
-Session ID: 3
+New session created: chest workout
+Session ID: 001
 =========================================================
 
 ```
 
 ### Adding to a Session a new Exercise : `/newExercise`
 Adds an Exercise to the specified Session.
-Sessions are specified via Athlete Name + Session ID
+Sessions are specified via Athlete ID + Session ID
 
-Format: `/newExercise <Athlete Name> <Session ID> <Description>`
+Format: `/newExercise <Athlete ID> <Session ID> <Description>`
 
 Example of usage: 
 
 ```
-/newExercise Jonas Hardwell 3 Benchpress 5x5 80kg
+/newExercise 0001 002 Benchpress 5x5 80kg
 
 ```
 
@@ -100,8 +100,8 @@ Output:
 
 ```
 =========================================================
-New Exercise for Jonas Hardwell created for session 3:
-Benchpress 5x5 80kg
+New Exercise for Jonas Hardwell (ID: 0001) created for session (ID: 003):
+Benchpress 5x5 80kg (ID: 01)
 =========================================================
 
 ```
@@ -109,12 +109,12 @@ Benchpress 5x5 80kg
 ### Adding to a Session Trainings Notes : `/trainingNotes`
 Adds training notes to specified Session.
 
-Format: `/trainingNotes <Athlete Name> <Session ID> <Notes>`
+Format: `/trainingNotes <Athlete ID> <Session ID> <Notes>`
 
 Example of usage: 
 
 ```
-/trainingNotes Jonas Hardwell 3 keep_energetic:)
+/trainingNotes 0001 003 keep_energetic:)
 
 ```
 
@@ -122,7 +122,7 @@ Output:
 
 ```
 =========================================================
-Training notes for Jonas Hardwell added for session 3:
+Training notes for Jonas Hardwell (ID: 0001) created for session (ID: 003):
 keep_energetic:)
 =========================================================
 
@@ -132,12 +132,12 @@ keep_energetic:)
 Marks the specified Session as completed.
 
 
-Format: `/complete <Athlete Name> <Session ID>`
+Format: `/complete <Athlete ID> <Session ID>`
 
 Example of usage: 
 
 ```
-/complete Jonas Hardwell 3
+/complete 0001 003
 
 ```
 
@@ -145,7 +145,7 @@ Output:
 
 ```
 =========================================================
-Session 3 completed by Jonas Hardwell
+Session (ID: 003) completed by Jonas Hardwell
 =========================================================
 ```
 
@@ -158,15 +158,14 @@ Format: `/complete <Athlete Name> <Session ID> <Exercise ID>`
 Example of usage: 
 
 ```
-/complete Jonas Hardwell 3 1
-
+/complete 0001 003 01
 ```
 
 Output:
 
 ```
 =========================================================
-Exercise “Push Ups (10x3)” completed.
+Exercise (ID: 01) “Push Ups (10x3)” completed.
 Athlete Name: Jonas Hardwell
 Session: conditioning
 
@@ -181,12 +180,12 @@ Session: conditioning
 View the Session ID which is used in other commands
 
 
-Format: `/viewSession <Athlete Name>`
+Format: `/viewSessions <Athlete ID>`
 
 Example of usage: 
 
 ```
-/viewSession Jonas Hardwell
+/viewSession 0001
 
 ```
 
@@ -203,16 +202,16 @@ Athlete Name: Jonas Hardwell
 
 ```
 
-### Viewing Session's all Exercises  : `/viewExercise`
+### Viewing Session's all Exercises  : `/viewExercises`
 This function is used to view  the Exercises that are assigned to a specific Session ID and a specific Athlete Name
 
 
-Format: `/viewExercise <Athlete Name> <Session ID>`
+Format: `/viewExercise <Athlete ID> <Session ID>`
 
 Example of usage: 
 
 ```
-/viewExercise Jonas Hardwell 3
+/viewExercises 0001 003
 
 ```
 
@@ -222,7 +221,7 @@ Output:
 =========================================================
 Athlete Name: Jonas Hardwell
 Session Note: keep_energetic :)
-Session ID : 3
+Session ID : 003
 
 
 7.   [X] Push Ups (10x3)
@@ -236,12 +235,12 @@ Session ID : 3
 This function is used to delete a specific exercise that is assigned to a specific session ID and a specific Athlete Name
 
 
-Format: `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
+Format: `/deleteExercise <Athlete ID> <Session ID> <Exercise ID>`
 
 Example of usage: 
 
 ```
-/deleteExercise Jonas Hardwell 3 5
+/deleteExercise 0001 003 05
 
 ```
 
@@ -249,7 +248,7 @@ Output:
 
 ```
 =========================================================
-Exercise 5 deleted in Session 3 for Jonas Hardwell
+Exercise (ID: 05) deleted in Session (ID:003) for Jonas Hardwell (ID: 0001)
 =========================================================
 
 ```
@@ -258,12 +257,12 @@ Exercise 5 deleted in Session 3 for Jonas Hardwell
 This function is used to delete a specific session that is assigned to a specific athlete
 
 
-Format: `/deleteSession <Athlete Name> <Session ID>`
+Format: `/deleteSession <Athlete ID> <Session ID>`
 
 Example of usage: 
 
 ```
-/deleteSession Jonas Hardwell 3
+/deleteSession 0001 003
 
 ```
 
@@ -271,7 +270,7 @@ Output:
 
 ```
 =========================================================
-Session 3 deleted for Jonas Hardwell
+Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)
 =========================================================
 
 ```
@@ -304,14 +303,14 @@ Bye. Hope to see you again soon!
 
 {Give a 'cheat sheet' of commands here}
 
-* Add a new Athlete `/newAthlete <Athlete Name>`
-* View Athlete Details `/viewAthlete <Athlete Name>`
-* Add a Session to an Athlete `/newSession <Athlete Name> <Session ID> <Description>`
-* Add to a Exercise to a Session `/newExercise <Athlete Name> <Session ID> <Description>`
-* Add a Training Note to a Session `/trainingNotes <Athlete Name> <Session ID> <Notes>`
-* Mark a Session as Completed `/complete <Athlete Name> <Session ID>`
-* Mark an Exercise as Completed `/complete <Athlete Name> <Session ID> <Exercise ID>`
-* View Athletes all Session `/viewSession <Athlete Name>`
-* View all Exercise of a Session `/viewExercise <Athlete Name> <Session ID>`
-* Delete Exercise from Session `/deleteExercise <Athlete Name> <Session ID> <Exercise ID>`
-* Delete Session from Athlete `/deleteSession <Athlete Name> <Session ID>`
+* Add a new Athlete `/newAthlete <Athlete ID>`
+* View Athlete Details `/viewAthlete <Athlete ID>`
+* Add a Session to an Athlete `/newSession <Athlete ID> <Session ID> <Description>`
+* Add to a Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description>`
+* Add a Training Note to a Session `/trainingNotes <Athlete ID> <Session ID> <Notes>`
+* Mark a Session as Completed `/complete <Athlete ID> <Session ID>`
+* Mark an Exercise as Completed `/complete <Athlete ID> <Session ID> <Exercise ID>`
+* View Athletes all Session `/viewSession <Athlete ID>`
+* View all Exercise of a Session `/viewExercise <Athlete ID> <Session ID>`
+* Delete Exercise from Session `/deleteExercise <Athlete ID> <Session ID> <Exercise ID>`
+* Delete Session from Athlete `/deleteSession <Athlete ID> <Session ID>`

@@ -2,40 +2,43 @@ package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
+import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
+import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
 import java.util.ArrayList;
 
 
-public class ViewSessionCommand implements Command {
+public class ViewSessionsCommand implements Command {
 
-    private final String athleteName;
+    private final String athleteID;
 
-    public ViewSessionCommand(String athleteName) {
-        this.athleteName = athleteName;
+    public ViewSessionsCommand(String inputString) throws InvalidCommandException {
+        this.athleteID = Parser.checkAthleteIDValidity(inputString);
     }
 
     @Override
     public void execute(Coach coachController, Ui view) {
         try {
-            Athlete athlete = coachController.accessAthlete(athleteName);
+            Athlete athlete = coachController.accessAthleteID(athleteID);
             ArrayList<Session> sessions = athlete.getSessions();
 
             view.divider();
-            view.println("Athlete Name: " + athlete.getAthleteName() + "\n");
-
+            view.println("Athlete ID | Name: " + athlete.getAthleteID() + " | " + athlete.getAthleteName()+ "\n");
+            view.println("Status | Session ID | Notes: ");
             for (int i = 0; i < sessions.size(); i++) {
                 Session session = sessions.get(i);
                 String status = session.isCompleted() ? "[X]" : "[ ]";
-                view.println((i + 1) + ".   " + status + " " + session.getTrainingNotes());
+
+                view.println((i + 1) + ". " + status + ".   Session: "+ session.getSessionIdString() + " | " + session.getTrainingNotes());
             }
             view.divider();
 
         } catch (InvalidAthleteException e) {
             view.divider();
-            view.println("Athlete not found: " + athleteName);
+            view.println("Athlete not found: " + athleteID);
             view.divider();
         }
     }
