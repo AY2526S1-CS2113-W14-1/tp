@@ -2,9 +2,7 @@ package seedu.fitnessone.model;
 
 import java.util.ArrayList;
 
-import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidExerciseException;
-import seedu.fitnessone.exception.InvalidSessionException;
 
 public class Session {
     private final ArrayList<Exercise> exercises;
