@@ -4,8 +4,8 @@ import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
 
-public class NewAthleteCommand implements Command{
-    private String athleteName;
+public class NewAthleteCommand implements Command {
+    private final String athleteName;
 
     public NewAthleteCommand(String trimmedInput) throws InvalidCommandException {
         try {

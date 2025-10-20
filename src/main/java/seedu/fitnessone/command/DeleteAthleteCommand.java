@@ -6,7 +6,7 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
-public class DeleteAthleteCommand implements Command{
+public class DeleteAthleteCommand implements Command {
     private final String athleteID;
 
     public DeleteAthleteCommand(String inputString) throws InvalidCommandException {

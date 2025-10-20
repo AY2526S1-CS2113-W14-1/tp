@@ -25,8 +25,8 @@ public class UndoSessionCommand implements Command {
             Session session = coachController.accessSessionID(athlete, sessionID);
             session.setNotCompleted();
 
-            view.printWithDivider("Session (ID: "+ sessionID +") has been marked as not completed for "
-                    + athlete.getAthleteName() + " (ID: "+ athleteID+").");
+            view.printWithDivider("Session (ID: " + sessionID + ") has been marked as not completed for "
+                    + athlete.getAthleteName() + " (ID: " + athleteID + ").");
 
         } catch (InvalidAthleteException | InvalidSessionException e) {
             throw new InvalidCommandException(e.getMessage());

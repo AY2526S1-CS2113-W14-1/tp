@@ -3,7 +3,6 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
-import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
@@ -35,7 +34,7 @@ public class ViewAthleteCommand implements Command {
                 Session session = sessions.get(i);
                 view.println("   Session " + (i + 1) + ". | Notes: " + session.getTrainingNotes());
                 view.println("   " + "Exercises:");
-                for(int j = 0; j < session.getExercises().size(); j++) {
+                for (int j = 0; j < session.getExercises().size(); j++) {
                     Exercise exercise = session.getExercises().get(j);
                     view.println("      " + (j + 1) + ". | Notes: " + exercise.getExerciseDescription()
                             + " | sets x reps: " + exercise.getSets() + " x " + exercise.getReps());

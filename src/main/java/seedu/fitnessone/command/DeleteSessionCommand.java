@@ -15,6 +15,7 @@ public class DeleteSessionCommand implements Command {
 
     /**
      * command constructor.
+     *
      * @param inputString String.
      */
     public DeleteSessionCommand(String inputString) throws InvalidCommandException {
@@ -24,8 +25,9 @@ public class DeleteSessionCommand implements Command {
 
     /**
      * Executes the command to delete session for a certain athlete and display the message.
+     *
      * @param coachController The task list.
-     * @param view The UI for displaying output.
+     * @param view            The UI for displaying output.
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidSessionException, InvalidAthleteException {
@@ -38,8 +40,10 @@ public class DeleteSessionCommand implements Command {
         }
         view.printWithDivider("Session " + sessionID + " deleted for " + athleteID);
     }
+
     /**
      * Indicates whether this command should exit the application.
+     *
      * @return false.
      */
     @Override

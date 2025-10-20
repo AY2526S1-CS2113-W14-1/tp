@@ -12,9 +12,9 @@ import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
 public class DeleteExerciseCommand implements Command {
-    private String athleteID;
-    private String sessionID;
-    private String exerciseID;
+    private final String athleteID;
+    private final String sessionID;
+    private final String exerciseID;
 
     public DeleteExerciseCommand(String inputString) throws InvalidCommandException {
         this.athleteID = Parser.checkAthleteIDValidity(inputString);
@@ -36,7 +36,7 @@ public class DeleteExerciseCommand implements Command {
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

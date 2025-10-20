@@ -25,8 +25,8 @@ public class CompleteSessionCommand implements Command {
             Session session = coachController.accessSessionID(athlete, sessionID);
             session.setCompleted();
 
-            view.printWithDivider("Session (ID: "+ sessionID +") completed by "
-                    + athlete.getAthleteName() + " (ID: "+ athleteID+").");
+            view.printWithDivider("Session (ID: " + sessionID + ") completed by "
+                    + athlete.getAthleteName() + " (ID: " + athleteID + ").");
 
         } catch (InvalidAthleteException | InvalidSessionException e) {
             throw new InvalidCommandException(e.getMessage());

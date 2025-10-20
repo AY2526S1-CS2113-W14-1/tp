@@ -8,7 +8,6 @@ import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 
-import seedu.fitnessone.exception.InvalidIDException;
 import seedu.fitnessone.ui.Ui;
 
 
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Coach {
-    private List<Athlete> athletes;
+    private final List<Athlete> athletes;
 
     /**
      * Constructs an empty TaskList.

@@ -20,12 +20,12 @@ public class NewSessionCommand implements Command {
     public NewSessionCommand(String trimmedInput) throws InvalidCommandException {
         this.athleteID = Parser.checkAthleteIDValidity(trimmedInput);
         this.trainingNotes = findTrainingNotes(trimmedInput);
-        if(this.trainingNotes.equals(athleteID)) {
-            trainingNotes ="";
+        if (this.trainingNotes.equals(athleteID)) {
+            trainingNotes = "";
         }
     }
 
-    private String findTrainingNotes (String inputString) throws InvalidCommandException {
+    private String findTrainingNotes(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
 
         String[] inputParts = inputString.split("\\s+", 3);
@@ -51,10 +51,10 @@ public class NewSessionCommand implements Command {
 
         view.divider();
         view.println("New session created:");
-        view.println(" Athlete Name: " + athlete.getAthleteName() + " | ID: " + athleteID );
+        view.println(" Athlete Name: " + athlete.getAthleteName() + " | ID: " + athleteID);
         view.println("");
         view.println("Session ID: " + newSession.getSessionIdString());
-        view.println("Session Description: " +newSession.getTrainingNotes());
+        view.println("Session Description: " + newSession.getTrainingNotes());
         view.divider();
     }
 
