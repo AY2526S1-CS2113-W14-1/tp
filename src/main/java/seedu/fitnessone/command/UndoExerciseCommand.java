@@ -24,27 +24,22 @@ public class UndoExerciseCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
-        Athlete athlete = coachController.accessAthlete(athleteID);
-        Session session = coachController.accessSessionID(athlete, sessionID);
-        ArrayList<Exercise> exercises = session.getExercises();
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        try {
+            Athlete athlete = coachController.accessAthlete(athleteID);
+            Session session = coachController.accessSessionID(athlete, sessionID);
+            ArrayList<Exercise> exercises = session.getExercises();
 
-        boolean isFound = false;
-
-        for (Exercise exercise : exercises) {
-            if (exercise.getExerciseIDString().equals(exerciseID)) {
-                exercise.setCompleted();
-                view.printWithDivider("Exercise (ID: "+ exerciseID +") has been marked uncompleted for "
-                        + athlete.getAthleteName() + " (ID: "+ athleteID+").");
-                isFound = true;
-                break;
+            for (Exercise exercise : exercises) {
+                if (exercise.getExerciseIDString().equals(exerciseID)) {
+                    exercise.setCompleted();
+                    view.printWithDivider("Exercise (ID: " + exerciseID + "), Session (ID: "+ sessionID +") has been marked as not completed for "
+                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                    break;
+                }
             }
-        }
-        if (!isFound) {
-            view.divider();
-            view.println("Could not find: " + exerciseID + ".");
-            view.println("Try using: /completeExercise <athleteID> <sessionID> <exerciseID>");
-            view.divider();
+        } catch (InvalidAthleteException | InvalidSessionException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
     }
 

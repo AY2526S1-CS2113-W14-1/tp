@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
@@ -21,13 +22,19 @@ public class UpdateSessionNotesCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
-        Athlete athlete = coachController.accessAthleteID(athleteID);
-        Session session = coachController.accessSessionID(athlete, sessionID);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        try {
+            Athlete athlete = coachController.accessAthleteID(athleteID);
+            Session session = coachController.accessSessionID(athlete, sessionID);
 
-        session.setTrainingNotes(sessionNotes);
+            session.setTrainingNotes(sessionNotes);
 
-        view.printWithDivider("Successfully updated session notes.");
+            view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
+                    " session: " + sessionID + " with notes: "+  sessionNotes + ".");
+
+        }catch (InvalidAthleteException | InvalidSessionException e) {
+            throw new InvalidCommandException(e.getMessage());
+        }
     }
 
     @Override

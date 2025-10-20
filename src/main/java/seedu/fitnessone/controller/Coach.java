@@ -58,7 +58,7 @@ public class Coach {
         return athlete.toString();
     }
 
-    public String deleteAthlete(String athleteID) throws InvalidIDException {
+    public String deleteAthlete(String athleteID) throws InvalidAthleteException {
         for (int i = 0; i < athletes.size(); i++) {
             Athlete athlete = athletes.get(i);
             if (athlete.getAthleteID().equals(athleteID)) {
@@ -66,7 +66,7 @@ public class Coach {
                 return athlete.toString();
             }
         }
-        throw new InvalidIDException("athleteID " + athleteID + " not found.");
+        throw new InvalidAthleteException("athleteID " + athleteID + " not found.");
     }
 
     public void printAthletes(Ui view) {

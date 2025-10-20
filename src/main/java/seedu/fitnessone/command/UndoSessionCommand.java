@@ -19,21 +19,19 @@ public class UndoSessionCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
             session.setNotCompleted();
 
-            view.printWithDivider("Session (ID: "+ sessionID +") has been marked uncompleted for "
+            view.printWithDivider("Session (ID: "+ sessionID +") has been marked as not completed for "
                     + athlete.getAthleteName() + " (ID: "+ athleteID+").");
 
-        } catch (InvalidAthleteException e) {
-            view.printWithDivider("Invalid Athlete ID.");
-        } catch (InvalidSessionException e) {
-            view.printWithDivider("Invalid Session ID.");
+        } catch (InvalidAthleteException | InvalidSessionException e) {
+            throw new InvalidCommandException(e.getMessage());
         } catch (RuntimeException e) {
-            view.printWithDivider("There was an error while trying to mark the " +
+            throw new InvalidCommandException("There was an error while trying to mark the " +
                     "session not completed." +
                     "\nTry: /completeSession <Athlete ID> <Session ID>");
         }

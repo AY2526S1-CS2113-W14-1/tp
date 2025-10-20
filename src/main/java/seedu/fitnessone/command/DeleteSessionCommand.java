@@ -28,14 +28,13 @@ public class DeleteSessionCommand implements Command {
      * @param view The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidSessionException {
-        Athlete athlete = coachController.accessAthleteID(athleteID);
-        Session session = coachController.accessSessionID(athlete, sessionID);
-
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidSessionException, InvalidAthleteException {
         try {
+            Athlete athlete = coachController.accessAthleteID(athleteID);
+            Session session = coachController.accessSessionID(athlete, sessionID);
             coachController.deleteSessionFromAthlete(athleteID, sessionID);
-        } catch (InvalidSessionException | InvalidAthleteException e) {
-            throw new RuntimeException(e);
+        } catch (InvalidAthleteException | InvalidSessionException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
         view.printWithDivider("Session " + sessionID + " deleted for " + athleteID);
     }

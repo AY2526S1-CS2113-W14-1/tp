@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
@@ -19,12 +20,10 @@ public class ViewAthleteCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             ArrayList<Session> sessions = athlete.getSessions();
-
-
 
             view.divider();
             view.println("Athlete ID: " + athlete.getAthleteID());
@@ -44,7 +43,7 @@ public class ViewAthleteCommand implements Command {
             }
             view.divider();
         } catch (InvalidAthleteException e) {
-            view.printWithDivider("Athlete ID not found: " + athleteID);
+            throw new InvalidCommandException(e.getMessage());
         }
     }
 

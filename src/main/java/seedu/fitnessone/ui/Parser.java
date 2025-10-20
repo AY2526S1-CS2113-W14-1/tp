@@ -18,7 +18,10 @@ import seedu.fitnessone.command.ViewExerciseCommand;
 import seedu.fitnessone.command.UndoExerciseCommand;
 import seedu.fitnessone.command.UndoSessionCommand;
 import seedu.fitnessone.command.UpdateSessionNotesCommand;
+import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidExerciseException;
+import seedu.fitnessone.exception.InvalidSessionException;
 
 public class Parser {
 
@@ -29,7 +32,7 @@ public class Parser {
      * @return The corresponding Command object for the input.
      * @throws InvalidCommandException if the input is empty or the command is not recognized.
      */
-    public static Command parse(String input) throws InvalidCommandException {
+    public static Command parse(String input) throws InvalidAthleteException, InvalidExerciseException, InvalidSessionException, InvalidCommandException {
         if (input == null || input.trim().isEmpty()) {
             throw new InvalidCommandException("Input cannot be empty");
         }
@@ -49,7 +52,7 @@ public class Parser {
             case "/newsession" -> new NewSessionCommand(trimmedInput);
             case "/deletesession" -> new DeleteSessionCommand(trimmedInput);
             case "/completesession" -> new CompleteSessionCommand(trimmedInput);
-            case "/listsessions" -> new ViewSessionsCommand(trimmedInput);
+            case "/viewsessions" -> new ViewSessionsCommand(trimmedInput);
             case "/updatesessionnote" -> new UpdateSessionNotesCommand(trimmedInput);
             case "/undosession" -> new UndoSessionCommand(trimmedInput);
 
@@ -60,7 +63,7 @@ public class Parser {
             case "/completeexercise" -> new CompleteExerciseCommand(trimmedInput);
             case "/undoexercise" -> new UndoExerciseCommand(trimmedInput);
 
-            default -> throw new InvalidCommandException("Input keyword not found");
+            default -> throw new InvalidCommandException("Input keyword not found.");
         };
     }
 
@@ -72,7 +75,7 @@ public class Parser {
         inputString = inputString.trim();
 
         if (inputString.split(" ").length < 2) {
-            throw new InvalidCommandException("Input is empty.");
+            throw new InvalidCommandException("Input is empty. Check if there's athletes or sessions created.");
         }
 
         String athleteID = inputString.split(" ")[1];
@@ -100,7 +103,7 @@ public class Parser {
         inputString = inputString.trim();
 
         if (inputString.split(" ").length < 3) {
-            throw new InvalidCommandException("Input is empty.");
+            throw new InvalidCommandException("Invalid Command. Check if there's athletes or sessions created.");
         }
 
         String sessionID = inputString.split(" ")[2];
@@ -131,7 +134,7 @@ public class Parser {
 
 
         if (inputString.split(" ").length < 4) {
-            throw new InvalidCommandException("Input is empty.");
+            throw new InvalidCommandException("Input is empty. Check if there's athletes or sessions created.");
         }
 
         String exerciseID = inputString.split(" ")[3];

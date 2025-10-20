@@ -1,6 +1,7 @@
 package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
+import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
@@ -17,8 +18,8 @@ public class DeleteAthleteCommand implements Command{
         try {
             coachController.deleteAthlete(athleteID);
             view.printWithDivider("Deleted athlete with ID " + athleteID);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("invalid athleteID.");
+        } catch (InvalidAthleteException | IndexOutOfBoundsException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
 
     }

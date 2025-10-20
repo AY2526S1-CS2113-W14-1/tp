@@ -23,19 +23,16 @@ public class DeleteExerciseCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException,
-            InvalidSessionException, InvalidExerciseException {
-        Athlete athlete = coachController.accessAthleteID(athleteID);
-        Session session = coachController.accessSessionID(athlete, sessionID);
-        Exercise exercise = coachController.accessExerciseID(session, exerciseID);
-
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
+            Athlete athlete = coachController.accessAthleteID(athleteID);
+            Session session = coachController.accessSessionID(athlete, sessionID);
+            Exercise exercise = coachController.accessExerciseID(session, exerciseID);
             coachController.deleteExerciseFromSession(session, exercise);
-        } catch (InvalidSessionException | InvalidExerciseException e){
-            throw new RuntimeException(e);
+
+        } catch (InvalidAthleteException | InvalidSessionException | InvalidExerciseException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
-        view.printWithDivider("Session " + sessionID + " - exercise ID "
-                + exerciseID +  "deleted.");
     }
 
     @Override

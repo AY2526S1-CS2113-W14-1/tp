@@ -15,16 +15,14 @@ import java.util.ArrayList;
 public class ViewExerciseCommand implements Command {
     private final String athleteID;
     private final String sessionID;
-    private final String exerciseID;
 
     public ViewExerciseCommand(String inputString) throws InvalidCommandException {
         this.athleteID = Parser.checkAthleteIDValidity(inputString);
         this.sessionID = Parser.checkSessionIDValidity(inputString);
-        this.exerciseID = Parser.checkExerciseIDValidity(inputString);
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidSessionException, InvalidAthleteException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
@@ -36,6 +34,7 @@ public class ViewExerciseCommand implements Command {
             view.println("Session ID: " + sessionID + "\n");
             view.println("Session Note: " + session.getTrainingNotes());
 
+            view.println("Exercise List: " + exercises.size());
             for (int i = 0; i < exercises.size(); i++) {
                 Exercise exercise = exercises.get(i);
                 String status = exercise.isCompleted() ? "[X]" : "[ ]";
@@ -46,10 +45,8 @@ public class ViewExerciseCommand implements Command {
 
             view.divider();
 
-        } catch (InvalidAthleteException e) {
-            view.printWithDivider("Error: Athlete not found - " + athleteID);
-        } catch (InvalidSessionException e) {
-            view.printWithDivider("Error: Session not found - " + sessionID);
+        } catch (InvalidAthleteException | InvalidSessionException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
     }
 

@@ -97,7 +97,7 @@ Session Description: legs
 Adds an Exercise to the specified Session.
 Sessions are specified via Athlete ID + Session ID
 
-Format: `/newExercise <Athlete ID> <Session ID> <Description>`
+Format: `/newExercise <Athlete ID> <Session ID> <Exercise Description>`
 
 Example of usage: 
 
@@ -125,15 +125,15 @@ sets x reps: 5 x 15
 
 ```
 
-### Adding to a Session Trainings Notes : `/trainingNotes`
-Adds training notes to specified Session.
+### Updating Session Trainings Notes : `/updateSessionNotes`
+Update training notes to specified Session.
 
-Format: `/trainingNotes <Athlete ID> <Session ID> <Notes>`
+Format: `/updateSessionNote <Athlete ID> <Session ID> <New Notes>`
 
 Example of usage: 
 
 ```
-/trainingNotes 0001 003 keep_energetic:)
+/updateSessionNote 0001 001 Chest-Day
 
 ```
 
@@ -141,22 +141,22 @@ Output:
 
 ```
 =========================================================
-Training notes for Jonas Hardwell (ID: 0001) created for session (ID: 003):
-keep_energetic:)
+
+"Successfully updated Athlete (ID: 0001) session: 002 with notes: Chest-Day.
 =========================================================
 
 ```
 
-### Marking a Session as Completed : `/complete`
+### Marking a Session as Completed : `/completeSession`
 Marks the specified Session as completed.
 
 
-Format: `/complete <Athlete ID> <Session ID>`
+Format: `/completeSession <Athlete ID> <Session ID>`
 
 Example of usage: 
 
 ```
-/complete 0001 003
+/completeSession 0001 003
 
 ```
 
@@ -164,29 +164,71 @@ Output:
 
 ```
 =========================================================
-Session (ID: 003) completed by Jonas Hardwell
+Session (ID: 003) completed by jonas hardwell (ID: 0001).
 =========================================================
 ```
 
-### Marking an Exercise as Completed : `/complete`
+### Marking an Exercise as Completed : `/completeExercise`
 Marks the specified Exercise as completed
 
 
-Format: `/complete <Athlete Name> <Session ID> <Exercise ID>`
+Format: `/completeExercise <Athlete Name> <Session ID> <Exercise ID>`
 
 Example of usage: 
 
 ```
-/complete 0001 003 01
+/completeExercise 0001 003 02
 ```
 
 Output:
 
 ```
 =========================================================
-Exercise (ID: 01) completed by Jonas Hardwell (ID: 001).
+Exercise (ID: 02) completed by Jonas Hardwell (ID: 0001).
 =========================================================
 
+```
+
+### Marking a Session as not completed : `/undoSession`
+Marks the specified Session as completed.
+
+
+Format: `/undoSession <Athlete ID> <Session ID>`
+
+Example of usage:
+
+```
+/undoSession 0001 003
+
+```
+
+Output:
+
+```
+=========================================================
+Session (ID: 003) was marked as not completed for jonas hardwell (ID: 0001).
+=========================================================
+```
+
+### Marking an Exercise as not completed : `/undoExercise`
+Marks the specified Session as completed.
+
+
+Format: `/undoSession <Athlete ID> <Session ID>`
+
+Example of usage:
+
+```
+/undoExercise 0001 003 02
+
+```
+
+Output:
+
+```
+=========================================================
+Exercise (ID: 02), Session (ID: 003) has been marked as not completed for jonas hardwell (ID: 0001).
+=========================================================
 ```
 
 ### Viewing Athlete's all Sessions  : `/viewSession`
@@ -319,12 +361,12 @@ Bye. Hope to see you again soon!
 
 * Add a new Athlete `/newAthlete <Athlete ID>`
 * View Athlete Details `/viewAthlete <Athlete ID>`
-* Add a Session to an Athlete `/newSession <Athlete ID> <Session ID> <Description>`
+* Add a Session to an Athlete `/newSession <Athlete ID> <Description>`
 * Add to a Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description>`
-* Add a Training Note to a Session `/trainingNotes <Athlete ID> <Session ID> <Notes>`
-* Mark a Session as Completed `/complete <Athlete ID> <Session ID>`
-* Mark an Exercise as Completed `/complete <Athlete ID> <Session ID> <Exercise ID>`
-* View Athletes all Session `/viewSession <Athlete ID>`
+* Updaete a Sessions Notes `/updaetSessionNotes <Athlete ID> <Session ID> <Notes>`
+* Mark a Session as Completed `/completeSession <Athlete ID> <Session ID>`
+* Mark an Exercise as Completed `/completeExercise <Athlete ID> <Session ID> <Exercise ID>`
+* View Athletes all Session `/viewSessions <Athlete ID>`
 * View all Exercise of a Session `/viewExercise <Athlete ID> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete ID> <Session ID> <Exercise ID>`
 * Delete Session from Athlete `/deleteSession <Athlete ID> <Session ID>`

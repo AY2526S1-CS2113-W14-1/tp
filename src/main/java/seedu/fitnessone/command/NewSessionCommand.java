@@ -51,7 +51,7 @@ public class NewSessionCommand implements Command {
 
         view.divider();
         view.println("New session created:");
-        view.println(" Athlete Name:" + athlete.getAthleteName() + " | ID: " + athleteID );
+        view.println(" Athlete Name: " + athlete.getAthleteName() + " | ID: " + athleteID );
         view.println("");
         view.println("Session ID: " + newSession.getSessionIdString());
         view.println("Session Description: " +newSession.getTrainingNotes());
