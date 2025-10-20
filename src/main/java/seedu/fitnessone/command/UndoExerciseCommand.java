@@ -33,7 +33,8 @@ public class UndoExerciseCommand implements Command {
             for (Exercise exercise : exercises) {
                 if (exercise.getExerciseIDString().equals(exerciseID)) {
                     exercise.setCompleted();
-                    view.printWithDivider("Exercise (ID: " + exerciseID + "), Session (ID: " + sessionID + ") has been marked as not completed for "
+                    view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
+                            "Session (ID: " + sessionID + ") has been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");
                     break;
                 }

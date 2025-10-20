@@ -32,7 +32,8 @@ public class ViewSessionsCommand implements Command {
                 Session session = sessions.get(i);
                 String status = session.isCompleted() ? "[X]" : "[ ]";
 
-                view.println((i + 1) + ". " + status + ".   Session: " + session.getSessionIdString() + " | " + session.getTrainingNotes());
+                view.println((i + 1) + ". " + status + ".   Session: " +
+                        session.getSessionIdString() + " | " + session.getTrainingNotes());
             }
             view.divider();
 

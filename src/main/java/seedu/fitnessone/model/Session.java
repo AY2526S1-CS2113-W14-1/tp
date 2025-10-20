@@ -55,7 +55,7 @@ public class Session {
         this.isCompleted = false;
     }
 
-    public Exercise addExercise(String description, int sets, int reps) throws InvalidExerciseException, InvalidAthleteException, InvalidSessionException {
+    public Exercise addExercise(String description, int sets, int reps) {
         nextExerciseIndex = (nextExerciseIndex +1) % 100;
         Exercise newExercise = new Exercise(nextExerciseIndex, description, sets, reps);
         this.exercises.add(newExercise);

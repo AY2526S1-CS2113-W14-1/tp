@@ -22,7 +22,7 @@ public class ViewExerciseCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidSessionException, InvalidAthleteException {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);

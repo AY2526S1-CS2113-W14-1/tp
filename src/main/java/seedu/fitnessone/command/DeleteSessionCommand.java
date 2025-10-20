@@ -30,7 +30,7 @@ public class DeleteSessionCommand implements Command {
      * @param view            The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidSessionException, InvalidAthleteException {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);

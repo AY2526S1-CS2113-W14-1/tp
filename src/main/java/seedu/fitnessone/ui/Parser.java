@@ -32,7 +32,8 @@ public class Parser {
      * @return The corresponding Command object for the input.
      * @throws InvalidCommandException if the input is empty or the command is not recognized.
      */
-    public static Command parse(String input) throws InvalidAthleteException, InvalidExerciseException, InvalidSessionException, InvalidCommandException {
+    public static Command parse(String input) throws InvalidAthleteException, InvalidExerciseException,
+            InvalidSessionException, InvalidCommandException {
         if (input == null || input.trim().isEmpty()) {
             throw new InvalidCommandException("Input cannot be empty");
         }
@@ -40,37 +41,33 @@ public class Parser {
         String commandWord = trimmedInput.split("\\s+", 2)[0];
 
         return switch (commandWord) {
-            case "bye" -> new ExitCommand();
-
-            /*------------------ATHLETE COMMANDS ------------------ */
-            case "/newathlete" -> new NewAthleteCommand(trimmedInput);
-            case "/viewathlete" -> new ViewAthleteCommand(trimmedInput);
-            case "/listathletes" -> new ListAthleteCommand();
-            case "/deleteathlete" -> new DeleteAthleteCommand(trimmedInput);
-
-            /*------------------SESSION COMMANDS ------------------ */
-            case "/newsession" -> new NewSessionCommand(trimmedInput);
-            case "/deletesession" -> new DeleteSessionCommand(trimmedInput);
-            case "/completesession" -> new CompleteSessionCommand(trimmedInput);
-            case "/viewsessions" -> new ViewSessionsCommand(trimmedInput);
-            case "/updatesessionnote" -> new UpdateSessionNotesCommand(trimmedInput);
-            case "/undosession" -> new UndoSessionCommand(trimmedInput);
-
-            /*------------------EXERCISE COMMANDS ------------------ */
-            case "/newexercise" -> new NewExerciseCommand(trimmedInput);
-            case "/deleteexercise" -> new DeleteExerciseCommand(trimmedInput);
-            case "/viewexercises" -> new ViewExerciseCommand(trimmedInput); //TODO Error: Athlete not found - 0001
-            case "/completeexercise" -> new CompleteExerciseCommand(trimmedInput);
-            case "/undoexercise" -> new UndoExerciseCommand(trimmedInput);
-
-            default -> throw new InvalidCommandException("Input keyword not found.");
+        case "bye" -> new ExitCommand();
+        /*------------------ATHLETE COMMANDS ------------------ */
+        case "/newathlete" -> new NewAthleteCommand(trimmedInput);
+        case "/viewathlete" -> new ViewAthleteCommand(trimmedInput);
+        case "/listathletes" -> new ListAthleteCommand();
+        case "/deleteathlete" -> new DeleteAthleteCommand(trimmedInput);
+        /*------------------SESSION COMMANDS ------------------ */
+        case "/newsession" -> new NewSessionCommand(trimmedInput);
+        case "/deletesession" -> new DeleteSessionCommand(trimmedInput);
+        case "/completesession" -> new CompleteSessionCommand(trimmedInput);
+        case "/viewsessions" -> new ViewSessionsCommand(trimmedInput);
+        case "/updatesessionnote" -> new UpdateSessionNotesCommand(trimmedInput);
+        case "/undosession" -> new UndoSessionCommand(trimmedInput);
+        /*------------------EXERCISE COMMANDS ------------------ */
+        case "/newexercise" -> new NewExerciseCommand(trimmedInput);
+        case "/deleteexercise" -> new DeleteExerciseCommand(trimmedInput);
+        case "/viewexercises" -> new ViewExerciseCommand(trimmedInput);
+        case "/completeexercise" -> new CompleteExerciseCommand(trimmedInput);
+        case "/undoexercise" -> new UndoExerciseCommand(trimmedInput);
+        default -> throw new InvalidCommandException("Input keyword not found.");
         };
     }
 
     /*HELPER FUNCTIONS
-    * -----------------------------------
-    * USE THESE
-    */
+     * -----------------------------------
+     * USE THESE
+     */
     public static String checkAthleteIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
 
@@ -160,7 +157,7 @@ public class Parser {
         return exerciseID;
     }
 
-    public static String onlyDescription(String inputString)  throws InvalidCommandException {
+    public static String onlyDescription(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
 
@@ -172,12 +169,14 @@ public class Parser {
     }
 
 
-    public static String isTrainingNotes(String inputString)  throws InvalidCommandException {
+    public static String isTrainingNotes(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
 
         if (parts.length < 4 || parts[3].trim().isEmpty()) {
-            throw new InvalidCommandException("Training notes cannot be empty.\nThe correct format is:\n/trainingNotes <Athlete ID> <Session ID> <Notes>");
+            throw new InvalidCommandException("Training notes cannot be empty.\n" +
+                    "The correct format is:\n" +
+                    "/trainingNotes <Athlete ID> <Session ID> <Notes>");
         }
 
         return parts[3].trim();

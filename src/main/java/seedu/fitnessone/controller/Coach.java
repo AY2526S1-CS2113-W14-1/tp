@@ -119,7 +119,8 @@ public class Coach {
     }
 
 
-    public void deleteExerciseFromSession(Session session, Exercise exercise) throws InvalidSessionException, InvalidExerciseException {
+    public void deleteExerciseFromSession(Session session, Exercise exercise)
+            throws InvalidSessionException, InvalidExerciseException {
         try {
             session.getExercises().remove(exercise);
         } catch (Exception e) {
