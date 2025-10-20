@@ -10,6 +10,9 @@ public class NewAthleteCommand implements Command{
     public NewAthleteCommand(String trimmedInput) throws InvalidCommandException {
         try {
             this.athleteName = trimmedInput.substring(11).trim();
+            if (this.athleteName.isBlank()) {
+                throw new InvalidCommandException("athlete name was not specified");
+            }
 
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException("athlete name was not specified");
