@@ -54,4 +54,9 @@ public class ViewExerciseCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    public ViewExerciseCommand(String athleteID, String sessionID, boolean skipParser)  {
+        this.athleteID = athleteID;
+        this.sessionID = sessionID;
+    }
 }

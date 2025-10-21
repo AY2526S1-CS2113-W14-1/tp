@@ -50,4 +50,10 @@ public class ViewAthleteCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    // For testing only
+    public ViewAthleteCommand(String athleteID, boolean skipParser) {
+        this.athleteID = athleteID;
+    }
+
 }

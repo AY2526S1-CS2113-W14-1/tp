@@ -46,4 +46,8 @@ public class ViewSessionsCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    public ViewSessionsCommand(String athleteID, boolean skipParser) {
+        this.athleteID = athleteID;
+    }
 }
