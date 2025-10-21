@@ -1,5 +1,8 @@
 package seedu.fitnessone.command;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
@@ -8,8 +11,6 @@ import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ViewExerciseCommandTest {
 
@@ -62,7 +63,12 @@ class ViewExerciseCommandTest {
         CoachStub coach = new CoachStub();
         UiStub ui = new UiStub();
 
-        ViewExerciseCommand command = new ViewExerciseCommand(coach.testAthlete.getAthleteID(), coach.testSession.getSessionIdString(), true);
+        ViewExerciseCommand command = new ViewExerciseCommand(
+                coach.testAthlete.getAthleteID(),
+                coach.testSession.getSessionIdString(),
+                true
+        );
+
         command.execute(coach, ui);
 
         String out = ui.output.toString();

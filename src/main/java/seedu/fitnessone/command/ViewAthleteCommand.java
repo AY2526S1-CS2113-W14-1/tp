@@ -18,6 +18,11 @@ public class ViewAthleteCommand implements Command {
         this.athleteID = Parser.checkAthleteIDValidity(athleteID);
     }
 
+    // For testing only
+    public ViewAthleteCommand(String athleteID, boolean skipParser) {
+        this.athleteID = athleteID;
+    }
+
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
@@ -49,11 +54,6 @@ public class ViewAthleteCommand implements Command {
     @Override
     public boolean isExit() {
         return false;
-    }
-
-    // For testing only
-    public ViewAthleteCommand(String athleteID, boolean skipParser) {
-        this.athleteID = athleteID;
     }
 
 }

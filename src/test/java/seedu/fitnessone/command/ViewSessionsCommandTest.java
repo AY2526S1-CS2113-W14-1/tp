@@ -1,5 +1,8 @@
 package seedu.fitnessone.command;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
@@ -7,8 +10,6 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ViewSessionsCommandTest {
 
@@ -53,7 +54,12 @@ class ViewSessionsCommandTest {
         command.execute(coach, ui);
 
         String out = ui.output.toString();
-        assertTrue(out.contains("Athlete ID | Name: " + coach.testAthlete.getAthleteID() + " - " + coach.testAthlete.getAthleteName()));
+        assertTrue(out.contains(
+                "Athlete ID | Name: "
+                        + coach.testAthlete.getAthleteID()
+                        + " - "
+                        + coach.testAthlete.getAthleteName()
+        ));
         assertTrue(out.contains("Session 1. | Notes: chest") || out.contains("chest"));
         assertTrue(out.contains("Session 2. | Notes: legs") || out.contains("legs"));
     }
