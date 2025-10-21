@@ -6,20 +6,28 @@ import seedu.fitnessone.exception.InvalidExerciseException;
 
 public class Session {
     private final ArrayList<Exercise> exercises;
-    private int sessionId; //maybe can be LocalDate?
+    private int sessionIndex;
     private String trainingNotes;
     private boolean isCompleted;
+    private final String sessionIdString;
+    private int nextExerciseIndex = 0;
 
-    public Session(int sessionId, String trainingNotes) {
-        this.sessionId = sessionId;
+    public Session(int sessionIndex, String trainingNotes) {
+        this.sessionIndex = sessionIndex;
         this.trainingNotes = trainingNotes;
         this.exercises = new ArrayList<>();
-        isCompleted = false;
+        this.isCompleted = false;
+        this.sessionIdString = String.format("%03d", sessionIndex);
+
+        if(trainingNotes.trim().isEmpty()) {
+            this.trainingNotes = "EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>";
+        }
     }
 
-    public int getSessionId() {
-        return sessionId;
+    public String getSessionIdString() {
+        return sessionIdString;
     }
+
 
     public String getTrainingNotes() {
         return trainingNotes;
@@ -45,8 +53,11 @@ public class Session {
         this.isCompleted = false;
     }
 
-    public void addExercise(Exercise exercise) {
-        this.exercises.add(exercise);
+    public Exercise addExercise(String description, int sets, int reps) {
+        nextExerciseIndex = (nextExerciseIndex +1) % 100;
+        Exercise newExercise = new Exercise(nextExerciseIndex, description, sets, reps);
+        this.exercises.add(newExercise);
+        return newExercise;
     }
 
     public void removeExercise(int exerciseID) throws InvalidExerciseException {

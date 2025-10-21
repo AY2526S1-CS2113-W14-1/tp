@@ -5,8 +5,10 @@ public class Exercise {
     private final int reps;
     private final int sets;
     private boolean isCompleted;
+    private final String exerciseIDString;
 
-    public Exercise(String exerciseDescription, int sets, int reps) {
+    public Exercise(int exerciseIDString, String exerciseDescription, int sets, int reps) {
+        this.exerciseIDString = String.format("%02d", exerciseIDString);
         this.exerciseDescription = exerciseDescription;
         this.sets = sets;
         this.reps = reps;
@@ -15,6 +17,10 @@ public class Exercise {
 
     public String getExerciseDescription() {
         return exerciseDescription;
+    }
+
+    public String getExerciseIDString() {
+        return exerciseIDString;
     }
 
     public int getReps() {

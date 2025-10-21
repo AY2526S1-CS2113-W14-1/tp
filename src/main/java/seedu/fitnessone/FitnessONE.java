@@ -2,8 +2,11 @@ package seedu.fitnessone;
 
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.controller.Coach;
+import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidIDException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
@@ -32,6 +35,8 @@ public class FitnessONE {
             } catch (InvalidIDException e) {
                 view.printWithDivider("InvalidIDException: " + e.getMessage());
 
+            } catch (InvalidSessionException | InvalidExerciseException | InvalidAthleteException e) {
+                throw new RuntimeException(e);
             }
         }
     }

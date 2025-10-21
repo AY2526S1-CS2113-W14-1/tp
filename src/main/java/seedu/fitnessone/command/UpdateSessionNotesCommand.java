@@ -4,22 +4,20 @@ import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidSessionException;
-import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.model.Athlete;
-import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
-public class DeleteExerciseCommand implements Command {
+public class UpdateSessionNotesCommand implements Command {
     private final String athleteID;
     private final String sessionID;
-    private final String exerciseID;
+    private final String sessionNotes;
 
-    public DeleteExerciseCommand(String inputString) throws InvalidCommandException {
+    public UpdateSessionNotesCommand(String inputString) throws InvalidCommandException {
         this.athleteID = Parser.checkAthleteIDValidity(inputString);
         this.sessionID = Parser.checkSessionIDValidity(inputString);
-        this.exerciseID = Parser.checkExerciseIDValidity(inputString);
+        this.sessionNotes = Parser.isTrainingNotes(inputString);
     }
 
     @Override
@@ -27,10 +25,13 @@ public class DeleteExerciseCommand implements Command {
         try {
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
-            Exercise exercise = coachController.accessExerciseID(session, exerciseID);
-            coachController.deleteExerciseFromSession(session, exercise);
 
-        } catch (InvalidAthleteException | InvalidSessionException | InvalidExerciseException e) {
+            session.setTrainingNotes(sessionNotes);
+
+            view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
+                    " session: " + sessionID + " with notes: " + sessionNotes + ".");
+
+        } catch (InvalidAthleteException | InvalidSessionException e) {
             throw new InvalidCommandException(e.getMessage());
         }
     }
