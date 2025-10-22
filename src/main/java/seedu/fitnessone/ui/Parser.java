@@ -22,6 +22,7 @@ import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.command.FlagAthleteCommand;
 
 public class Parser {
 
@@ -47,6 +48,7 @@ public class Parser {
         case "/viewathlete" -> new ViewAthleteCommand(trimmedInput);
         case "/listathletes" -> new ListAthleteCommand();
         case "/deleteathlete" -> new DeleteAthleteCommand(trimmedInput);
+        case "/flagathlete" -> new FlagAthleteCommand(trimmedInput);
         /*------------------SESSION COMMANDS ------------------ */
         case "/newsession" -> new NewSessionCommand(trimmedInput);
         case "/deletesession" -> new DeleteSessionCommand(trimmedInput);
