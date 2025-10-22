@@ -15,15 +15,18 @@ public class Athlete {
     private final String athleteName;
     private final ArrayList<Session> sessions;
     private int sessionIdCounter = 0;
+    private String flagColor;
 
     public Athlete(String athleteName) {
         this.athleteID = String.format("%04d", nextIntID++);
         this.athleteName = athleteName;
         this.sessions = new ArrayList<>();
+        this.flagColor = "";
     }
 
     public String toString() {
-        return getAthleteID() + ": " + getAthleteName();
+        String flag = (flagColor != null && !flagColor.isEmpty()) ? flagColor : " ";
+        return "[" + flag + "] " + athleteName + " (" + athleteID + ")";
     }
 
     public String getAthleteID() {
@@ -60,5 +63,14 @@ public class Athlete {
     }
     public ArrayList<Session> getSessions() {
         return sessions;
+    }
+
+
+    public String getFlagColor() {
+        return flagColor;
+    }
+
+    public void setFlagColor(String flagColor) {
+        this.flagColor = flagColor;
     }
 }

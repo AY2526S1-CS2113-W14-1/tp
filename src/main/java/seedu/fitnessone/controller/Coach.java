@@ -74,6 +74,7 @@ public class Coach {
             int index = i + 1;
             view.print(index + ". ");
             view.println(athletes.get(i).toString());
+
         }
         view.println("");
         view.divider();
@@ -126,6 +127,25 @@ public class Coach {
         } catch (Exception e) {
             throw new RuntimeException();
         }
+    }
+
+    public void flagAthlete(String athleteID, String flagColor) throws InvalidAthleteException {
+        Athlete athlete = findAthleteByID(athleteID);
+        athlete.setFlagColor(flagColor);
+    }
+
+    private Athlete findAthleteByID(String athleteID) throws InvalidAthleteException {
+        if (athleteID == null || athleteID.isBlank()) {
+            throw new InvalidAthleteException("Athlete ID cannot be empty.");
+        }
+
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteID().equalsIgnoreCase(athleteID)) {
+                return athlete;
+            }
+        }
+
+        throw new InvalidAthleteException("Athlete not found with ID: " + athleteID);
     }
 }
 
