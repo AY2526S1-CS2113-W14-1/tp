@@ -30,16 +30,16 @@ public class FlagAthleteCommand implements Command {
 
     private String colorToEmoji(String color) {
         return switch (color.toLowerCase()) {
-            case "red" -> "\uD83D\uDFE5";
-            case "yellow" -> "\uD83D\uDFE8";
-            case "green" -> "\uD83D\uDFE9";
-            case "blue" -> "\uD83D\uDFE6";
-            case "orange" -> "\uD83D\uDFE7";
-            case "purple" -> "\uD83D\uDFEA";
-            case "brown" -> "\uD83D\uDFEB";
-            case "black" -> "⬛";
-            case "white" -> "⬜";
-            default -> color;
+        case "red" -> "\uD83D\uDFE5";
+        case "yellow" -> "\uD83D\uDFE8";
+        case "green" -> "\uD83D\uDFE9";
+        case "blue" -> "\uD83D\uDFE6";
+        case "orange" -> "\uD83D\uDFE7";
+        case "purple" -> "\uD83D\uDFEA";
+        case "brown" -> "\uD83D\uDFEB";
+        case "black" -> "⬛";
+        case "white" -> "⬜";
+        default -> color;
         };
     }
 
