@@ -1,38 +1,79 @@
 # Developer Guide
+Format inspired by [addressbook-level3](https://se-education.org/addressbook-level3/DeveloperGuide.html#proposed-undoredo-feature)
+
+## Table of Contents
+* [Acknowledgements](#acknowledgements)
+* [Setting up, getting started](#setting-up-getting-started)
+* [Design](#design)
+  * [Architecture](#architecture)
+  * [UI component](#ui-component)
+  * [Logic component](#logic-component)
+  * [Model component](#model-component)
+  * [Storage component](#storage-component)
+  * [Common classes](#common-classes)
+* [Implementation](#implementation)
+  * [[Proposed] Undo/redo feature](#proposed-undoredo-feature)
+    * [Proposed Implementation](#proposed-implementation)
+    * [Design considerations](#design-considerations)
+  * [[Proposed] Data archiving](#proposed-data-archiving)
+* [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+* [Appendix: Requirements](#appendix-requirements)
+  * [Product scope](#product-scope)
+  * [User stories](#user-stories)
+  * [Use cases](#use-cases)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+* [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  * [Launch and shutdown](#launch-and-shutdown)
+  * [Deleting a person](#deleting-a-person)
+  * [Saving data](#saving-data)
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+## Setting up, getting started
 
-## Design & implementation
+## Design
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+### Architecture
 
+### UI component
 
-## Product scope
-### Target user profile
+### Logic component
 
-{Describe the target user profile}
+### Model component
 
-### Value proposition
+### Storage component
 
-{Describe the value proposition: what problem does it solve?}
+### Common classes
 
-## User Stories
+## Implementation
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+### [Proposed] Undo/redo feature
 
-## Non-Functional Requirements
+#### Proposed Implementation
 
-{Give non-functional requirements}
+#### Design considerations
 
-## Glossary
+### [Proposed] Data archiving
 
-* *glossary item* - Definition
+## Documentation, logging, testing, configuration, dev-ops
 
-## Instructions for manual testing
+## Appendix: Requirements
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Product scope
+
+### User stories
+
+### Use cases
+
+### Non-Functional Requirements
+
+### Glossary
+
+## Appendix: Instructions for manual testing
+
+### Launch and shutdown
+
+### Deleting a person
+
+### Saving data
