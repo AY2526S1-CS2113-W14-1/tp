@@ -31,7 +31,7 @@ public class NewSessionCommandTest {
     }
 
     @Test
-    public void constructor_validInputWithoutTraningNotes_createsNewSession() throws InvalidCommandException {
+    public void constructor_validInputWithoutTrainingNotes_createsNewSession() throws InvalidCommandException {
         String input = "NewSession 0001 0001";
         NewSessionCommand command = new NewSessionCommand(input);
         assertNotNull(command);
@@ -65,13 +65,13 @@ public class NewSessionCommandTest {
         NewAthleteCommand command = new NewAthleteCommand(input);
 
         command.execute(coachTest, uiStub);
-
-        String input_newSession = "NewSession 0001 Legs";
-        NewSessionCommand Scommand = new NewSessionCommand(input_newSession);
-        Scommand.execute(coachTest, uiStub);
+        String athleteId = coachTest.accessAthlete(athleteName).getAthleteID();
+        String inputNewSession = "NewSession "+ athleteId +" Legs";
+        NewSessionCommand sessionCommand = new NewSessionCommand(inputNewSession);
+        sessionCommand.execute(coachTest, uiStub);
         assertEquals(2, coachTest.accessAthlete("John Doe").getSessionID());
         assertEquals("New session created:\n" +
-                " Athlete Name: John Doe | ID: 0001\n" +
+                " Athlete Name: John Doe | ID: "+athleteId+"\n" +
                 "\n" +
                 "Session ID: 001\n" +
                 "Session Description: Legs\n", uiStub.lastPrinted);
@@ -87,12 +87,13 @@ public class NewSessionCommandTest {
 
         command.execute(coachTest, uiStub);
 
-        String input_newSession = "NewSession 0001 0001";
-        NewSessionCommand Scommand = new NewSessionCommand(input_newSession);
-        Scommand.execute(coachTest, uiStub);
+        String athleteId = coachTest.accessAthlete(athleteName).getAthleteID();
+        String inputNewSession = "NewSession "+ athleteId + " "+ athleteId;
+        NewSessionCommand sessionCommand = new NewSessionCommand(inputNewSession);
+        sessionCommand.execute(coachTest, uiStub);
         assertEquals(2, coachTest.accessAthlete("John Doe").getSessionID());
         assertEquals("New session created:\n" +
-                " Athlete Name: John Doe | ID: 0001\n" +
+                " Athlete Name: John Doe | ID: "+athleteId+"\n" +
                 "\n" +
                 "Session ID: 001\n" +
                 "Session Description: EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>\n",
@@ -110,11 +111,11 @@ public class NewSessionCommandTest {
 
         command.execute(coachTest, uiStub);
 
-        String input_newSession = "NewSession 0002 blah";
-        NewSessionCommand Scommand = new NewSessionCommand(input_newSession);
+        String inputNewSession = "NewSession 0002 blah";
+        NewSessionCommand sessionCommand = new NewSessionCommand(inputNewSession);
 
         InvalidAthleteException exception = assertThrows(InvalidAthleteException.class, () -> {
-            Scommand.execute(coachTest, uiStub);
+            sessionCommand.execute(coachTest, uiStub);
         });
         assertEquals("Athlete not found: 0002",  exception.getMessage());
     }
