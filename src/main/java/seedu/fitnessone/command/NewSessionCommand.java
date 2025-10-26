@@ -49,13 +49,11 @@ public class NewSessionCommand implements Command {
         Athlete athlete = coachController.accessAthleteID(this.athleteID);
         Session newSession = coachController.addSessionToAthlete(athleteID, trainingNotes);
 
-        view.divider();
-        view.println("New session created:");
-        view.println(" Athlete Name: " + athlete.getAthleteName() + " | ID: " + athleteID);
-        view.println("");
-        view.println("Session ID: " + newSession.getSessionIdString());
-        view.println("Session Description: " + newSession.getTrainingNotes());
-        view.divider();
+        String output = "New session created:\n" + " Athlete Name: "
+                + athlete.getAthleteName() + " | ID: " + athleteID + "\n\n"
+                + "Session ID: " + newSession.getSessionIdString() + "\n"
+                + "Session Description: " + newSession.getTrainingNotes() + "\n";
+        view.printWithDivider(output);
     }
 
     /**
