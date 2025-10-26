@@ -56,7 +56,8 @@ public class NewSessionCommandTest {
     }
 
     @Test
-    public void execute_validSession_addsSessionAndPrints() throws InvalidCommandException, InvalidAthleteException {
+    public void execute_validSession_addsSessionAndPrints()
+            throws InvalidCommandException, InvalidAthleteException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
@@ -76,7 +77,8 @@ public class NewSessionCommandTest {
                 "Session Description: Legs\n", uiStub.lastPrinted);
     }
     @Test
-    public void execute_validSessionWithoutTrainNote_addsSessionAndPrints() throws InvalidCommandException, InvalidAthleteException {
+    public void execute_validSessionWithoutTrainNote_addsSessionAndPrints()
+            throws InvalidCommandException, InvalidAthleteException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
@@ -93,11 +95,13 @@ public class NewSessionCommandTest {
                 " Athlete Name: John Doe | ID: 0001\n" +
                 "\n" +
                 "Session ID: 001\n" +
-                "Session Description: EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>\n", uiStub.lastPrinted);
+                "Session Description: EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>\n",
+                uiStub.lastPrinted);
     }
 
     @Test
-    public void execute_InvalidSession1_addsSessionAndPrints() throws InvalidCommandException, InvalidAthleteException {
+    public void execute_invalidSession1_addsSessionAndPrints()
+            throws InvalidCommandException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
