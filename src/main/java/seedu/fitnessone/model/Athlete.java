@@ -16,12 +16,14 @@ public class Athlete {
     private final ArrayList<Session> sessions;
     private int sessionIdCounter = 0;
     private String flagColor;
+    private int achievementScore;
 
     public Athlete(String athleteName) {
         this.athleteID = String.format("%04d", nextIntID++);
         this.athleteName = athleteName;
         this.sessions = new ArrayList<>();
         this.flagColor = "";
+        this.achievementScore = 0;
     }
 
     public String toString() {
@@ -44,6 +46,25 @@ public class Athlete {
     public int getSessionID() {
         sessionIdCounter++;
         return sessionIdCounter;
+    }
+
+    public int getAchievementScore() {
+        setAchivementScore();
+        return achievementScore;
+    }
+
+    public void setAchivementScore() {
+        achievementScore = 0;
+        for (Session session : sessions) {
+            for (Exercise exercise : session.getExercises()) {
+                if (exercise.isCompleted()){
+                    achievementScore++;
+                }
+            }
+            if (session.isCompleted()){
+                achievementScore++;
+            }
+        }
     }
 
     public void removeSession(String sessionID) throws InvalidSessionException {

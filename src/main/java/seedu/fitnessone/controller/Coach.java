@@ -147,6 +147,41 @@ public class Coach {
 
         throw new InvalidAthleteException("Athlete not found with ID: " + athleteID);
     }
+
+    private class AthleteAchievement {
+        String athleteName;
+        String athleteId;
+        int score;
+        AthleteAchievement(String athleteName, String athleteId, int score){
+            this.athleteName = athleteName;
+            this.athleteId = athleteId;
+            this.score = score;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%-15s %-4s %3d%n", athleteName, athleteId, score);
+        }
+    }
+    public String leaderboardConstruct(){
+        if (athletes.isEmpty()) {
+            return "No athletes found sia, add some athletes and let them do workout!!";
+        }
+        List<AthleteAchievement> leaderboard = new ArrayList<>();
+        for  (Athlete athlete : athletes) {
+            leaderboard.add(new AthleteAchievement(athlete.getAthleteName(),
+                    athlete.getAthleteID(), athlete.getAchievementScore()));
+        }
+        leaderboard.sort((a,b) -> Integer.compare(b.score, a.score));
+        String leaderboardConstruct = "";
+        leaderboardConstruct += String.format("%-15s %-4s %3s%n", "athleteName", "AthleteId", "score");
+        leaderboardConstruct += "    ____________________________________________________________\n";
+        for (AthleteAchievement athlete : leaderboard) {
+            leaderboardConstruct += "    ";
+            leaderboardConstruct += athlete.toString();
+        }
+        return leaderboardConstruct;
+    }
 }
 
 
