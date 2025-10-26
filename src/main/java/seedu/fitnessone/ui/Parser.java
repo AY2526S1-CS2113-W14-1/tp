@@ -7,6 +7,7 @@ import seedu.fitnessone.command.CompleteSessionCommand;
 import seedu.fitnessone.command.DeleteExerciseCommand;
 import seedu.fitnessone.command.DeleteSessionCommand;
 import seedu.fitnessone.command.ExitCommand;
+import seedu.fitnessone.command.LeaderboardCommand;
 import seedu.fitnessone.command.NewExerciseCommand;
 import seedu.fitnessone.command.NewSessionCommand;
 import seedu.fitnessone.command.NewAthleteCommand;
@@ -49,6 +50,7 @@ public class Parser {
         case "/listathletes" -> new ListAthleteCommand();
         case "/deleteathlete" -> new DeleteAthleteCommand(trimmedInput);
         case "/flagathlete" -> new FlagAthleteCommand(trimmedInput);
+        case "/leaderboard" -> new LeaderboardCommand();
         /*------------------SESSION COMMANDS ------------------ */
         case "/newsession" -> new NewSessionCommand(trimmedInput);
         case "/deletesession" -> new DeleteSessionCommand(trimmedInput);
