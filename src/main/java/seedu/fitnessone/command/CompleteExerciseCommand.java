@@ -26,7 +26,7 @@ public class CompleteExerciseCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
-            Athlete athlete = coachController.accessAthlete(athleteID);
+            Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
             ArrayList<Exercise> exercises = session.getExercises();
 
