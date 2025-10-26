@@ -160,7 +160,7 @@ public class Coach {
 
         @Override
         public String toString() {
-            return String.format("%-15s %-4s %3d%n", athleteName, athleteId, score);
+            return String.format("%-15s %-7s %3d%n", athleteName, athleteId, score);
         }
     }
     public String leaderboardConstruct(){
@@ -174,7 +174,7 @@ public class Coach {
         }
         leaderboard.sort((a,b) -> Integer.compare(b.score, a.score));
         String leaderboardConstruct = "";
-        leaderboardConstruct += String.format("%-15s %-4s %3s%n", "athleteName", "AthleteId", "score");
+        leaderboardConstruct += String.format("%-15s %-7s %3s%n", "athleteName", "athleteId", "score");
         leaderboardConstruct += "    ____________________________________________________________\n";
         for (AthleteAchievement athlete : leaderboard) {
             leaderboardConstruct += "    ";

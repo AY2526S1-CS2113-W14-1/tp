@@ -330,6 +330,34 @@ Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)
 =========================================================
 
 ```
+
+### Viewing leaderboard  : `/leaderboard`
+This function is used to view the achievements of all athletes by ranking them
+
+
+Format: `/leaderboard`
+
+Example of usage:
+
+```
+/leaderboard
+
+```
+
+Output:
+
+```
+____________________________________________________________
+athleteName     athleteId score
+____________________________________________________________
+xi              0003      2
+trump           0002      1
+john doe        0001      0
+
+____________________________________________________________
+
+```
+
 ### Exit FitnessONE  : `bye`
 This function exits the program.
 
