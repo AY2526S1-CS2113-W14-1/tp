@@ -40,7 +40,10 @@ public class Athlete {
     }
 
     public void addSession(Session session) {
+        assert session != null : "ERROR: Session can not be null.";
+        int before = sessions.size();
         sessions.add(session);
+        assert sessions.size() == before + 1 : "ERROR: Session not added correctly. Verify.";
     }
 
     public int getSessionID() {
