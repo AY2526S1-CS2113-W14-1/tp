@@ -73,7 +73,8 @@ public class CaloriesIntakeCommandTest {
         cmd.execute(coach, ui);
 
         CaloriesIntake intake = coach.testAthlete.getCaloriesIntakeByDate(LocalDate.of(2025, 10, 28));
-        assertEquals("Calories intake recorded for Athlete 0001 on 2025-10-28 (Carbs: 200, Protein: 150, Fat: 50)", ui.lastPrinted);
+        assertEquals("Calories intake recorded for Athlete 0001 on 2025-10-28 (Carbs: 200, Protein: 150, " +
+                "Fat: 50)", ui.lastPrinted);
     }
 
     @Test
