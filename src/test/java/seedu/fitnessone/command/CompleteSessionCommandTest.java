@@ -7,7 +7,6 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CompleteSessionCommandTest {
