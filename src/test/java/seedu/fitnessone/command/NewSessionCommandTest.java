@@ -96,7 +96,8 @@ public class NewSessionCommandTest {
                         " Athlete Name: John Doe | ID: "+athleteId+"\n" +
                         "\n" +
                         "Session ID: 001\n" +
-                        "Session Description: EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>\n",
+                        "Session Description: EMPTY. Add sessions notes with: " +
+                        "/UpdateSessionNote <athlete> <session> <notes>\n",
                 uiStub.lastPrinted);
     }
 

@@ -54,7 +54,8 @@ public class CompleteExerciseCommandTest {
         String sessionId = "001";
 
         // add an exercise to the session
-        NewExerciseCommand newExercise = new NewExerciseCommand("NewExercise " + athleteId + " " + sessionId + " Pushups 5 5");
+        NewExerciseCommand newExercise = new NewExerciseCommand("NewExercise "
+                + athleteId + " " + sessionId + " Pushups 5 5");
         newExercise.execute(coachTest, uiStub);
 
         // retrieve the exercise id from the session (assumes first exercise is the one added)
