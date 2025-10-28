@@ -1,29 +1,14 @@
 package seedu.fitnessone.ui;
 
 
-import seedu.fitnessone.command.Command;
-import seedu.fitnessone.command.CompleteExerciseCommand;
-import seedu.fitnessone.command.CompleteSessionCommand;
-import seedu.fitnessone.command.DeleteExerciseCommand;
-import seedu.fitnessone.command.DeleteSessionCommand;
-import seedu.fitnessone.command.ExitCommand;
-import seedu.fitnessone.command.LeaderboardCommand;
-import seedu.fitnessone.command.NewExerciseCommand;
-import seedu.fitnessone.command.NewSessionCommand;
-import seedu.fitnessone.command.NewAthleteCommand;
-import seedu.fitnessone.command.DeleteAthleteCommand;
-import seedu.fitnessone.command.ListAthleteCommand;
-import seedu.fitnessone.command.ViewAthleteCommand;
-import seedu.fitnessone.command.ViewSessionsCommand;
-import seedu.fitnessone.command.ViewExerciseCommand;
-import seedu.fitnessone.command.UndoExerciseCommand;
-import seedu.fitnessone.command.UndoSessionCommand;
-import seedu.fitnessone.command.UpdateSessionNotesCommand;
+import seedu.fitnessone.command.*;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
-import seedu.fitnessone.command.FlagAthleteCommand;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -64,6 +49,9 @@ public class Parser {
         case "/viewexercises" -> new ViewExerciseCommand(trimmedInput);
         case "/completeexercise" -> new CompleteExerciseCommand(trimmedInput);
         case "/undoexercise" -> new UndoExerciseCommand(trimmedInput);
+        /*------------------CALORIES INTAKE COMMANDS ------------------ */
+        case "/caloriesintake" -> new CaloriesIntakeCommand(trimmedInput);
+        case "/viewcaloriesintake" -> new ViewCaloriesIntakeCommand(trimmedInput);
         default -> throw new InvalidCommandException("Input keyword not found.");
         };
     }
@@ -161,6 +149,21 @@ public class Parser {
         return exerciseID;
     }
 
+    public static LocalDate checkDateValidity(String inputString) throws InvalidCommandException {
+        String[] parts = inputString.split("\\s+");
+        if (parts.length < 3) {
+            throw new InvalidCommandException("Date is missing. Format: YYYY-MM-DD");
+        }
+
+        String dateStr = parts[2].trim(); // /caloriesIntake <athleteID> <date> ...
+        try {
+            return LocalDate.parse(dateStr); //YYYY-MM-DD
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException("Invalid date format. Must be YYYY-MM-DD.");
+        }
+    }
+
+
     public static String onlyDescription(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
@@ -184,6 +187,22 @@ public class Parser {
         }
 
         return parts[3].trim();
+    }
+
+    public static int[] parseIntakeValues(String inputString) throws InvalidCommandException {
+        String[] parts = inputString.split("\\s+");
+        if (parts.length < 6) {
+            throw new InvalidCommandException("Intake requires 3 numeric values: carbs protein fat");
+        }
+        int[] values = new int[3];
+        try {
+            values[0] = Integer.parseInt(parts[3]);
+            values[1] = Integer.parseInt(parts[4]);
+            values[2] = Integer.parseInt(parts[5]);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Carbs, protein, fat must be integers.");
+        }
+        return values;
     }
 
 

@@ -5,12 +5,14 @@ import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
+import seedu.fitnessone.model.CaloriesIntake;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 
 import seedu.fitnessone.ui.Ui;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +134,17 @@ public class Coach {
     public void flagAthlete(String athleteID, String flagColor) throws InvalidAthleteException {
         Athlete athlete = findAthleteByID(athleteID);
         athlete.setFlagColor(flagColor);
+    }
+
+    public void setCaloriesIntake(String athleteID, LocalDate date, int carbs, int protein, int fat)
+            throws InvalidAthleteException {
+        Athlete athlete = accessAthleteID(athleteID);
+        athlete.addCaloriesIntake(new CaloriesIntake(date, carbs, protein, fat));
+    }
+
+    public CaloriesIntake getCaloriesIntake(String athleteID, LocalDate date) throws InvalidAthleteException {
+        Athlete athlete = accessAthleteID(athleteID);
+        return athlete.getCaloriesIntakeByDate(date);
     }
 
     private Athlete findAthleteByID(String athleteID) throws InvalidAthleteException {

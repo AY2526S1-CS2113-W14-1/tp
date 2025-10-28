@@ -13,7 +13,7 @@ Value Proposition: FitnessONE offers coaches a simple yet comprehensive platform
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `FitnessONE` from [here](https://github.com/AY2526S1-CS2113-W14-1/tp).
+2. Down the latest version of `FitnessONE` from [here](https://github.com/AY2526S1-CS2113-W14-1/tp).
 
 ## Features 
 
@@ -231,6 +231,45 @@ Exercise (ID: 02), Session (ID: 003) has been marked as not completed for jonas 
 =========================================================
 ```
 
+### Recording Daily Calories Intake: `/caloriesIntake`
+Allows the coach to log or update an athlete's daily calorie intake.  
+If an intake is already recorded for that date, it will be replaced, with a warning shown.
+
+Format: `/caloriesIntake <Athlete ID> <YYYY-MM-DD> <Calories>`
+
+Example of usage:
+
+```
+/caloriesIntake 0001 2025-10-28 50 20 20
+```
+
+Output:
+
+```
+=========================================================
+Calories intake recorded for Athlete 0001 on 2025-10-28 (Carbs: 50, Protein: 20, Fat: 20)
+=========================================================
+```
+
+### Viewing Daily Calories Intake: `/viewCaloriesIntake`
+Allows the coach to view an athlete's calorie intake for a specific date.
+
+Format: `/viewCaloriesIntake <Athlete ID> <YYYY-MM-DD>`
+
+Example of usage:
+
+```
+/viewCaloriesIntake 0001 2025-10-28
+```
+
+Output:
+
+```
+=========================================================
+Calories intake for Athlete 0001 on 2025-10-28 (Carbs: 50, Protein: 20, Fat: 20)
+=========================================================
+```
+
 ### Viewing Athlete's all Sessions  : `/viewSession`
 View the Session ID which is used in other commands
 
@@ -241,7 +280,6 @@ Example of usage:
 
 ```
 /viewSession 0001
-
 ```
 
 Output:
@@ -390,11 +428,13 @@ Bye. Hope to see you again soon!
 * Add a new Athlete `/newAthlete <Athlete ID>`
 * View Athlete Details `/viewAthlete <Athlete ID>`
 * Add a Session to an Athlete `/newSession <Athlete ID> <Description>`
-* Add to a Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description>`
-* Updaete a Sessions Notes `/updaetSessionNotes <Athlete ID> <Session ID> <Notes>`
+* Add to an Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description>`
+* Update a Sessions Notes `/updaetSessionNotes <Athlete ID> <Session ID> <Notes>`
 * Mark a Session as Completed `/completeSession <Athlete ID> <Session ID>`
 * Mark an Exercise as Completed `/completeExercise <Athlete ID> <Session ID> <Exercise ID>`
 * View Athletes all Session `/viewSessions <Athlete ID>`
 * View all Exercise of a Session `/viewExercise <Athlete ID> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete ID> <Session ID> <Exercise ID>`
 * Delete Session from Athlete `/deleteSession <Athlete ID> <Session ID>`
+* Record daily calories intake `/caloriesIntake <Athlete ID> <YYYY-MM-DD> <Calories>`
+* View daily calories intake `/viewCaloriesIntake <Athlete ID> <YYYY-MM-DD>`

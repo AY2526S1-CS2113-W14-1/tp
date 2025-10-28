@@ -2,6 +2,7 @@ package seedu.fitnessone.model;
 
 import seedu.fitnessone.exception.InvalidSessionException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,6 +18,7 @@ public class Athlete {
     private int sessionIdCounter = 0;
     private String flagColor;
     private int achievementScore;
+    private final ArrayList<CaloriesIntake> caloriesIntakeList = new ArrayList<>();
 
     public Athlete(String athleteName) {
         this.athleteID = String.format("%04d", nextIntID++);
@@ -97,4 +99,30 @@ public class Athlete {
     public void setFlagColor(String flagColor) {
         this.flagColor = flagColor;
     }
+
+    public void addCaloriesIntake(CaloriesIntake intake) {
+        boolean replaced = false;
+        for (int i = 0; i < caloriesIntakeList.size(); i++) {
+            if (caloriesIntakeList.get(i).getDate().equals(intake.getDate())) {
+                System.out.println("Warning: Previous intake for " + intake.getDate() + " replaced: "
+                        + caloriesIntakeList.get(i));
+                caloriesIntakeList.set(i, intake);
+                replaced = true;
+                break;
+            }
+        }
+        if (!replaced) {
+            caloriesIntakeList.add(intake);
+        }
+    }
+
+    public CaloriesIntake getCaloriesIntakeByDate(LocalDate date) {
+        for (CaloriesIntake c : caloriesIntakeList) {
+            if (c.getDate().equals(date)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }
