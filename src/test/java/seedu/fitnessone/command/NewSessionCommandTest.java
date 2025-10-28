@@ -61,7 +61,7 @@ public class NewSessionCommandTest {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
-        String input = "new athlete " + athleteName;
+        String input = "newAthlete " + athleteName;
         NewAthleteCommand command = new NewAthleteCommand(input);
 
         command.execute(coachTest, uiStub);
@@ -82,7 +82,7 @@ public class NewSessionCommandTest {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
-        String input = "new athlete " + athleteName;
+        String input = "newAthlete " + athleteName;
         NewAthleteCommand command = new NewAthleteCommand(input);
 
         command.execute(coachTest, uiStub);
@@ -93,10 +93,11 @@ public class NewSessionCommandTest {
         sessionCommand.execute(coachTest, uiStub);
         assertEquals(2, coachTest.accessAthlete("John Doe").getSessionID());
         assertEquals("New session created:\n" +
-                " Athlete Name: John Doe | ID: "+athleteId+"\n" +
-                "\n" +
-                "Session ID: 001\n" +
-                "Session Description: EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>\n",
+                        " Athlete Name: John Doe | ID: "+athleteId+"\n" +
+                        "\n" +
+                        "Session ID: 001\n" +
+                        "Session Description: EMPTY. Add sessions notes with: " +
+                        "/UpdateSessionNote <athlete> <session> <notes>\n",
                 uiStub.lastPrinted);
     }
 
@@ -106,7 +107,7 @@ public class NewSessionCommandTest {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "John Doe";
-        String input = "new athlete " + athleteName;
+        String input = "newAthlete " + athleteName;
         NewAthleteCommand command = new NewAthleteCommand(input);
 
         command.execute(coachTest, uiStub);
