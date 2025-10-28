@@ -1,11 +1,31 @@
 package seedu.fitnessone.ui;
 
 
-import seedu.fitnessone.command.*;
+import seedu.fitnessone.command.Command;
+import seedu.fitnessone.command.CompleteExerciseCommand;
+import seedu.fitnessone.command.CompleteSessionCommand;
+import seedu.fitnessone.command.DeleteExerciseCommand;
+import seedu.fitnessone.command.DeleteSessionCommand;
+import seedu.fitnessone.command.ExitCommand;
+import seedu.fitnessone.command.LeaderboardCommand;
+import seedu.fitnessone.command.NewExerciseCommand;
+import seedu.fitnessone.command.NewSessionCommand;
+import seedu.fitnessone.command.NewAthleteCommand;
+import seedu.fitnessone.command.DeleteAthleteCommand;
+import seedu.fitnessone.command.ListAthleteCommand;
+import seedu.fitnessone.command.ViewAthleteCommand;
+import seedu.fitnessone.command.ViewSessionsCommand;
+import seedu.fitnessone.command.ViewExerciseCommand;
+import seedu.fitnessone.command.UndoExerciseCommand;
+import seedu.fitnessone.command.UndoSessionCommand;
+import seedu.fitnessone.command.UpdateSessionNotesCommand;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.command.FlagAthleteCommand;
+import seedu.fitnessone.command.CaloriesIntakeCommand;
+import seedu.fitnessone.command.ViewCaloriesIntakeCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
