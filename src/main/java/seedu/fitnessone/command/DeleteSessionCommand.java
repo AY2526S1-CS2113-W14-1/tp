@@ -10,8 +10,15 @@ import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
 public class DeleteSessionCommand implements Command {
-    private final String athleteID;
-    private final String sessionID;
+    private static final String COMMAND_WORD = "/deletesession";
+    private static final String USAGE = "/deletesession <Athlete ID> <Session ID>";
+    private static final String DESCRIPTION = "Deletes a specific session that" +
+            " is assigned to a specific athlete";
+    private static final String EXAMPLE = "/deletesession 0001 003";
+    private static final String NOTE = "Warning: This action cannot be undone!" +
+            " Athlete ID = 4 digits, Session ID = 3 digits";
+
+    private final String inputString;
 
     /**
      * command constructor.
@@ -19,8 +26,10 @@ public class DeleteSessionCommand implements Command {
      * @param inputString String.
      */
     public DeleteSessionCommand(String inputString) throws InvalidCommandException {
-        this.athleteID = Parser.checkAthleteIDValidity(inputString);
-        this.sessionID = Parser.checkSessionIDValidity(inputString);
+        if (inputString == null || inputString.trim().isEmpty()) {
+            throw new InvalidCommandException("Athlete name cannot be empty.");
+        }
+        this.inputString = inputString;
     }
 
     /**
@@ -31,7 +40,12 @@ public class DeleteSessionCommand implements Command {
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        String athleteID;
+        String sessionID;
         try {
+            athleteID = Parser.checkAthleteIDValidity(inputString);
+            sessionID = Parser.checkSessionIDValidity(inputString);
+
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
             coachController.deleteSessionFromAthlete(athleteID, sessionID);
@@ -49,5 +63,16 @@ public class DeleteSessionCommand implements Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void help(Ui view) {
+        view.divider();
+        view.println("Command: " + COMMAND_WORD);
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
+        view.println("Note: " + NOTE);
+        view.divider();
     }
 }

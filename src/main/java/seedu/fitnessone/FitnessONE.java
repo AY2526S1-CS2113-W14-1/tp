@@ -24,16 +24,23 @@ public class FitnessONE {
     private void run() {
         boolean isExit = false;
         while (!isExit) {
+            Command c = null;
             try {
                 String userInput = view.readCommand();
-                Command c = Parser.parse(userInput);
+                c = Parser.parse(userInput);
                 c.execute(coachController, view);
                 isExit = c.isExit();
             } catch (InvalidCommandException e) {
                 view.printWithDivider("InvalidCommandException: " + e.getMessage());
+                if (c != null) {
+                    c.help(view);
+                }
 
             } catch (InvalidIDException e) {
                 view.printWithDivider("InvalidIDException: " + e.getMessage());
+                if (c != null) {
+                    c.help(view);
+                }
 
             } catch (InvalidSessionException | InvalidExerciseException | InvalidAthleteException e) {
                 throw new RuntimeException(e);
