@@ -10,8 +10,10 @@ import seedu.fitnessone.ui.Ui;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NewExerciseCommandTest {
@@ -85,49 +87,50 @@ public class NewExerciseCommandTest {
 
     @Test
     public void execute_invalidSetsOrReps_printsWarning()
-            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+            throws InvalidCommandException, InvalidAthleteException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         String athleteName = "Jonas Hardwell";
 
-        NewAthleteCommand newAthlete = new NewAthleteCommand("newAthlete " + athleteName);
-        newAthlete.execute(coach, ui);
-
+        new NewAthleteCommand("newAthlete " + athleteName).execute(coach, ui);
         String athleteId = coach.accessAthlete(athleteName).getAthleteID();
-        NewSessionCommand newSession = new NewSessionCommand("NewSession " + athleteId + " Back");
-        newSession.execute(coach, ui);
+        new NewSessionCommand("NewSession " + athleteId + " Back").execute(coach, ui);
 
         String sessionId = "001";
-
         NewExerciseCommand newExercise = new NewExerciseCommand(
                 "NewExercise " + athleteId + " " + sessionId + " Pushups five 5");
-        newExercise.execute(coach, ui);
 
-        assertTrue(ui.getOutput().contains("Warning: Sets and reps must be integers."));
+        InvalidCommandException ex = assertThrows(
+                InvalidCommandException.class,
+                () -> newExercise.execute(coach, ui)
+        );
+        assertEquals("Sets and reps must be integers.", ex.getMessage());
     }
 
     @Test
-    public void execute_missingFields_printsUsageWarning()
-            throws InvalidCommandException, InvalidAthleteException,
-            InvalidSessionException, InvalidExerciseException {
+    public void execute_missingFields_throwsInvalidCommandException()
+            throws InvalidCommandException, InvalidAthleteException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         String athleteName = "Jonas Hardwell";
 
-        NewAthleteCommand newAthlete = new NewAthleteCommand("newAthlete " + athleteName);
-        newAthlete.execute(coach, ui);
-
+        new NewAthleteCommand("newAthlete " + athleteName).execute(coach, ui);
         String athleteId = coach.accessAthlete(athleteName).getAthleteID();
-        NewSessionCommand newSession = new NewSessionCommand("NewSession " + athleteId + " Legs");
-        newSession.execute(coach, ui);
+        new NewSessionCommand("NewSession " + athleteId + " Legs").execute(coach, ui);
 
         String sessionId = "001";
-
+        // Missing reps
         NewExerciseCommand newExercise = new NewExerciseCommand(
                 "NewExercise " + athleteId + " " + sessionId + " Squats 5");
-        newExercise.execute(coach, ui);
 
-        assertTrue(ui.getOutput().contains("Warning: Invalid input"));
-        assertTrue(ui.getOutput().contains("/newexercise <athlete> <session> <description> <sets> <reps>"));
+        InvalidCommandException ex = assertThrows(
+                InvalidCommandException.class,
+                () -> newExercise.execute(coach, ui)
+        );
+        // Match the command’s actual message:
+        assertEquals(
+                "Invalid input. Please follow: /newexercise <Athlete ID> <Session ID> <Exercise Description>",
+                ex.getMessage()
+        );
     }
 }
