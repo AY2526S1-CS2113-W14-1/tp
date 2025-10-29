@@ -62,13 +62,13 @@ class CoachTest {
     @Test
     void newAthlete_adds_and_deleteAthlete_removes() throws InvalidAthleteException {
         int before = coach.getAthletes().size();
-        String ret = coach.newAthlete("jonas hardwell");
-        assertNotNull(ret);
+        String output = coach.newAthlete("jonas hardwell");
+        assertNotNull(output);
         assertEquals(before + 1, coach.getAthletes().size());
 
-        Athlete alice = coach.accessAthlete("jonas hardwell");
-        String ret2 = coach.deleteAthlete(alice.getAthleteID());
-        assertEquals(ret, ret2);
+        Athlete athlete = coach.accessAthlete("jonas hardwell");
+        String output2 = coach.deleteAthlete(athlete.getAthleteID());
+        assertEquals(output, output2);
         assertEquals(before, coach.getAthletes().size());
     }
 
@@ -81,17 +81,17 @@ class CoachTest {
     @Test
     void addSessionToAthlete_then_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException {
         coach.newAthlete("jonas hardwell");
-        Athlete bob = coach.accessAthlete("jonas hardwell");
-        String id = bob.getAthleteID();
+        Athlete athlete = coach.accessAthlete("jonas hardwell");
+        String id = athlete.getAthleteID();
 
         Session session= coach.addSessionToAthlete(id, "Legs");
         assertNotNull(session);
-        assertTrue(bob.getSessions().contains(session));
+        assertTrue(athlete.getSessions().contains(session));
         assertEquals("Legs", session.getTrainingNotes());
 
         // delete
         coach.deleteSessionFromAthlete(id, session.getSessionIdString());
-        assertFalse(bob.getSessions().contains(session));
+        assertFalse(athlete.getSessions().contains(session));
     }
 
     @Test
@@ -127,8 +127,8 @@ class CoachTest {
     @Test
     void accessAthlete_and_accessAthleteID_found_and_missing() throws InvalidAthleteException {
         coach.newAthlete("jonas hardwell");
-        Athlete eve = coach.accessAthlete("jonas hardwell");
-        assertSame(eve, coach.accessAthleteID(eve.getAthleteID()));
+        Athlete athlete = coach.accessAthlete("jonas hardwell");
+        assertSame(athlete, coach.accessAthleteID(athlete.getAthleteID()));
 
         assertThrows(InvalidAthleteException.class, () -> coach.accessAthlete("Nobody"));
         assertThrows(InvalidAthleteException.class, () -> coach.accessAthleteID("9999"));
@@ -152,8 +152,8 @@ class CoachTest {
     @Test
     void accessExerciseID_found_and_missing() throws InvalidAthleteException, InvalidExerciseException {
         coach.newAthlete("jonas hardwell");
-        Athlete gina = coach.accessAthlete("jonas hardwell");
-        String id = gina.getAthleteID();
+        Athlete athlete = coach.accessAthlete("jonas hardwell");
+        String id = athlete.getAthleteID();
 
         Session session= coach.addSessionToAthlete(id, "Push");
         // add an exercise using the real model API
@@ -174,8 +174,8 @@ class CoachTest {
     void deleteExerciseFromSession_removesNormally() throws
             InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
         coach.newAthlete("jonas hardwell");
-        Athlete hal = coach.accessAthlete("jonas hardwell");
-        String id = hal.getAthleteID();
+        Athlete athlete = coach.accessAthlete("jonas hardwell");
+        String id = athlete.getAthleteID();
         Session session= coach.addSessionToAthlete(id, "core");
 
         Exercise exercise = new Exercise(0, "twists", 1, 60);
