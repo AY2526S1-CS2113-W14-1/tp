@@ -50,7 +50,7 @@ public class NewAthleteCommandTest {
         });
         assertEquals("athlete name was not specified", exception.getMessage());
     }
-
+    @Test
     public void execute_blankName_throwsInvalidCommandException() {
         String input = "new athlete      ";
         // Expect exception during constructor
