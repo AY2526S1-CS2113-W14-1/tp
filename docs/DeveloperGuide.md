@@ -2,40 +2,40 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+We would like to express our gratitude to:
+
+* Professor **Akshay Narayan** for his guidance and supervision of this project
+* Teaching Assistant **Hing Yen Xing** for their valuable feedback and support
+
+And our team members who contributed to this project:
+
+* **Halil Cokeren** - Core Developer
+* **Toh Ee Sen Izen** - Core Developer
+* **Yeung Ho / Gordon** - Core Developer
+* **Philip Hansson** - Core Developer
+* **Ma Zhiheng** - Core Developer
 
 ## Design & implementation
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
+### Main Program Loop
+
+The sequence diagram below shows the main execution loop of FitnessONE, illustrating how the program processes user commands and maintains state. The diagram demonstrates the interaction between key components:
+
+- The main `FitnessONE` class orchestrating the program flow
+- `Ui` handling user input and output
+- `Parser` converting raw input into `Command` objects
+- `Coach` managing the business logic and data model
+- `StorageManager` persisting changes after each successful command
+
+![Main program loop](diagrams/main_loop.png)
+
+This architecture follows the Command pattern, where user inputs are parsed into concrete Command objects that encapsulate specific operations. The main loop continues until an exit command is received, with each successful command triggering a save operation to persist the updated state.
 
 ### Storage: sequence diagram (timing)
 
 The diagram below shows the interactions involved in persisting and loading the application's data (startup load, and save after each successful command). The diagram is intentionally compact and uses pseudocode-style messages to keep focus on the high-level flow (exception handling and low-level parsing loops are omitted for clarity).
 
-![Storage sequence diagram](docs/diagrams/storage_sequence.png)
-
-Key pointers to the implementation:
-
-- Startup: in `FitnessONE()` (constructor) a `StorageManager` is constructed with the filepath `data/athletes_export.txt` and `load()` is invoked to populate the `Coach` model (see `src/main/java/seedu/fitnessone/FitnessONE.java`).
-- Save: after each successful `Command.execute(...)`, `FitnessONE.run()` calls `storage.save(coachController)` to persist the current state (see `FitnessONE.java`).
-- `StorageManager.load()` reads the file line-by-line and reconstructs `Athlete`, `Session`, and `Exercise` objects by splitting lines on `|` and unescaping `\n` sequences; it also repairs session/exercise counters to avoid future ID collisions (see `src/main/java/seedu/fitnessone/storage/StorageManager.java`).
-- `StorageManager.save()` writes the full model in the following line formats (overwrite):
-	- `ATHLETE|athleteId|athleteName`
-	- `SESSION|athleteId|sessionId|notes|isCompleted`
-	- `EXERCISE|athleteId|sessionId|exerciseId|desc|sets|reps|isCompleted`
-
-Notes:
-
-- The sequence diagram omits exception/IO branches for readability; the code itself catches `IOException` during load (in the `FitnessONE` constructor) and during save (in the run loop) and prints user-visible messages on failure.
-- Newlines and pipe characters are escaped on save and restored on load. ID counters are recalculated at load time to avoid collisions when new sessions/exercises are created at runtime.
-
-### Implementation notes (storage feature)
-
-Relevant files and brief descriptions:
-
-- `src/main/java/seedu/fitnessone/FitnessONE.java` — application entry point. Creates `StorageManager` and calls `load()`. Runs the main input loop and calls `save()` after each successful command.
-- `src/main/java/seedu/fitnessone/storage/StorageManager.java` — implements `load()` and `save()`; handles file creation, parsing, escaping/unescaping and repairs ID counters.
-
-The sequence diagram above and the short pointers here are sufficient for a developer to locate the exact code blocks that implement the storage behaviour described.
+![Storage sequence diagram](diagrams/storage_sequence.png)
 
 ## Product scope
 
@@ -80,13 +80,8 @@ FitnessONE provides coaches an efficient, data-driven platform for exercise logg
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v1.1|coach|create and manage athlete records|track each student's progress individually|
-|v1.2|coach|add training sessions for an athlete|preserve session history and progress over time|
-|v1.3|coach|add exercises to a session (sets/reps/weight)|record workout details per session|
-|v1.4|coach|log daily macronutrient intake for an athlete|monitor nutrition alongside training|
-|v1.5|coach|get diet and exercise recommendations|adapt plans based on tracked data|
-|v2.0|coach|export/import athlete data|share and archive team progress data|
+|v1.0|coach|create and manage athlete records; add training sessions and exercises; log daily macronutrients|track each student's training and nutrition data and preserve session history|
+|v2.0|coach|receive diet and exercise recommendations; export/import athlete data|adapt plans automatically based on tracked data and share/archive team progress|
 
 ## Non-Functional Requirements
 
