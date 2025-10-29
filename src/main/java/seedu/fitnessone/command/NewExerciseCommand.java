@@ -24,7 +24,7 @@ public class NewExerciseCommand implements Command {
 
     private final String inputString;
 
-    public NewExerciseCommand(String inputString) throws InvalidCommandException {
+    public NewExerciseCommand(String inputString) {
         this.inputString = inputString;
     }
 

@@ -14,7 +14,7 @@ public class FlagAthleteCommand implements Command {
 
     private final String inputString;
 
-    public FlagAthleteCommand(String inputString) throws InvalidCommandException{
+    public FlagAthleteCommand(String inputString){
         this.inputString = inputString;
     }
 

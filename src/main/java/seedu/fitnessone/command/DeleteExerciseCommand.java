@@ -23,7 +23,7 @@ public class DeleteExerciseCommand implements Command {
     private final String inputString;
 
 
-    public DeleteExerciseCommand(String inputString) throws InvalidCommandException {
+    public DeleteExerciseCommand(String inputString) {
         this.inputString = inputString;
     }
 

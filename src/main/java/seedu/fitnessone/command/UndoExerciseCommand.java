@@ -21,7 +21,7 @@ public class UndoExerciseCommand implements Command {
 
     private final String inputString;
 
-    public UndoExerciseCommand(String inputString) throws InvalidCommandException {
+    public UndoExerciseCommand(String inputString){
         this.inputString = inputString;
     }
 

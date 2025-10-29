@@ -19,7 +19,7 @@ public class UndoSessionCommand implements Command {
     private final String inputString;
 
 
-    public UndoSessionCommand(String inputString) throws InvalidCommandException {
+    public UndoSessionCommand(String inputString) {
         this.inputString = inputString;
     }
 

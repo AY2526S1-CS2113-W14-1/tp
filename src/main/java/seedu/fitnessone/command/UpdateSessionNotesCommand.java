@@ -18,7 +18,7 @@ public class UpdateSessionNotesCommand implements Command {
 
     private final String inputString;
 
-    public UpdateSessionNotesCommand(String inputString) throws InvalidCommandException {
+    public UpdateSessionNotesCommand(String inputString) {
         this.inputString = inputString;
     }
 

@@ -19,7 +19,7 @@ public class ViewSessionsCommand implements Command {
     private static final String NOTE = "Athlete ID = 4 digits";
     private final String inputString;
 
-    public ViewSessionsCommand(String inputString) throws InvalidCommandException {
+    public ViewSessionsCommand(String inputString) {
         this.inputString = inputString;
     }
 
