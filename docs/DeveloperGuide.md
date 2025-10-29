@@ -23,17 +23,7 @@ The diagram below provides a comprehensive view of FitnessONE's architecture and
 
 ![Overall Architecture](diagrams/overall_UML.png)
 
-The application follows a Command pattern architecture with clear separation of concerns:
 
-### Static Structure (Class Relationships)
-
-![Class Diagram](diagrams/class_diagram.png)
-
-The class diagram shows the key components:
-- `FitnessONE`: Main orchestrator
-- `Coach`: Business logic and data model
-- `Command`: Operation encapsulation
-- `Parser`, `Ui`, and `StorageManager`: Support components
 
 ### Program Flow
 
