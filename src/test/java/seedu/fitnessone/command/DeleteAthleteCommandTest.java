@@ -21,12 +21,18 @@ class DeleteAthleteCommandTest {
         }
 
         @Override
-        public void divider() { out.append("[DIVIDER]\n"); }
+        public void divider() {
+            out.append("---\n");
+        }
 
         @Override
-        public void println(String message) { out.append(message).append("\n"); }
+        public void println(String message) {
+            out.append(message).append("\n");
+        }
 
-        String getOutput() { return out.toString(); }
+        String getOutput() {
+            return out.toString();
+        }
     }
 
     private Coach coach;
@@ -94,6 +100,7 @@ class DeleteAthleteCommandTest {
                 cmd.execute(coach, ui));
         assertEquals("Input is empty. Check if there's athletes or sessions created.", error.getMessage());
     }
+
     @Test
     void help_printsFullUsageInfo() throws InvalidCommandException {
         DeleteAthleteCommand cmd = new DeleteAthleteCommand("deleteAthlete 0001");
