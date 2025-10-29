@@ -91,6 +91,7 @@ public class Coach {
             int index = i + 1;
             view.print(index + ". ");
             view.println(athletes.get(i).toString());
+
         }
         view.println("");
         view.divider();
@@ -143,6 +144,60 @@ public class Coach {
         } catch (Exception e) {
             throw new RuntimeException();
         }
+    }
+
+    public void flagAthlete(String athleteID, String flagColor) throws InvalidAthleteException {
+        Athlete athlete = findAthleteByID(athleteID);
+        athlete.setFlagColor(flagColor);
+    }
+
+    private Athlete findAthleteByID(String athleteID) throws InvalidAthleteException {
+        if (athleteID == null || athleteID.isBlank()) {
+            throw new InvalidAthleteException("Athlete ID cannot be empty.");
+        }
+
+        for (Athlete athlete : athletes) {
+            if (athlete.getAthleteID().equalsIgnoreCase(athleteID)) {
+                return athlete;
+            }
+        }
+
+        throw new InvalidAthleteException("Athlete not found with ID: " + athleteID);
+    }
+
+    private class AthleteAchievement {
+        String athleteName;
+        String athleteId;
+        int score;
+        AthleteAchievement(String athleteName, String athleteId, int score){
+            this.athleteName = athleteName;
+            this.athleteId = athleteId;
+            this.score = score;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%-15s %-7s %3d%n", athleteName, athleteId, score);
+        }
+    }
+    public String leaderboardConstruct(){
+        if (athletes.isEmpty()) {
+            return "No athletes found sia, add some athletes and let them do workout!!";
+        }
+        List<AthleteAchievement> leaderboard = new ArrayList<>();
+        for  (Athlete athlete : athletes) {
+            leaderboard.add(new AthleteAchievement(athlete.getAthleteName(),
+                    athlete.getAthleteID(), athlete.getAchievementScore()));
+        }
+        leaderboard.sort((a,b) -> Integer.compare(b.score, a.score));
+        String leaderboardConstruct = "";
+        leaderboardConstruct += String.format("%-15s %-7s %3s%n", "athleteName", "athleteId", "score");
+        leaderboardConstruct += "    ____________________________________________________________\n";
+        for (AthleteAchievement athlete : leaderboard) {
+            leaderboardConstruct += "    ";
+            leaderboardConstruct += athlete.toString();
+        }
+        return leaderboardConstruct;
     }
 }
 

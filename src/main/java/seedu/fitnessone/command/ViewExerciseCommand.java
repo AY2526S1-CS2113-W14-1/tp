@@ -20,11 +20,6 @@ public class ViewExerciseCommand implements Command {
         this.athleteID = Parser.checkAthleteIDValidity(inputString);
         this.sessionID = Parser.checkSessionIDValidity(inputString);
     }
-    
-    public ViewExerciseCommand(String athleteID, String sessionID, boolean skipParser)  {
-        this.athleteID = athleteID;
-        this.sessionID = sessionID;
-    }
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
@@ -59,5 +54,4 @@ public class ViewExerciseCommand implements Command {
     public boolean isExit() {
         return false;
     }
-
 }

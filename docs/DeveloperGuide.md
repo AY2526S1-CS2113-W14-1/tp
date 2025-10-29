@@ -1,4 +1,32 @@
 # Developer Guide
+Format inspired by [addressbook-level3](https://se-education.org/addressbook-level3/DeveloperGuide.html#proposed-undoredo-feature)
+
+## Table of Contents
+* [Acknowledgements](#acknowledgements)
+* [Setting up, getting started](#setting-up-getting-started)
+* [Design](#design)
+  * [Architecture](#architecture)
+  * [UI component](#ui-component)
+  * [Logic component](#logic-component)
+  * [Model component](#model-component)
+  * [Storage component](#storage-component)
+  * [Common classes](#common-classes)
+* [Implementation](#implementation)
+  * [[Proposed] Undo/redo feature](#proposed-undoredo-feature)
+    * [Proposed Implementation](#proposed-implementation)
+    * [Design considerations](#design-considerations)
+  * [[Proposed] Data archiving](#proposed-data-archiving)
+* [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+* [Appendix: Requirements](#appendix-requirements)
+  * [Product scope](#product-scope)
+  * [User stories](#user-stories)
+  * [Use cases](#use-cases)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+* [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  * [Launch and shutdown](#launch-and-shutdown)
+  * [Deleting a person](#deleting-a-person)
+  * [Saving data](#saving-data)
 
 ## Acknowledgements
 
@@ -15,7 +43,7 @@ And our team members who contributed to this project:
 * **Philip Hansson** 
 * **Ma Zhiheng** 
 
-## Design & implementation
+## Design
 
 ### Architecture Overview
 
@@ -51,7 +79,11 @@ FitnessONE is designed for professional fitness coaches who need a compact, scri
 - Strength & conditioning coaches tracking sessions and macros
 - Coaches who prefer lightweight CLI tools and version-controlled data
 
-### Value proposition
+Formatting and examples
+- Keep prompts and responses simple and consistent. Example interaction:
+    - Input: `view 0001`
+    - Output: `Showing athlete 0001: <name> — <summary>`
+    - Error: `Error: Athlete not found - 0001`
 
 FitnessONE provides coaches an efficient, data-driven platform for exercise logging, macronutrient tracking, and automatic recommendations for diets and exercises. It is simple to use and integrates persistent storage so coaches can generate progress reports and plan long-term training efficiently.
 
@@ -78,20 +110,22 @@ FitnessONE provides coaches an efficient, data-driven platform for exercise logg
 - Complex GUI client (this is a CLI-first tool)
 
 
-## User Stories
+Design notes
+- Keep UI code minimal so changes to presentation do not affect logic.
+- Centralise all user strings to make updating messages and translations easier.
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
 |v1.0|coach|create and manage athlete records; add training sessions and exercises; log daily macronutrients|track each student's training and nutrition data and preserve session history|
 |v2.0|coach|receive diet and exercise recommendations; export/import athlete data|adapt plans automatically based on tracked data and share/archive team progress|
 
-## Non-Functional Requirements
+### Model component
 
-{Give non-functional requirements}
+### Storage component
 
-## Glossary
+### Common classes
 
-* *glossary item* - Definition
+## Implementation
 
 ## Appendix E: Instructions for Manual Testing (storage)
 
@@ -129,4 +163,30 @@ If any of the above steps fail, capture the console output and the contents of `
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+#### Proposed Implementation
+
+#### Design considerations
+
+### [Proposed] Data archiving
+
+## Documentation, logging, testing, configuration, dev-ops
+
+## Appendix: Requirements
+
+### Product scope
+
+### User stories
+
+### Use cases
+
+### Non-Functional Requirements
+
+### Glossary
+
+## Appendix: Instructions for manual testing
+
+### Launch and shutdown
+
+### Deleting a person
+
+### Saving data
