@@ -30,9 +30,9 @@ public class ViewExerciseCommand implements Command {
 
             view.divider();
             view.println("Athlete ID: " + athleteID);
-            view.println("Athlete Name: " + athlete.getAthleteID());
-            view.println("Session ID: " + sessionID + "\n");
-            view.println("Session Note: " + session.getTrainingNotes());
+            view.println("Athlete Name: " + athlete.getAthleteName());
+            view.println("Session ID: " + sessionID + " | " + session.getSessionDateString() +"\n");
+            view.println("Session Note: " + session.getTrainingNotes() );
 
             view.println("Exercise List: " + exercises.size());
             for (int i = 0; i < exercises.size(); i++) {

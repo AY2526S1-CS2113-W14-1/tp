@@ -1,16 +1,24 @@
 package seedu.fitnessone.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import seedu.fitnessone.exception.InvalidExerciseException;
 
 public class Session {
+    private static final DateTimeFormatter DATE_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private final ArrayList<Exercise> exercises;
     private int sessionIndex;
     private String trainingNotes;
     private boolean isCompleted;
     private final String sessionIdString;
     private int nextExerciseIndex = 0;
+    private LocalDateTime sessionDate;
+    private String sessionDateString;
+
+
 
     public Session(int sessionIndex, String trainingNotes) {
         this.sessionIndex = sessionIndex;
@@ -22,10 +30,18 @@ public class Session {
         if(trainingNotes.trim().isEmpty()) {
             this.trainingNotes = "EMPTY. Add sessions notes with: /UpdateSessionNote <athlete> <session> <notes>";
         }
+
+        this.sessionDate = LocalDateTime.now();
+        this.sessionDateString = this.sessionDate.format(DATE_TIME_FORMAT);
+
     }
 
     public String getSessionIdString() {
         return sessionIdString;
+    }
+
+    public String getSessionDateString() {
+        return sessionDateString;
     }
 
 
