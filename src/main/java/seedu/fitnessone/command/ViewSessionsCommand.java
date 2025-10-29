@@ -26,14 +26,15 @@ public class ViewSessionsCommand implements Command {
             ArrayList<Session> sessions = athlete.getSessions();
 
             view.divider();
-            view.println("Athlete ID | Name: " + athlete.getAthleteID() + " - " + athlete.getAthleteName() + "\n");
-            view.println("Status | Session ID | Notes: ");
+            view.println("Athlete ID: " + athlete.getAthleteID() + " | Name: " + athlete.getAthleteName() + "\n");
+            view.println("Status | Session ID | Date | Notes: ");
             for (int i = 0; i < sessions.size(); i++) {
                 Session session = sessions.get(i);
                 String status = session.isCompleted() ? "[X]" : "[ ]";
 
                 view.println((i + 1) + ". " + status + ".   Session: " +
-                        session.getSessionIdString() + " | " + session.getTrainingNotes());
+                        session.getSessionIdString() + " | Date: "
+                        + session.getSessionDateString() + " | " + session.getTrainingNotes());
             }
             view.divider();
 

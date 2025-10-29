@@ -63,8 +63,7 @@ public class NewExerciseCommand implements Command {
         view.println("");
         view.println("Athlete (ID) : " + athleteID);
         view.println("Athlete name: " + athlete.getAthleteName());
-        view.println("");
-        view.println("Session (ID): " + sessionID);
+        view.println("Session (ID): " + sessionID + " | Date: " + session.getSessionDateString());
         view.println("Session Description: " + session.getTrainingNotes());
         view.println("");
         view.println("Exercise (ID): " + exercise.getExerciseIDString());

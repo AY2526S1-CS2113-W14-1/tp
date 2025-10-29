@@ -248,12 +248,13 @@ Output:
 
 ```
 =========================================================
-Athlete ID | Name: 0001 - Jonas Hardwell
-Status | Session ID | Notes:
+Athlete ID:  0001 | Name: Jonas Hardwell
 
-4.   [X] pre training warmup
-5.   [ ] post training cool down
-6.   [ ] conditioning
+Status | Session ID | Date | Notes:
+1. [ ].   Session: 001 | Date: 29-10-2025 08:00 | morning session
+4. [X].   Session: 002 | Date: 29-10-2025 10:00 | pre training warmup
+5. [ ].   Session: 003 | Date: 29-10-2025 15:00 | post training cool down
+6. [ ].   Session: 004 | Date: 29-10-2025 18:00 | conditioning
 =========================================================
 
 ```

@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import seedu.fitnessone.exception.InvalidExerciseException;
 
 public class Session {
+    private static final DateTimeFormatter DATE_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private final ArrayList<Exercise> exercises;
     private int sessionIndex;
     private String trainingNotes;
     private boolean isCompleted;
     private final String sessionIdString;
     private int nextExerciseIndex = 0;
-
-    private static final DateTimeFormatter DATE_TIME_FORMAT =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private LocalDateTime sessionDate;
     private String sessionDateString;
 
@@ -39,6 +38,10 @@ public class Session {
 
     public String getSessionIdString() {
         return sessionIdString;
+    }
+
+    public String getSessionDateString() {
+        return sessionDateString;
     }
 
 
