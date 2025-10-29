@@ -35,7 +35,7 @@ class CoachTest {
         final StringBuilder log = new StringBuilder();
 
         @Override public void divider() {
-            log.append("[DIV]\n");
+            log.append("---\n");
         }
 
         @Override public void print(String input) {
@@ -109,7 +109,7 @@ class CoachTest {
     void printAthletes_empty_and_nonEmpty() {
         UiStub ui = new UiStub();
         coach.printAthletes(ui);
-        assertTrue(ui.out().startsWith("[DIV]"));
+        assertTrue(ui.out().startsWith("---"));
         assertTrue(ui.out().contains("\n\n"));
 
         coach.newAthlete("jonas");
@@ -120,7 +120,7 @@ class CoachTest {
         String out = ui2.out();
         assertTrue(out.contains("1. "));
         assertTrue(out.contains("2. "));
-        assertTrue(out.endsWith("[DIV]\n"));
+        assertTrue(out.endsWith("---\n"));
     }
 
     // accessAthlete / accessAthleteID
