@@ -71,11 +71,11 @@ public class Athlete {
     }
 
     public int getAchievementScore() {
-        setAchivementScore();
+        setAchievementScore();
         return achievementScore;
     }
 
-    public void setAchivementScore() {
+    public void setAchievementScore() {
         achievementScore = 0;
         for (Session session : sessions) {
             for (Exercise exercise : session.getExercises()) {

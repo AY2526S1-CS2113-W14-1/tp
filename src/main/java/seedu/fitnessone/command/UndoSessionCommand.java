@@ -27,8 +27,8 @@ public class UndoSessionCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         try {
-            String athleteID = athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = sessionID = Parser.checkSessionIDValidity(inputString);
+            String athleteID = Parser.checkAthleteIDValidity(inputString);
+            String sessionID = Parser.checkSessionIDValidity(inputString);
 
             Athlete athlete = coachController.accessAthleteID(athleteID);
             Session session = coachController.accessSessionID(athlete, sessionID);
