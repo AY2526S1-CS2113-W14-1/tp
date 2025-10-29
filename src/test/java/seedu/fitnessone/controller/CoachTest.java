@@ -60,7 +60,7 @@ class CoachTest {
 
     // addAthlete / getAthletes / newAthlete / deleteAthlete
     @Test
-    void newAthlete_adds_and_deleteAthlete_removes() throws InvalidAthleteException {
+    void newAthlete_addsDeleteAthlete_removes() throws InvalidAthleteException {
         int before = coach.getAthletes().size();
         String output = coach.newAthlete("jonas hardwell");
         assertNotNull(output);
@@ -79,7 +79,7 @@ class CoachTest {
 
     // addSessionToAthlete / deleteSessionFromAthlete
     @Test
-    void addSessionToAthlete_then_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException {
+    void addSessionToAthlete_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -106,7 +106,7 @@ class CoachTest {
 
     // printAthletes
     @Test
-    void printAthletes_empty_and_nonEmpty() {
+    void printAthletes_emptyNonEmpty() {
         UiStub ui = new UiStub();
         coach.printAthletes(ui);
         assertTrue(ui.out().startsWith("---"));
@@ -125,7 +125,7 @@ class CoachTest {
 
     // accessAthlete / accessAthleteID
     @Test
-    void accessAthlete_and_accessAthleteID_found_and_missing() throws InvalidAthleteException {
+    void accessAthleteID_foundMissing() throws InvalidAthleteException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         assertSame(athlete, coach.accessAthleteID(athlete.getAthleteID()));
@@ -136,7 +136,7 @@ class CoachTest {
 
     // accessSessionID / accessExerciseID
     @Test
-    void accessSessionID_found_and_missing() throws InvalidAthleteException, InvalidSessionException {
+    void accessSessionID_foundMissing() throws InvalidAthleteException, InvalidSessionException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -150,7 +150,7 @@ class CoachTest {
     }
 
     @Test
-    void accessExerciseID_found_and_missing() throws InvalidAthleteException, InvalidExerciseException {
+    void accessExerciseID_foundMissing() throws InvalidAthleteException, InvalidExerciseException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -188,7 +188,7 @@ class CoachTest {
 
 
     @Test
-    void flagAthlete_success_caseInsensitive_and_errors() throws InvalidAthleteException {
+    void flagAthlete_success_errors() throws InvalidAthleteException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -213,7 +213,7 @@ class CoachTest {
 
     // leaderboardConstruct
     @Test
-    void leaderboardConstruct_empty_and_nonEmpty() {
+    void leaderboardConstruct_emptyNonEmpty() {
         assertEquals("No athletes found, add some athletes and let them do workout!!",
                 coach.leaderboardConstruct());
 

@@ -27,11 +27,15 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class ParserTest {
     @Test
-    void parse_nullOrspace_throwsInvalidCommandException() {
+    void parse_nullOrSpace_throwsInvalidCommandException() {
         assertThrows(InvalidCommandException.class, () -> Parser.parse(null));
         InvalidCommandException error = assertThrows(InvalidCommandException.class, () -> Parser.parse("   "));
         assertEquals("Input cannot be empty", error.getMessage());
@@ -81,7 +85,8 @@ class ParserTest {
     }
 
     @Test
-    void parse_bye_isCaseInsensitive() throws InvalidSessionException, InvalidCommandException, InvalidExerciseException, InvalidAthleteException {
+    void parse_bye_isCaseInsensitive() throws InvalidSessionException,
+            InvalidCommandException, InvalidExerciseException, InvalidAthleteException {
         assertInstanceOf(ExitCommand.class, Parser.parse("BYE"));
     }
 
@@ -89,7 +94,7 @@ class ParserTest {
     checkAthleteIDValidity
      */
     @Test
-    void checkAthleteIDValidity_SpaceChar_throws() {
+    void checkAthleteIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd      0001"));
         assertEquals("Athlete ID cannot be blank.", error.getMessage());
@@ -133,7 +138,7 @@ class ParserTest {
     checkSessionIDValidity
     */
     @Test
-    void checkSessionIDValidity_SpaceChar_throws() {
+    void checkSessionIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001      001"));
         assertEquals("Session ID cannot be blank.", error.getMessage());
@@ -184,7 +189,7 @@ class ParserTest {
     }
 
     @Test
-    void checkExerciseIDValidity_SpaceChar_throws() {
+    void checkExerciseIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001      note"));
         assertEquals("Exercise ID cannot be blank.", error.getMessage());

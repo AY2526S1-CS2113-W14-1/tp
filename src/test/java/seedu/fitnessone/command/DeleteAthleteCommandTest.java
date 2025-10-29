@@ -7,7 +7,12 @@ import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class DeleteAthleteCommandTest {
     static class UiStub extends Ui {
@@ -62,10 +67,8 @@ class DeleteAthleteCommandTest {
 
         DeleteAthleteCommand cmd = new DeleteAthleteCommand(input);
 
-        // Act
         cmd.execute(coach, ui);
 
-        // Assert
         assertTrue(ui.previousPrint.contains("Deleted athlete with ID " + athleteId));
         assertThrows(InvalidAthleteException.class, () -> coach.accessAthleteID(athleteId),
                 "Athlete should be deleted from coach");
