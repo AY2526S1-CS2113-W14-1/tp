@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+abstract class FitnessONE {
+    - view: Ui
+    - coachController: Coach
+    - storage: StorageManager
+    + FitnessONE()
+    - run(): void
+    + {static} main(args: String[]): void
+}
+
+class Ui {
+    + showWelcome(): void
+    + printWithDivider(message: String): void
+    + readCommand(): String
+}
+
+class Parser {
+    + {static} parse(userInput: String): Command
+}
+
+abstract class Command {
+    {abstract} + execute(coach: Coach, ui: Ui): void
+    + isExit(): boolean
+}
+
+class Coach {
+    + Coach()
+}
+
+class StorageManager {
+    - filePath: String
+    + StorageManager(filePath: String)
+    + load(): Coach
+    + save(coach: Coach): void
+}
+
+' Relationships with proper multiplicity
+FitnessONE *-- "1" Ui : contains >
+FitnessONE *-- "1" Coach : contains >
+FitnessONE *-- "1" StorageManager : contains >
+FitnessONE ..> Parser : uses >
+Parser ..> Command : creates >
+Command ..> Coach : modifies >
+Command ..> Ui : uses >
+StorageManager ..> Coach : manages >
+
+note right of FitnessONE
+  Main orchestrator that coordinates
+  program flow and core components
+end note
+
+note right of Command
+  {abstract} Command pattern base class
+  All commands inherit from this
+end note
+
+note right of Coach
+  Manages business logic and 
+  athlete data model
+end note
+
+@enduml

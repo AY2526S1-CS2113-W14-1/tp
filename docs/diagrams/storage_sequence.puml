@@ -1,0 +1,49 @@
+@startuml
+actor User
+participant Ui
+participant App as "FitnessONE"
+participant Parser
+participant Command
+participant Coach
+participant Storage as "StorageManager"
+participant File as "data/athletes_export.txt"
+
+== Startup: construct app and load saved data ==
+User -> Ui : open app / console
+Ui -> App : start()
+App -> Storage : load()
+alt file exists & non-empty
+    Storage -> File : read all lines
+    Storage -> Storage : parse lines (ATHLETE / SESSION / EXERCISE)
+    Storage -> Coach : create athletes/sessions/exercises
+    Storage -> Storage : fix id counters (session/exercise)
+    Storage --> App : return Coach (populated)
+else file missing or empty
+    Storage --> App : return empty Coach
+end
+App -> Ui : showWelcome()
+App -> Ui : print("Loaded saved athletes data." or "No saved data")
+
+== Runtime: user command -> save ==
+loop for each user command
+    User -> Ui : type command
+    Ui --> App : get input
+    App -> Parser : parse(...)  -> Command
+    Parser --> App : Command instance
+    App -> Command : execute(coach, ui)
+    alt execute successful
+        Command -> Coach : mutate model
+        App -> Storage : save(coach)
+        Storage -> File : overwrite and write ATHLETE/SESSION/EXERCISE lines
+        Storage --> App : save completed
+    else parse/execute fails
+        App -> Ui : print error
+        note right: save() not called on failure
+    end
+end
+
+note over Storage,File
+  Exceptions and IO errors are intentionally omitted from the
+  sequence for clarity; mention them in the DG text.
+end note
+@enduml
