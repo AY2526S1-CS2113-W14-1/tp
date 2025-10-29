@@ -19,7 +19,7 @@ public class ViewAthleteCommand implements Command {
     private static final String NOTE = "Athlete ID = 4 digits";
     private final String inputString;
 
-    public ViewAthleteCommand(String inputString) throws InvalidCommandException {
+    public ViewAthleteCommand(String inputString) {
         this.inputString = inputString;
     }
 

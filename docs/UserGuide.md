@@ -45,7 +45,7 @@ Format: `/viewAthlete <Athlete ID>`
 Example of usage: 
 
 ```
-/viewAthlete Jonas Hardwell
+/viewAthlete 0001
 ```
 Output:
 

@@ -20,7 +20,7 @@ public class CompleteSessionCommand implements Command {
 
 
 
-    public CompleteSessionCommand(String inputString) throws InvalidCommandException {
+    public CompleteSessionCommand(String inputString) {
         this.inputString = inputString;
     }
 

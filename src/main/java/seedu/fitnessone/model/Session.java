@@ -72,7 +72,7 @@ public class Session {
     public Exercise addExercise(String description, int sets, int reps) {
         nextExerciseIndex = (nextExerciseIndex +1) % 100;
         Exercise newExercise = new Exercise(nextExerciseIndex, description, sets, reps);
-        assert newExercise != null : "ERROR: Session can not be null.";
+        //assert newExercise != null : "ERROR: Session can not be null.";
         int before = this.exercises.size();
         this.exercises.add(newExercise);
         assert exercises.size() == before + 1 : "ERROR: Exercise not added correctly. Verify.";

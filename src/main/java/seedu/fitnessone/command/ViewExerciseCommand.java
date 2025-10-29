@@ -21,7 +21,7 @@ public class ViewExerciseCommand implements Command {
     private final String inputString;
 
 
-    public ViewExerciseCommand(String inputString) throws InvalidCommandException {
+    public ViewExerciseCommand(String inputString) {
         this.inputString = inputString;
     }
 

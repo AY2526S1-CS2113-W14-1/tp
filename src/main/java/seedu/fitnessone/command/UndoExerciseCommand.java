@@ -21,7 +21,7 @@ public class UndoExerciseCommand implements Command {
 
     private final String inputString;
 
-    public UndoExerciseCommand(String inputString) throws InvalidCommandException {
+    public UndoExerciseCommand(String inputString){
         this.inputString = inputString;
     }
 
@@ -39,7 +39,7 @@ public class UndoExerciseCommand implements Command {
 
             for (Exercise exercise : exercises) {
                 if (exercise.getExerciseIDString().equals(exerciseID)) {
-                    exercise.setCompleted();
+                    exercise.setNotCompleted();
                     view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
                             "Session (ID: " + sessionID + ") has been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");
