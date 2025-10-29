@@ -79,7 +79,7 @@ Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete I
 #### UI Design Principles
 1. **Consistent Formatting**
    ```
-   Input:  view 0001
+   Input:  /viewAhlete 0001
    Output: Showing athlete 0001: <name> — <summary>
    Error:  Error: Athlete not found - 0001
    ```
@@ -123,7 +123,7 @@ FitnessONE is designed for professional fitness coaches who need a compact, scri
 
 Formatting and examples
 - Keep prompts and responses simple and consistent. Example interaction:
-    - Input: `view 0001`
+    - Input: `/viewAthlete 0001`
     - Output: `Showing athlete 0001: <name> — <summary>`
     - Error: `Error: Athlete not found - 0001`
 

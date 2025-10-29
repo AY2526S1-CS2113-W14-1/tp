@@ -1,6 +1,5 @@
 package seedu.fitnessone.ui;
 
-
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.command.CompleteExerciseCommand;
 import seedu.fitnessone.command.HelpCommand;
@@ -150,7 +149,7 @@ public class Parser {
             throw new InvalidCommandException("Exercise ID cannot be blank.");
         }
         if (exerciseID.length() != 2) {
-            throw new InvalidCommandException("Exercise ID must be 3 characters long.");
+            throw new InvalidCommandException("Exercise ID must be 2 characters long.");
         }
 
         char[] exerciseIDSplit = exerciseID.toCharArray();

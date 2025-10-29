@@ -182,7 +182,7 @@ public class Coach {
     }
     public String leaderboardConstruct(){
         if (athletes.isEmpty()) {
-            return "No athletes found sia, add some athletes and let them do workout!!";
+            return "No athletes found, add some athletes and let them do workout!!";
         }
         List<AthleteAchievement> leaderboard = new ArrayList<>();
         for  (Athlete athlete : athletes) {
