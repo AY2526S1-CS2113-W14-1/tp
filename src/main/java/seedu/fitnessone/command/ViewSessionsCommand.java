@@ -12,16 +12,22 @@ import java.util.ArrayList;
 
 
 public class ViewSessionsCommand implements Command {
-
-    private final String athleteID;
+    private static final String COMMAND_WORD = "/viewsessions";
+    private static final String USAGE = "/viewsessions <Athlete ID>";
+    private static final String DESCRIPTION = "Views the session IDs which are used in other commands";
+    private static final String EXAMPLE = "/viewsessions 0001";
+    private static final String NOTE = "Athlete ID = 4 digits";
+    private final String inputString;
 
     public ViewSessionsCommand(String inputString) throws InvalidCommandException {
-        this.athleteID = Parser.checkAthleteIDValidity(inputString);
+        this.inputString = inputString;
     }
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
         try {
+            String athleteID = Parser.checkAthleteIDValidity(inputString);
+
             Athlete athlete = coachController.accessAthleteID(athleteID);
             ArrayList<Session> sessions = athlete.getSessions();
 
@@ -47,4 +53,16 @@ public class ViewSessionsCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public void help(Ui view) {
+        view.divider();
+        view.println("Command: " + COMMAND_WORD);
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
+        view.println("Note: " + NOTE);
+        view.divider();
+    }
+
 }

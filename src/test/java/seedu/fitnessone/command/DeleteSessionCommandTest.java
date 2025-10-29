@@ -30,21 +30,28 @@ public class DeleteSessionCommandTest {
     }
 
     @Test
-    public void deleter_missingSessionId_deleteSession() {
-        String input = "NewSession 0001";
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
-            new DeleteSessionCommand(input);
-        });
-        assertEquals("Invalid Command. Check if there's athletes or sessions created.", exception.getMessage());
+    void deleter_missingSessionId_throwsOnExecute() throws InvalidCommandException, InvalidAthleteException {
+        Coach coach = new Coach();
+        UiStub ui = new UiStub();
+
+        new NewAthleteCommand("new athlete John").execute(coach, ui);
+        String athleteId = coach.accessAthlete("John").getAthleteID();
+
+        DeleteSessionCommand cmd = new DeleteSessionCommand("deleteSession " + athleteId);
+        InvalidCommandException ex = assertThrows(InvalidCommandException.class,
+                () -> cmd.execute(coach, ui));
+        assertEquals("Invalid Command. Check if there's athletes or sessions created.", ex.getMessage());
     }
 
     @Test
-    public void deleter_missingAthleteId_throwsInvalidAthleteException() {
-        String input = "NewSession 002";
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
-            new NewSessionCommand(input);
-        });
-        assertEquals("Athlete ID must be 4 characters long.", exception.getMessage());
+    void deleter_missingAthleteId_throwsOnExecute() throws InvalidCommandException {
+        Coach coach = new Coach();
+        UiStub ui = new UiStub();
+        DeleteSessionCommand cmd = new DeleteSessionCommand("deleteSession 002"); // 3 digits only
+
+        InvalidCommandException ex = assertThrows(InvalidCommandException.class,
+                () -> cmd.execute(coach, ui));
+        assertEquals("Athlete ID must be 4 characters long.", ex.getMessage());
     }
 
     @Test

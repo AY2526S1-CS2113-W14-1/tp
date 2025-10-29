@@ -3,6 +3,7 @@ package seedu.fitnessone.ui;
 
 import seedu.fitnessone.command.Command;
 import seedu.fitnessone.command.CompleteExerciseCommand;
+import seedu.fitnessone.command.HelpCommand;
 import seedu.fitnessone.command.CompleteSessionCommand;
 import seedu.fitnessone.command.DeleteExerciseCommand;
 import seedu.fitnessone.command.DeleteSessionCommand;
@@ -44,13 +45,14 @@ public class Parser {
 
         return switch (commandWord) {
         case "bye" -> new ExitCommand();
+        case "/help" -> new HelpCommand(trimmedInput);
         /*------------------ATHLETE COMMANDS ------------------ */
         case "/newathlete" -> new NewAthleteCommand(trimmedInput);
         case "/viewathlete" -> new ViewAthleteCommand(trimmedInput);
-        case "/listathletes" -> new ListAthleteCommand();
+        case "/listathletes" -> new ListAthleteCommand(trimmedInput);
         case "/deleteathlete" -> new DeleteAthleteCommand(trimmedInput);
         case "/flagathlete" -> new FlagAthleteCommand(trimmedInput);
-        case "/leaderboard" -> new LeaderboardCommand();
+        case "/leaderboard" -> new LeaderboardCommand(trimmedInput);
         /*------------------SESSION COMMANDS ------------------ */
         case "/newsession" -> new NewSessionCommand(trimmedInput);
         case "/deletesession" -> new DeleteSessionCommand(trimmedInput);

@@ -11,4 +11,5 @@ public interface Command {
     void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidAthleteException, InvalidSessionException, InvalidExerciseException;
     boolean isExit();
+    void help(Ui view);
 }
