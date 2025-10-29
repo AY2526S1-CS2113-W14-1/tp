@@ -1,4 +1,3 @@
-// java
 package seedu.fitnessone.command;
 
 import org.junit.jupiter.api.Test;
