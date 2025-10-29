@@ -51,6 +51,48 @@ The diagram below provides a comprehensive view of FitnessONE's architecture and
 
 ![Overall Architecture](diagrams/overall_UML.png)
 
+### UI Component
+
+The UI component handles all user interaction through a command-line interface (CLI). It serves as the primary interface between the user and the system.
+
+#### Responsibilities
+- Provide a command-line interface (CLI) for user interaction
+- Read raw user input, display formatted output and error messages
+- Delegate input parsing to `seedu.fitnessone.ui.Parser`
+- Forward parsed commands to the Logic component and display command results
+- UI does not contain business logic; it only formats input/output and handles presentation concerns
+
+#### Key Classes
+- `seedu.fitnessone.ui.Parser` — converts raw input strings to command objects and validates basic syntax
+- `Ui` / `TextUi` — reads input from stdin, prints to stdout, and formats messages
+- Any `Message` or `UiStrings` class — centralises user-facing strings and error messages
+
+#### Input Processing Flow
+1. UI reads input and passes it to `Parser.parse(...)`
+2. Parser creates a Command object which is passed to the Logic component
+3. For invalid input or domain errors (e.g. `InvalidAthleteException`), UI catches exceptions and prints user-friendly messages:
+```
+Error: Athlete not found - 0001
+Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete ID: 0001
+```
+
+#### UI Design Principles
+1. **Consistent Formatting**
+   ```
+   Input:  view 0001
+   Output: Showing athlete 0001: <name> — <summary>
+   Error:  Error: Athlete not found - 0001
+   ```
+
+2. **Quality Assurance**
+   - Unit tests for Parser and UI formatting methods
+   - Checkstyle compliance
+   - End-to-end acceptance tests for input/output behavior
+
+3. **Design Considerations**
+   - Minimal UI code to isolate presentation changes from logic
+   - Centralized user strings for easier message updates and translations
+
 
 
 ### Program Flow
