@@ -114,6 +114,7 @@ public class Athlete {
      */
     public void setSessionIdCounter(int value) {
         this.sessionIdCounter = value;
+    }
 
     public String getFlagColor() {
         return flagColor;
