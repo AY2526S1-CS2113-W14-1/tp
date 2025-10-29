@@ -24,6 +24,23 @@ public class Coach {
         this.athletes = new ArrayList<>();
     }
 
+    /**
+     * Add an already-constructed Athlete to this coach's list (used by import).
+     */
+    public void addAthlete(Athlete athlete) {
+        this.athletes.add(athlete);
+    }
+
+    /**
+     * Returns the list of athletes managed by this coach.
+     * Caller should not modify this list directly.
+     */
+    public List<Athlete> getAthletes() {
+        return athletes;
+    }
+
+    // File I/O responsibilities have been moved to seedu.fitnessone.storage.StorageManager
+
 
     public Session addSessionToAthlete(String athleteID, String sessionTrainingNotes)
             throws InvalidAthleteException {
