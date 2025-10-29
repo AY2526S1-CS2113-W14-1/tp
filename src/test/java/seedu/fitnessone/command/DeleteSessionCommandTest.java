@@ -40,11 +40,11 @@ public class DeleteSessionCommandTest {
 
     @Test
     public void deleter_missingAthleteId_throwsInvalidAthleteException() {
-        String input = "NewSession 002";
+        String input = "NewSession 0001";
         InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
             new NewSessionCommand(input);
         });
-        assertEquals("Athlete ID must be 4 characters long.", exception.getMessage());
+        assertEquals("Invalid input, try /NewSession <Athlete ID> <Session Notes>", exception.getMessage());
     }
 
     @Test
