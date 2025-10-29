@@ -169,7 +169,208 @@ Design notes
 
 ## Implementation
 
-## Appendix E: Instructions for Manual Testing (storage)
+## Testing
+
+Testing will ensure the correctness, reliability, and stability of FitnessOne. The project uses JUnit (version 5) for automated testing and manual verification of the user-facing behavior.
+
+Our methods combine:
+- Unit testing for core logic (e.g., Parser, Coach, Command classes).
+- Integration testing for features that involve multiple components.
+- System testing for end-to-end behavior using the CLI interface. Running Tests
+
+Tests can be automatically executed using Gradle:
+
+```
+./gradlew clean test
+```
+The build itself will fail if any test fails.
+In order to open a full report use:
+```
+build/reports/tests/test/index.html
+```
+
+you can also access specific test cases:
+```
+./gradlew test --tests seedu.fitnessone.command.NewSessionCommandTest
+```
+
+### Tests
+For the tests themselves we split them up first of all in different components to ensure as full coverage as possible.
+
+- Unit tests
+  - Model tests (AthleteTest, SessionTest, ExerciseTest) to ensure data integrity and correct state updating.
+  - Controller tests (CoachTest) which verify coordination between model objects and correct exception propagation.
+  - Command tests (NewAthleteCommandTest, DeleteSessionCommandTest...): to check user input parsing, command execution, and outputs. 
+  - Parser test: confirming valid/invalid command strings if they are correctly interpreted which are vital to the correct functionality.
+
+- Integration test, to verify collaboration between logic and model layers. Thus ensuring data consistency across components:
+  - Creating a new athlete and session (NewAthleteCommand + NewSessionCommand).
+  - Adding and deleting exercises via the Coach controller.
+
+- System Tests (CLI), testing the full command lifecycle, from user input to UI output.
+  - System tests simulate user workflows end-to-end:
+  ```Adding an athlete``` -> ```adding a session``` -> ```adding an exercise``` -> ```deleting it```
+  - Handling invalid inputs and ensuring helpful error messages are displayed
+
+
+## Appendix E: Instructions for Manual Testing
+
+This section guides testers through manual validation of FitnessOne’s core features.
+Ensure that the JAR file has been correctly built (e.g., FitnessOne.jar) and run in a terminal:
+```
+java -jar FitnessOne.jar
+```
+
+### 1. Adding an Athlete
+
+Test Case: ```/newAthlete Jonas Hardwell```
+
+Expected: ```New athlete created: Jonas Hardwell```
+
+Notes: Name cannot be blank.
+Error Case: /newAthlete → “athlete name was not specified”
+
+### 2. Adding a Training Session
+
+Prerequisite: An athlete exists (e.g., John Doe with ID 0001).
+Test Case:```newsession 0001 Legs```
+Expected:
+```
+New session created:
+Athlete Name: jonas hardwell | ID: 0001
+
+Session ID: 002
+Session Description: legs
+```
+Error Case: ```/newsession 9999 Legs``` → ```Athlete not found: 9999```
+
+### 3. Adding an Exercise
+
+Prerequisite: Athlete and session exist.
+Test Case:```newExercise 0001 001 Pushups 3 12```
+
+Expected:
+```
+New exercise created!
+
+Athlete (ID) : 0001
+Athlete name: jonas hardwell
+
+Session (ID): 001
+Session Description: chest
+
+Exercise (ID): 03
+Exercise Description: leg-press
+sets x reps: 5 x 15
+```
+
+Error Case: ```newExercise 0001 001 Pushups five 12``` → ```Sets and reps must be integers.```
+
+### 4. Mark an Exercise Complete
+
+Prerequisite: Exercise 01 exists for Session 001, which exists for athlete 0001.
+
+Test Case: ```/completeExercise 0001 001 01```
+
+Expected: ```Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).```
+
+Error Case: ```/completeExercise 0001 001 99``` → ```There was an error while trying to complete the session.
+Try: /completeSession <Athlete ID> <Session ID> <Exercise ID>```
+
+### 5. Mark a Session Complete
+
+Prerequisite: Session 001 exists for athlete 0001.
+
+Test Case: ```/completeSession 0001 001```
+
+Expected: ```Session (ID: 001) completed by Jonas Hardwell (ID: 0001).```
+
+Error Case: ```/completeSession 0001 999``` → ```"There was an error while trying to complete the session.
+Try: /completeSession <Athlete ID> <Session ID>"```
+
+
+### 6. Unmark an Exercise Complete
+
+Prerequisite: Exercise 01 exists for Session 001, which exists for athlete 0001.
+
+Test Case: ```/undoExercise 0001 001 01```
+
+Expected: ```Exercise (ID: 01) has been marked as not completed by Jonas Hardwell (ID: 0001).```
+
+Error Case: ```/undoExercise 0001 001 99``` → ```Exercise not found: 99```
+
+### 7. Unmark a Session Complete
+
+Prerequisite: Session 001 exists for athlete 0001.
+
+Test Case: ```/undoSession 0001 001```
+
+Expected: ```Session (ID: 001) has been marked as not completed by Jonas Hardwell (ID: 0001).```
+
+Error Case: ```/undoSession 0001 999``` → ```Session not found: 999```
+
+### 6. Deleting an Exercise
+
+Prerequisite: Exercise 01 exists for Session 001, which exists for athlete 0001.
+
+Test Case: ```/deleteExercise 0001 001 01```
+
+Expected: ```Exercise (ID: 01), for Session (ID: 001) deleted for Jonas Hardwell (ID: 0001)```
+
+Error Case: ```/deleteExercise 0001 001 99``` → ```Exercise not found: 99```
+
+
+### 7. Deleting a Session
+
+Prerequisite: Session 001 exists for athlete 0001.
+
+Test Case: ```/deletesession 0001 001```
+
+Expected: ```Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)```
+
+Error Case: ```deleteSession 0001 999``` → ```Session not found: 999```
+
+### 8. Flagging an Athlete
+
+Prerequisite: athlete 0001 exists.
+
+Test Case: ```/flagathlete 0001 Red```
+
+Expected: ```Athlete 0001 flagged as: Red  ```
+
+Error Case 1: ```/flagathlete 9999 Red ``` → ``` Athlete not found: 9999```
+Error Case 2: ```/flagathlete 0001 reddd ``` → ``` Invalid color: reddd```
+
+### 9. Deleting an Athlete
+
+Test Case:``` /deleteathlete 0001```
+Expected: ```Deleted athlete with ID 0001```
+
+Error Case: ```/deleteathlete 9999``` → ```Athlete not found: 9999```
+
+### 10. Viewing the Leaderboard
+
+Test Case: ```/leaderboard```
+Expected: ```A list of athletes sorted by achievement score.```
+If empty: ```No athletes found, add some athletes and let them do workout!!```
+
+### 11. Error Handling
+
+Test invalid commands:
+```
+/unknowncommand
+```
+
+Expected:
+```
+Invalid Command. Type /help for a list of available commands.
+```
+
+### Notes
+Copy-paste commands one by one to verify command parsing and UI responses.
+You need not test every invalid variation—just ensure at least one invalid example per command behaves correctly.
+
+## Instructions for Manual Testing (storage)
 
 This appendix provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
 
@@ -178,7 +379,7 @@ This appendix provides a short path a tester can follow to verify the storage fe
 
 2. Run the application (from project root):
 
-```powershell
+```
 ./gradlew run
 ```
 
@@ -203,15 +404,11 @@ This appendix provides a short path a tester can follow to verify the storage fe
 
 If any of the above steps fail, capture the console output and the contents of `data/athletes_export.txt` and file an issue with those artifacts.
 
-## Instructions for manual testing
-
 #### Proposed Implementation
 
 #### Design considerations
 
 ### [Proposed] Data archiving
-
-## Documentation, logging, testing, configuration, dev-ops
 
 ## Appendix: Requirements
 
