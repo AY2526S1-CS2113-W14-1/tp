@@ -9,33 +9,45 @@ We would like to express our gratitude to:
 
 And our team members who contributed to this project:
 
-* **Halil Cokeren** - Core Developer
-* **Toh Ee Sen Izen** - Core Developer
-* **Yeung Ho / Gordon** - Core Developer
-* **Philip Hansson** - Core Developer
-* **Ma Zhiheng** - Core Developer
+* **Halil Cokeren**
+* **Toh Ee Sen Izen**
+* **Yeung Ho / Gordon**
+* **Philip Hansson** 
+* **Ma Zhiheng** 
 
 ## Design & implementation
 
-### Main Program Loop
+### Architecture Overview
 
-The sequence diagram below shows the main execution loop of FitnessONE, illustrating how the program processes user commands and maintains state. The diagram demonstrates the interaction between key components:
+The diagram below provides a comprehensive view of FitnessONE's architecture and class interactions:
 
-- The main `FitnessONE` class orchestrating the program flow
-- `Ui` handling user input and output
-- `Parser` converting raw input into `Command` objects
-- `Coach` managing the business logic and data model
-- `StorageManager` persisting changes after each successful command
+![Overall Architecture](diagrams/overall_UML.png)
+
+The application follows a Command pattern architecture with clear separation of concerns:
+
+### Static Structure (Class Relationships)
+
+![Class Diagram](diagrams/class_diagram.png)
+
+The class diagram shows the key components:
+- `FitnessONE`: Main orchestrator
+- `Coach`: Business logic and data model
+- `Command`: Operation encapsulation
+- `Parser`, `Ui`, and `StorageManager`: Support components
+
+### Program Flow
+
+#### Main Execution Loop
 
 ![Main program loop](diagrams/main_loop.png)
 
-This architecture follows the Command pattern, where user inputs are parsed into concrete Command objects that encapsulate specific operations. The main loop continues until an exit command is received, with each successful command triggering a save operation to persist the updated state.
+The sequence diagram above shows how FitnessONE processes commands in its main loop, from user input through execution and persistence.
 
-### Storage: sequence diagram (timing)
-
-The diagram below shows the interactions involved in persisting and loading the application's data (startup load, and save after each successful command). The diagram is intentionally compact and uses pseudocode-style messages to keep focus on the high-level flow (exception handling and low-level parsing loops are omitted for clarity).
+#### Storage Operations
 
 ![Storage sequence diagram](diagrams/storage_sequence.png)
+
+This diagram illustrates the data persistence flow, showing startup loading and per-command saving operations.
 
 ## Product scope
 
