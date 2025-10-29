@@ -92,7 +92,7 @@ class ParserTest {
     void checkAthleteIDValidity_SpaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd      0001"));
-        assertEquals("Athlete ID cannot be space.", error.getMessage());
+        assertEquals("Athlete ID cannot be blank.", error.getMessage());
     }
 
     @Test
@@ -136,7 +136,7 @@ class ParserTest {
     void checkSessionIDValidity_SpaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001      001"));
-        assertEquals("Session ID cannot be space.", error.getMessage());
+        assertEquals("Session ID cannot be blank.", error.getMessage());
     }
 
     @Test
@@ -187,7 +187,7 @@ class ParserTest {
     void checkExerciseIDValidity_SpaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001      note"));
-        assertEquals("Exercise ID cannot be space.", error.getMessage());
+        assertEquals("Exercise ID cannot be blank.", error.getMessage());
     }
 
     @Test
