@@ -63,6 +63,14 @@ public class Session {
         return newExercise;
     }
 
+    /**
+     * When restoring from storage, set the internal counter used to assign
+     * new exercise IDs so future additions won't clash with restored ones.
+     */
+    public void setNextExerciseIndex(int value) {
+        this.nextExerciseIndex = value;
+    }
+
     public void removeExercise(int exerciseID) throws InvalidExerciseException {
         if (exerciseID < 0 || exerciseID >= exercises.size()) {
             throw new InvalidExerciseException("Exercise not found: " + exerciseID);

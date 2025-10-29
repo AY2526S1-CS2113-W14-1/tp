@@ -26,6 +26,25 @@ public class Athlete {
         this.achievementScore = 0;
     }
 
+    /**
+     * Package-private constructor used when loading athletes from storage/export.
+     * Preserves the provided athlete ID instead of auto-generating one.
+     */
+    public Athlete(String athleteID, String athleteName) {
+        this.athleteID = athleteID;
+        this.athleteName = athleteName;
+        this.sessions = new ArrayList<>();
+        // ensure nextIntID stays ahead of any manually restored IDs
+        try {
+            int numeric = Integer.parseInt(athleteID);
+            if (numeric >= nextIntID) {
+                nextIntID = numeric + 1;
+            }
+        } catch (NumberFormatException e) {
+            // ignore - keep nextIntID as-is
+        }
+    }
+
     public String toString() {
         String flag = (flagColor != null && !flagColor.isEmpty()) ? flagColor : " ";
         return "[" + flag + "] " + athleteName + " (" + athleteID + ")";
@@ -89,6 +108,13 @@ public class Athlete {
         return sessions;
     }
 
+    /**
+     * Set the session ID counter (used when restoring from storage) so that
+     * subsequent auto-generated session IDs won't collide with restored ones.
+     */
+    public void setSessionIdCounter(int value) {
+        this.sessionIdCounter = value;
+    }
 
     public String getFlagColor() {
         return flagColor;
