@@ -3,6 +3,7 @@ package seedu.fitnessone.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import seedu.fitnessone.exception.InvalidExerciseException;
 
@@ -89,32 +90,18 @@ public class Session {
 
     public void removeExercise(String exerciseID) throws InvalidExerciseException {
         // Find and remove the exercise with the given ID
-        for (int i = 0; i < exercises.size(); i++) {
-            if (exercises.get(i).getExerciseIDString().equals(exerciseID)) {
-                exercises.remove(i);
-                renumberExercises(); // Renumber remaining exercises
-                return;
+        Iterator<Exercise> iterator = exercises.iterator();
+        boolean found = false;
+        while (iterator.hasNext()) {
+            Exercise exercise = iterator.next();
+            if (exercise.getExerciseIDString().equals(exerciseID)) {
+                iterator.remove();
+                found = true;
+                break;
             }
         }
-        throw new InvalidExerciseException("Exercise not found: " + exerciseID);
-    }
-
-    /**
-     * Renumber all exercises to ensure sequential IDs starting from 01
-     */
-    public void renumberExercises() {
-        for (int i = 0; i < exercises.size(); i++) {
-            Exercise exercise = exercises.get(i);
-            // Create new exercise with sequential ID but same other properties
-            Exercise renumbered = new Exercise(i + 1, 
-                exercise.getExerciseDescription(), 
-                exercise.getSets(), 
-                exercise.getReps());
-            if (exercise.isCompleted()) {
-                renumbered.setCompleted();
-            }
-            exercises.set(i, renumbered);
+        if (!found) {
+            throw new InvalidExerciseException("Exercise not found: " + exerciseID);
         }
-        nextExerciseIndex = exercises.size() + 1;
     }
 }
