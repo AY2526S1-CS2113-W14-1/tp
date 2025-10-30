@@ -57,15 +57,20 @@ public class FitnessONE {
                 if (c != null) {
                     c.help(view);
                 }
-
             } catch (InvalidIDException e) {
                 view.printWithDivider("InvalidIDException: " + e.getMessage());
                 if (c != null) {
                     c.help(view);
                 }
+            } catch (InvalidSessionException e) {
+                view.printWithDivider("InvalidSessionException " + e.getMessage());
 
-            } catch (InvalidSessionException | InvalidExerciseException | InvalidAthleteException e) {
-                throw new RuntimeException(e);
+            } catch (InvalidExerciseException e) {
+                view.printWithDivider("InvalidExerciseException " + e.getMessage());
+
+            } catch (InvalidAthleteException e) {
+                view.printWithDivider("InvalidAthleteException " + e.getMessage());
+
             }
         }
     }

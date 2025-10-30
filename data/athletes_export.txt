@@ -1,6 +1,5 @@
 ATHLETE|0002|Sarah Johnson
 SESSION|0002|001|HIIT AMRAP short intervals|true
-EXERCISE|0002|001|01|Mountain Climbers|5|40|true
 SESSION|0002|002|Endurance run|true
 EXERCISE|0002|002|01|Treadmill run|1|45|true
 SESSION|0002|003|Core focus|false
@@ -36,3 +35,5 @@ SESSION|0006|001|Trial session|false
 EXERCISE|0006|001|01|Bodyweight Squat|3|15|false
 EXERCISE|0006|001|02|Push-ups|3|12|false
 ATHLETE|0007|asfd
+ATHLETE|0008|john applessed
+ATHLETE|0009|binoo

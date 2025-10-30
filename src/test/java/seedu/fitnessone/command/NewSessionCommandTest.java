@@ -45,7 +45,8 @@ public class NewSessionCommandTest {
 
         InvalidCommandException ex = assertThrows(InvalidCommandException.class,
                 () -> cmd.execute(coach, ui));
-        assertEquals("Invalid input, try /NewSession <Athlete ID> <Session Notes>", ex.getMessage());
+        assertEquals("Unknown command: 'Invalid input, try /NewSession <Athlete ID>" +
+                " <Session Notes>'. Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
@@ -56,7 +57,8 @@ public class NewSessionCommandTest {
 
         InvalidCommandException ex = assertThrows(InvalidCommandException.class,
                 () -> cmd.execute(coach, ui));
-        assertEquals("Invalid format: Athlete ID must contain only digits.", ex.getMessage());
+        assertEquals("Unknown command: 'Invalid format: Athlete ID must contain only digits." +
+                "'. Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
@@ -116,6 +118,7 @@ public class NewSessionCommandTest {
         InvalidAthleteException exception = assertThrows(InvalidAthleteException.class, () -> {
             sessionCommand.execute(coachTest, uiStub);
         });
-        assertEquals("Athlete not found: 0002",  exception.getMessage());
+        assertEquals("Athlete with ID '0002' does not exist.\nTip:" +
+                " Use /listAthletes to see all available athletes.", exception.getMessage());
     }
 }

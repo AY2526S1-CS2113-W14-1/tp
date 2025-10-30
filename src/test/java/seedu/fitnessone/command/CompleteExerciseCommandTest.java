@@ -71,7 +71,7 @@ public class CompleteExerciseCommandTest {
     }
 
     @Test
-    public void execute_invalidCompletionWithIncorrectSessionId_throwsInvalidCommandException()
+    public void execute_invalidCompletionWithIncorrectSessionId_throwsInvalidSessionException()
             throws InvalidCommandException, InvalidAthleteException {
         Coach coachTest = new Coach();
         CompleteExerciseCommandTest.UiStub uiStub = new CompleteExerciseCommandTest.UiStub();
@@ -86,14 +86,14 @@ public class CompleteExerciseCommandTest {
 
         CompleteExerciseCommand completeCommand =
                 new CompleteExerciseCommand("completeExercise " + athleteId + " 999 01");
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
+        InvalidSessionException exception = assertThrows(InvalidSessionException.class, () -> {
             completeCommand.execute(coachTest, uiStub);
         });
-        assertEquals("Session not found: 999", exception.getMessage());
+        assertEquals("Session with ID '999' could not be found.", exception.getMessage());
     }
 
     @Test
-    public void execute_invalidCompletionWithIncorrectAthleteId_throwsInvalidCommandException()
+    public void execute_invalidCompletionWithIncorrectAthleteId_throwsInvalidAthleteException()
             throws InvalidCommandException, InvalidAthleteException {
         Coach coachTest = new Coach();
         CompleteExerciseCommandTest.UiStub uiStub = new CompleteExerciseCommandTest.UiStub();
@@ -108,9 +108,10 @@ public class CompleteExerciseCommandTest {
 
         CompleteExerciseCommand completeCommand =
                 new CompleteExerciseCommand("completeExercise 0100 001 01");
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
+        InvalidAthleteException exception = assertThrows(InvalidAthleteException.class, () -> {
             completeCommand.execute(coachTest, uiStub);
         });
-        assertEquals("Athlete not found: 0100", exception.getMessage());
+        assertEquals("Athlete with ID '0100' does not exist.\nTip: Use /listAthletes " +
+                "to see all available athletes.", exception.getMessage());
     }
 }

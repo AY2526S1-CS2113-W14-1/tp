@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
@@ -25,27 +26,32 @@ public class CompleteExerciseCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = Parser.checkSessionIDValidity(inputString);
-            String exerciseID = Parser.checkExerciseIDValidity(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
+        String exerciseID = Parser.checkExerciseIDValidity(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
-            ArrayList<Exercise> exercises = session.getExercises();
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
+        ArrayList<Exercise> exercises = session.getExercises();
 
-            for (Exercise exercise : exercises) {
-                if (exercise.getExerciseIDString().equals(exerciseID)) {
-                    exercise.setCompleted();
-                    view.printWithDivider("Exercise (ID: " + exerciseID + ") completed by "
-                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-                }
+        boolean found = false;
+        for (Exercise exercise : exercises) {
+            if (exercise.getExerciseIDString().equals(exerciseID)) {
+                exercise.setCompleted();
+                view.printWithDivider("Exercise (ID: " + exerciseID + ") completed by "
+                        + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                found = true;
             }
-        } catch (InvalidAthleteException | InvalidSessionException e) {
-            throw new InvalidCommandException(e.getMessage());
+        }
+        if (!found) {
+            throw new InvalidExerciseException("Exercise with ID '" + exerciseID
+                    + "' not found for athlete '" + athlete.getAthleteName()
+                    + "' (ID: " + athleteID + "), session ID: " + sessionID + ".");
         }
     }
+
 
     @Override
     public boolean isExit() {

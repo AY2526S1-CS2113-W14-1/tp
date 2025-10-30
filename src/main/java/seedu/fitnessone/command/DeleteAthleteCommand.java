@@ -20,16 +20,11 @@ public class DeleteAthleteCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidAthleteException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
 
-            coachController.deleteAthlete(athleteID);
-            view.printWithDivider("Deleted athlete with ID " + athleteID);
-        } catch (InvalidAthleteException | IndexOutOfBoundsException e) {
-            throw new InvalidCommandException(e.getMessage());
-        }
-
+        coachController.deleteAthlete(athleteID);
+        view.printWithDivider("Deleted athlete with ID " + athleteID);
     }
 
     @Override

@@ -25,15 +25,12 @@ public class NewAthleteCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         String athleteName;
-        if (inputString.length() <= 11) {
-            throw new InvalidCommandException("athlete name was not specified");
-        }
         athleteName = inputString.substring(11).trim();
         if (athleteName.isBlank()) {
             throw new InvalidCommandException("athlete name was not specified");
         }
         String itemToString = coachController.newAthlete(athleteName);
-        view.printWithDivider("athlete added." + System.lineSeparator() + "     " + itemToString);
+        view.printWithDivider("Athlete added:" + System.lineSeparator() + "     " + itemToString);
     }
 
     @Override

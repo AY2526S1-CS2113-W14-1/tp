@@ -120,7 +120,7 @@ class AthleteTest {
 
         InvalidSessionException ex = assertThrows(InvalidSessionException.class,
                 () -> athlete.removeSession("999"));
-        assertEquals("Session not found: 999", ex.getMessage());
+        assertEquals("Session with ID 'Session not found: 999' could not be found.", ex.getMessage());
     }
 
     @Test

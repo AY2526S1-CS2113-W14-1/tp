@@ -28,21 +28,18 @@ public class DeleteExerciseCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = Parser.checkSessionIDValidity(inputString);
-            String exerciseID = Parser.checkExerciseIDValidity(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
+        String exerciseID = Parser.checkExerciseIDValidity(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
-            Exercise exercise = coachController.accessExerciseID(session, exerciseID);
-            coachController.deleteExerciseFromSession(session, exercise);
-            view.printWithDivider("Deleted exercise (ID: " + exerciseID + ") from session " + sessionID 
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
+        Exercise exercise = coachController.accessExerciseID(session, exerciseID);
+        coachController.deleteExerciseFromSession(session, exercise);
+        view.printWithDivider("Deleted exercise (ID: " + exerciseID + ") from session " + sessionID 
                 + " for " + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-        } catch (InvalidAthleteException | InvalidSessionException | InvalidExerciseException e) {
-            throw new InvalidCommandException(e.getMessage());
-        }
     }
 
     @Override

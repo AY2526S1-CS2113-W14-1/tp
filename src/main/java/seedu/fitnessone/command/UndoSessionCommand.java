@@ -25,25 +25,17 @@ public class UndoSessionCommand implements Command {
 
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = Parser.checkSessionIDValidity(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidSessionException, InvalidAthleteException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
-            session.setNotCompleted();
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
+        session.setNotCompleted();
 
-            view.printWithDivider("Session (ID: " + sessionID + ") has been marked as not completed for "
-                    + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-
-        } catch (InvalidAthleteException | InvalidSessionException e) {
-            throw new InvalidCommandException(e.getMessage());
-        } catch (RuntimeException e) {
-            throw new InvalidCommandException("There was an error while trying to mark the " +
-                    "session not completed." +
-                    "\nTry: /completeSession <Athlete ID> <Session ID>");
-        }
+        view.printWithDivider("Session (ID: " + sessionID + ") has been marked as not completed for "
+                + athlete.getAthleteName() + " (ID: " + athleteID + ").");
     }
 
     @Override

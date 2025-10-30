@@ -25,28 +25,23 @@ public class ViewSessionsCommand implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            ArrayList<Session> sessions = athlete.getSessions();
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        ArrayList<Session> sessions = athlete.getSessions();
 
-            view.divider();
-            view.println("Athlete ID: " + athlete.getAthleteID() + " | Name: " + athlete.getAthleteName() + "\n");
-            view.println("Status | Session ID | Date | Notes: ");
-            for (int i = 0; i < sessions.size(); i++) {
-                Session session = sessions.get(i);
-                String status = session.isCompleted() ? "[X]" : "[ ]";
+        view.divider();
+        view.println("Athlete ID: " + athlete.getAthleteID() + " | Name: " + athlete.getAthleteName() + "\n");
+        view.println("Status | Session ID | Date | Notes: ");
+        for (int i = 0; i < sessions.size(); i++) {
+            Session session = sessions.get(i);
+            String status = session.isCompleted() ? "[X]" : "[ ]";
 
-                view.println((i + 1) + ". " + status + ".   Session: " +
-                        session.getSessionIdString() + " | Date: "
-                        + session.getSessionDateString() + " | " + session.getTrainingNotes());
-            }
-            view.divider();
-
-        } catch (InvalidAthleteException e) {
-            throw new InvalidCommandException(e.getMessage());
+            view.println((i + 1) + ". " + status + ".   Session: " +
+                    session.getSessionIdString() + " | Date: "
+                    + session.getSessionDateString() + " | " + session.getTrainingNotes());
         }
+        view.divider();
     }
 
     @Override

@@ -25,23 +25,19 @@ public class UpdateSessionNotesCommand implements Command {
 
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = Parser.checkSessionIDValidity(inputString);
-            String sessionNotes = Parser.isTrainingNotes(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidAthleteException, InvalidSessionException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
+        String sessionNotes = Parser.isTrainingNotes(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
 
-            session.setTrainingNotes(sessionNotes);
+        session.setTrainingNotes(sessionNotes);
 
-            view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
-                    " session: " + sessionID + " with notes: " + sessionNotes + ".");
-
-        } catch (InvalidAthleteException | InvalidSessionException e) {
-            throw new InvalidCommandException(e.getMessage());
-        }
+        view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
+                " session: " + sessionID + " with notes: " + sessionNotes + ".");
     }
 
     @Override
