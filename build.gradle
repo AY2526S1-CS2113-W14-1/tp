@@ -17,7 +17,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    jvmArgs += '-ea'
+    jvmArgs '-enableassertions', '-ea'
     testLogging {
         events "passed", "skipped", "failed"
 
