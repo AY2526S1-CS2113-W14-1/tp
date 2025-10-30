@@ -76,7 +76,7 @@ public class Ui {
     public void showWelcome() {
         println("Hello from");
         printASCIIName();
-        printWithDivider("Hey, welcome to FitnessONE!" + System.lineSeparator() + "      How may we help today?");
+        printWithDivider("Hey, welcome to FitnessONE!" + System.lineSeparator() + "      How may we help today? Type /help for help.");
     }
 
 
