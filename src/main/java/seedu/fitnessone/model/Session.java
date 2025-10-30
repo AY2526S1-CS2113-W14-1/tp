@@ -3,6 +3,7 @@ package seedu.fitnessone.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import seedu.fitnessone.exception.InvalidExerciseException;
 
@@ -87,10 +88,20 @@ public class Session {
         this.nextExerciseIndex = value;
     }
 
-    public void removeExercise(int exerciseID) throws InvalidExerciseException {
-        if (exerciseID < 0 || exerciseID >= exercises.size()) {
+    public void removeExercise(String exerciseID) throws InvalidExerciseException {
+        // Find and remove the exercise with the given ID
+        Iterator<Exercise> iterator = exercises.iterator();
+        boolean found = false;
+        while (iterator.hasNext()) {
+            Exercise exercise = iterator.next();
+            if (exercise.getExerciseIDString().equals(exerciseID)) {
+                iterator.remove();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
             throw new InvalidExerciseException("Exercise not found: " + exerciseID);
         }
-        exercises.remove(exerciseID);
     }
 }

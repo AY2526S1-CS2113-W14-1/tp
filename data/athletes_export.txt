@@ -1,0 +1,39 @@
+ATHLETE|0002|Sarah Johnson
+SESSION|0002|001|HIIT AMRAP short intervals|true
+SESSION|0002|002|Endurance run|true
+EXERCISE|0002|002|01|Treadmill run|1|45|true
+SESSION|0002|003|Core focus|false
+EXERCISE|0002|003|01|Russian Twists|4|30|false
+EXERCISE|0002|003|02|Hanging Leg Raises|3|12|false
+EXERCISE|0002|003|03|Side Plank|3|60|false
+ATHLETE|0003|Mike Chen
+SESSION|0003|001|Endurance training long run|false
+EXERCISE|0003|001|01|Road Run|1|90|false
+SESSION|0003|002|Rowing session|true
+EXERCISE|0003|002|01|Ergometer|4|20|true
+EXERCISE|0003|002|02|Sprint intervals|6|30|true
+SESSION|0003|003|Mobility and recovery|true
+EXERCISE|0003|003|01|Yoga Flow|1|30|true
+ATHLETE|0004|Emma Wilson
+SESSION|0004|001|Speed and agility|true
+EXERCISE|0004|001|01|Sprint Intervals|8|30|true
+EXERCISE|0004|001|02|Lateral bounds|4|12|true
+SESSION|0004|002|Recovery jog|false
+EXERCISE|0004|002|01|Easy Jog|1|20|false
+SESSION|0004|003|Strength maintenance|true
+EXERCISE|0004|003|01|Deadlift|4|5|true
+EXERCISE|0004|003|02|Romanian Deadlift|3|6|true
+ATHLETE|0005|David Park
+SESSION|0005|001|Power and explosiveness|true
+EXERCISE|0005|001|01|Power Cleans|5|3|true
+EXERCISE|0005|001|02|Box Jumps|5|6|true
+EXERCISE|0005|001|03|Medicine Ball Slams|4|10|true
+SESSION|0005|002|Technical lifting|false
+EXERCISE|0005|002|01|Snatch technique|3|3|false
+ATHLETE|0006|afds
+SESSION|0006|001|Trial session|false
+EXERCISE|0006|001|01|Bodyweight Squat|3|15|false
+EXERCISE|0006|001|02|Push-ups|3|12|false
+ATHLETE|0007|asfd
+ATHLETE|0008|john applessed
+ATHLETE|0009|binoo

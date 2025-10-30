@@ -90,6 +90,7 @@ public class Athlete {
     }
 
     public void removeSession(String sessionID) throws InvalidSessionException {
+        // Find and remove the session with the given ID
         Iterator<Session> iterator = sessions.iterator();
         boolean found = false;
         while (iterator.hasNext()) {

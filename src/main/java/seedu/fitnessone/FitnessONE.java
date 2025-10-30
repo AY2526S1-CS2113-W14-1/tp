@@ -28,7 +28,12 @@ public class FitnessONE {
         } catch (IOException e) {
             coachController = new Coach();
             view.showWelcome();
-            view.printWithDivider("No saved data found, starting with empty data.");
+            // If loading failed, it may be because the file is missing or the file
+            // contents are corrupted/unreadable. Give the user clearer feedback.
+            String msg = e.getMessage() == null ? "" : (": " + e.getMessage());
+            String errorMsg = String.format("Failed to load saved data (missing or corrupted)%s," 
+                    + " starting with empty data.", msg);
+            view.printWithDivider(errorMsg);
         }
     }
 

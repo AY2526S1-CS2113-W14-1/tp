@@ -30,7 +30,7 @@ public class NewAthleteCommand implements Command {
             throw new InvalidCommandException("athlete name was not specified");
         }
         String itemToString = coachController.newAthlete(athleteName);
-        view.printWithDivider("athlete added." + System.lineSeparator() + "     " + itemToString);
+        view.printWithDivider("Athlete added:" + System.lineSeparator() + "     " + itemToString);
     }
 
     @Override
