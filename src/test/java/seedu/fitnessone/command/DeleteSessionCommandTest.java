@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,7 +57,7 @@ public class DeleteSessionCommandTest {
 
     @Test
     public void execute_validDeletion_deleteSessionAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException {
         Coach coachTest = new Coach();
         DeleteSessionCommandTest.UiStub uiStub = new DeleteSessionCommandTest.UiStub();
         String athleteName = "John Doe";

@@ -27,35 +27,31 @@ public class ViewExerciseCommand implements Command {
 
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            String athleteID = Parser.checkAthleteIDValidity(inputString);
-            String sessionID = Parser.checkSessionIDValidity(inputString);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidAthleteException, InvalidSessionException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
 
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
-            ArrayList<Exercise> exercises = session.getExercises();
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
+        ArrayList<Exercise> exercises = session.getExercises();
 
-            view.divider();
-            view.println("Athlete ID: " + athleteID);
-            view.println("Athlete Name: " + athlete.getAthleteName());
-            view.println("Session ID: " + sessionID + " | " + session.getSessionDateString() +"\n");
-            view.println("Session Note: " + session.getTrainingNotes() );
+        view.divider();
+        view.println("Athlete ID: " + athleteID);
+        view.println("Athlete Name: " + athlete.getAthleteName());
+        view.println("Session ID: " + sessionID + " | " + session.getSessionDateString() +"\n");
+        view.println("Session Note: " + session.getTrainingNotes() );
 
-            view.println("Exercise List: " + exercises.size());
-            for (int i = 0; i < exercises.size(); i++) {
-                Exercise exercise = exercises.get(i);
-                String status = exercise.isCompleted() ? "[X]" : "[ ]";
-                int displayIndex = i + 1;
-                view.println(displayIndex + ".   " + status + " " + exercise.getExerciseDescription()
-                        + " (" + exercise.getSets() + "x" + exercise.getReps() + ")");
-            }
-
-            view.divider();
-
-        } catch (InvalidAthleteException | InvalidSessionException e) {
-            throw new InvalidCommandException(e.getMessage());
+        view.println("Exercise List: " + exercises.size());
+        for (int i = 0; i < exercises.size(); i++) {
+            Exercise exercise = exercises.get(i);
+            String status = exercise.isCompleted() ? "[X]" : "[ ]";
+            int displayIndex = i + 1;
+            view.println(displayIndex + ".   " + status + " " + exercise.getExerciseDescription()
+                    + " (" + exercise.getSets() + "x" + exercise.getReps() + ")");
         }
+
+        view.divider();
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ public class CompleteSessionCommandTest {
 
     @Test
     public void execute_validCompletion_completesSessionAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException {
         Coach coachTest = new Coach();
         CompleteSessionCommandTest.UiStub uiStub = new CompleteSessionCommandTest.UiStub();
         String athleteName = "Jonas Hardwell";
