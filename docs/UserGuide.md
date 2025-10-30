@@ -190,7 +190,7 @@ Exercise (ID: 02) completed by Jonas Hardwell (ID: 0001).
 ```
 
 ### Marking a Session as not completed : `/undoSession`
-Marks the specified Session as completed.
+Marks the specified Session as not completed.
 
 
 Format: `/undoSession <Athlete ID> <Session ID>`
@@ -211,7 +211,7 @@ Session (ID: 003) was marked as not completed for jonas hardwell (ID: 0001).
 ```
 
 ### Marking an Exercise as not completed : `/undoExercise`
-Marks the specified Session as completed.
+Marks the specified Exercise as not completed.
 
 
 Format: `/undoExercise <Athlete ID> <Session ID> <Exercise ID`
