@@ -97,7 +97,7 @@ Session Description: legs
 Adds an Exercise to the specified Session.
 Sessions are specified via Athlete ID + Session ID
 
-Format: `/newExercise <Athlete ID> <Session ID> <Exercise Description>`
+Format: `/newExercise <Athlete ID> <Session ID> <Exercise Description> <set> <rep>` 
 
 Example of usage: 
 
@@ -214,7 +214,7 @@ Session (ID: 003) was marked as not completed for jonas hardwell (ID: 0001).
 Marks the specified Session as completed.
 
 
-Format: `/undoSession <Athlete ID> <Session ID>`
+Format: `/undoExercise <Athlete ID> <Session ID> <Exercise ID`
 
 Example of usage:
 
@@ -358,6 +358,128 @@ ____________________________________________________________
 
 ```
 
+### Flagging an Athlete with a Color: `/flagathlete`
+Flags a specific athlete with a chosen color for priority tracking (for example, marking important or high-priority athletes)
+
+
+Format: `/flagathlete <Athlete ID> <Color>`
+
+Example of usage:
+
+```
+/flagathlete 0001 red
+
+```
+
+Output:
+
+```
+____________________________________________________________
+Athlete 0001 flagged as: 🟥
+____________________________________________________________
+
+```
+
+### Deleting an Athlete: `/deleteathlete`
+Deletes a specific athlete and all associated data (sessions, exercises, and progress records)
+
+
+Format: `/deleteathlete <Athlete ID>`
+
+Example of usage:
+
+```
+/deleteathlete 0001
+
+```
+
+
+Output:
+
+```
+____________________________________________________________
+Deleted athlete with ID 0001
+____________________________________________________________
+
+```
+
+### Listing All Athletes: `/listathletes`
+Displays a list of all registered athletes currently stored in the system, along with their corresponding IDs and their priority flag.
+
+
+Format: `/listathletes`
+
+Example of usage:
+
+```
+/listathletes
+
+```
+
+
+Output:
+
+```
+____________________________________________________________
+    1.     [🟥] jonas hardwell (0001)
+    2.     [🟨] john doe (0002)
+    3.     [ ] jonhattan well (0003)
+____________________________________________________________
+
+```
+
+### Viewing All Available Commands: `/help`
+Displays a list of all available commands in FitnessONE, categorized by their functionality (Athlete, Session, Exercise, and Others)
+
+
+Format: `/help`
+
+Example of usage:
+
+```
+/help
+
+```
+
+
+Output:
+
+```
+=========================================================
+FitnessONE - Available Commands
+
+=== ATHLETE COMMANDS ===
+/newathlete <Name> - Create a new athlete
+/viewathlete <Athlete ID> - View athlete details
+/listathletes - List all athletes
+/deleteathlete <Athlete ID> - Delete an athlete
+/flagathlete <Athlete ID> <Color> - Flag an athlete
+
+=== SESSION COMMANDS ===
+/newsession <Athlete ID> <Notes> - Create a new session
+/deletesession <Athlete ID> <Session ID> - Delete a session
+/completesession <Athlete ID> <Session ID> - Complete a session
+/viewsessions <Athlete ID> - View all sessions
+/updatesessionnote <Athlete ID> <Session ID> <Notes> - Update notes
+/undosession <Athlete ID> <Session ID> - Undo completion
+
+=== EXERCISE COMMANDS ===
+/newexercise <Athlete ID> <Session ID> <Name> - Create exercise
+/deleteexercise <Athlete ID> <Session ID> <Exercise ID> - Delete exercise
+/viewexercises <Athlete ID> <Session ID> - View all exercises
+/completeexercise <Athlete ID> <Session ID> <Exercise ID> - Complete exercise
+/undoexercise <Athlete ID> <Session ID> <Exercise ID> - Undo completion
+
+=== OTHER COMMANDS ===
+/help - Show this help message
+/leaderboard - Show the leaderboard
+bye - Exit the application
+
+Tip: Each command has its own help. Try using an incorrect format to see details!
+=========================================================
+
+```
+
 ### Exit FitnessONE  : `bye`
 This function exits the program.
 
@@ -389,12 +511,20 @@ Bye. Hope to see you again soon!
 
 * Add a new Athlete `/newAthlete <Athlete ID>`
 * View Athlete Details `/viewAthlete <Athlete ID>`
+* List all Athletes `/listAthletes`
 * Add a Session to an Athlete `/newSession <Athlete ID> <Description>`
-* Add to a Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description>`
-* Updaete a Sessions Notes `/updaetSessionNotes <Athlete ID> <Session ID> <Notes>`
+* Add an Exercise to a Session `/newExercise <Athlete ID> <Session ID> <Description> <set> <rep>`
+* Update a Sessions Notes `/updaetSessionNotes <Athlete ID> <Session ID> <Notes>`
 * Mark a Session as Completed `/completeSession <Athlete ID> <Session ID>`
 * Mark an Exercise as Completed `/completeExercise <Athlete ID> <Session ID> <Exercise ID>`
+* Mark a Session as Not Completed `/undoSession <Athlete ID> <Session ID>`
+* Mark an Exercise as Not Completed `/undoExercise <Athlete ID> <Session ID> <Exercise ID`
 * View Athletes all Session `/viewSessions <Athlete ID>`
 * View all Exercise of a Session `/viewExercise <Athlete ID> <Session ID>`
 * Delete Exercise from Session `/deleteExercise <Athlete ID> <Session ID> <Exercise ID>`
 * Delete Session from Athlete `/deleteSession <Athlete ID> <Session ID>`
+* Delete an Athlete `/deleteAthlete <Athlete ID>`
+* Flag an Athlete `/flagathlete <Athlete ID> <Color>`
+* View Leaderboard /leaderboard `/leaderboard`
+* View all available commands  `/help`
+* Exit FitnessONE `bye`
