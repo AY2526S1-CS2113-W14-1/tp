@@ -38,13 +38,15 @@ class ParserTest {
     void parse_nullOrSpace_throwsInvalidCommandException() {
         assertThrows(InvalidCommandException.class, () -> Parser.parse(null));
         InvalidCommandException error = assertThrows(InvalidCommandException.class, () -> Parser.parse("   "));
-        assertEquals("Input cannot be empty", error.getMessage());
+        assertEquals("Unknown command: 'Input cannot be empty'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void parse_unrecognizedCommand_throwsInvalidCommandException() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class, () -> Parser.parse("nonsense"));
-        assertEquals("Input keyword not found.", error.getMessage());
+        assertEquals("Unknown command: 'Input keyword not found.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
@@ -97,7 +99,8 @@ class ParserTest {
     void checkAthleteIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd      0001"));
-        assertEquals("Athlete ID cannot be blank.", error.getMessage());
+        assertEquals("Unknown command: 'Athlete ID cannot be blank.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
@@ -117,21 +120,24 @@ class ParserTest {
     void checkAthleteIDValidity_space_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd    "));
-        assertEquals("Input is empty. Check if there's athletes or sessions created.", error.getMessage());
+        assertEquals("Unknown command: 'Input is empty. Check if there's athletes or" +
+                " sessions created.'. Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkAthleteIDValidity_wrongLength_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd 123"));
-        assertEquals("Athlete ID must be 4 characters long.", error.getMessage());
+        assertEquals("Unknown command: 'Athlete ID must be 4 characters long.'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkAthleteIDValidity_nonDigits_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkAthleteIDValidity("/cmd 12a3"));
-        assertEquals("Invalid format: Athlete ID must contain only digits.", error.getMessage());
+        assertEquals("Unknown command: 'Invalid format: Athlete ID must contain only digits.'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     /*
@@ -141,7 +147,8 @@ class ParserTest {
     void checkSessionIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001      001"));
-        assertEquals("Session ID cannot be blank.", error.getMessage());
+        assertEquals("Unknown command: 'Session ID cannot be blank.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
@@ -161,21 +168,24 @@ class ParserTest {
     void checkSessionIDValidity_space_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001    "));
-        assertEquals("Invalid Command. Check if there's athletes or sessions created.", error.getMessage());
+        assertEquals("Unknown command: 'Invalid Command. Check if there's athletes or" +
+                " sessions created.'. Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkSessionIDValidity_wrongLength_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001 01"));
-        assertEquals("Session ID must be 3 characters long.", error.getMessage());
+        assertEquals("Unknown command: 'Session ID must be 3 characters long.'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkSessionIDValidity_nonDigits_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkSessionIDValidity("/cmd 0001 0a1"));
-        assertEquals("Invalid format: Session ID must contain only digits.", error.getMessage());
+        assertEquals("Unknown command: 'Invalid format: Session ID must contain only digits.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     /*
@@ -185,14 +195,16 @@ class ParserTest {
     void checkExerciseIDValidity_wrongLength_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001 001"));
-        assertEquals("Exercise ID must be 2 characters long.", error.getMessage());
+        assertEquals("Unknown command: 'Exercise ID must be 2 characters long.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkExerciseIDValidity_spaceChar_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001      note"));
-        assertEquals("Exercise ID cannot be blank.", error.getMessage());
+        assertEquals("Unknown command: 'Exercise ID cannot be blank.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
@@ -213,14 +225,16 @@ class ParserTest {
     void checkExerciseIDValidity_space_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001   "));
-        assertEquals("Input is empty. Check if there's athletes or sessions created.", error.getMessage());
+        assertEquals("Unknown command: 'Input is empty. Check if there's athletes or" +
+                " sessions created.'. Type /help to see available commands.", error.getMessage());
     }
 
     @Test
     void checkExerciseIDValidity_nonDigits_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.checkExerciseIDValidity("/cmd 0001 001 0a"));
-        assertEquals("Invalid format: Exercise ID must contain only digits.", error.getMessage());
+        assertEquals("Unknown command: 'Invalid format: Exercise ID must contain only digits.'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     /*
@@ -255,7 +269,7 @@ class ParserTest {
     void isTrainingNotes_missing_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.isTrainingNotes("/trainingNotes 0001 001"));
-        assertTrue(error.getMessage().startsWith("Training notes cannot be empty."),
+        assertTrue(error.getMessage().contains("Training notes cannot be empty"),
                 "Should indicate that training notes cannot be empty with the correct format hint.");
     }
 }

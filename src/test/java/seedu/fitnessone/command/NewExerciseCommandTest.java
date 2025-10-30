@@ -104,7 +104,8 @@ public class NewExerciseCommandTest {
                 InvalidCommandException.class,
                 () -> newExercise.execute(coach, ui)
         );
-        assertEquals("Sets and reps must be integers.", ex.getMessage());
+        assertEquals("Unknown command: 'Sets and reps must be integers.'. " +
+                "Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
@@ -129,7 +130,8 @@ public class NewExerciseCommandTest {
         );
         // Match the command’s actual message:
         assertEquals(
-                "Invalid input. Please follow: /newexercise <Athlete ID> <Session ID> <Exercise Description>",
+                "Unknown command: 'Invalid input. Please follow: /newexercise <Athlete ID> " +
+                        "<Session ID> <Exercise Description>'. Type /help to see available commands.",
                 ex.getMessage()
         );
     }

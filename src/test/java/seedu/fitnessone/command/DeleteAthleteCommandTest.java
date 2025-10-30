@@ -76,13 +76,14 @@ class DeleteAthleteCommandTest {
 
     // Delete nonexistent athlete
     @Test
-    void execute_invalidAthleteId_throwsInvalidCommandException() throws InvalidCommandException {
+    void execute_invalidAthleteId_throwsInvalidAthleteException() throws InvalidCommandException {
         String input = "deleteAthlete 9999";
         DeleteAthleteCommand cmd = new DeleteAthleteCommand(input);
 
-        InvalidCommandException error = assertThrows(InvalidCommandException.class, () ->
+        InvalidAthleteException error = assertThrows(InvalidAthleteException.class, () ->
                 cmd.execute(coach, ui));
-        assertTrue(error.getMessage().contains("athleteID 9999 not found"));
+        assertTrue(error.getMessage().contains("Athlete with ID '9999' does not exist.\nTip: Use /listAthletes " +
+                "to see all available athletes."));
     }
 
     // Invalid format (throw)
@@ -93,7 +94,8 @@ class DeleteAthleteCommandTest {
 
         InvalidCommandException error = assertThrows(InvalidCommandException.class, () ->
                 cmd.execute(coach, ui));
-        assertEquals("Invalid format: Athlete ID must contain only digits.", error.getMessage());
+        assertEquals("Unknown command: 'Invalid format: Athlete ID must contain only digits.'. " +
+                "Type /help to see available commands.", error.getMessage());
     }
 
     @Test
@@ -101,7 +103,8 @@ class DeleteAthleteCommandTest {
         DeleteAthleteCommand cmd = new DeleteAthleteCommand("deleteAthlete   ");
         InvalidCommandException error = assertThrows(InvalidCommandException.class, () ->
                 cmd.execute(coach, ui));
-        assertEquals("Input is empty. Check if there's athletes or sessions created.", error.getMessage());
+        assertEquals("Unknown command: 'Input is empty. Check if there's athletes or sessions created.'." +
+                " Type /help to see available commands.", error.getMessage());
     }
 
     @Test

@@ -199,16 +199,19 @@ class CoachTest {
         // null / blank
         InvalidAthleteException ex1 = assertThrows(InvalidAthleteException.class,
                 () -> coach.flagAthlete(null, "blue"));
-        assertEquals("Athlete ID cannot be empty.", ex1.getMessage());
+        assertEquals("Athlete with ID 'Athlete ID cannot be empty.' does not exist.\nTip:" +
+                " Use /listAthletes to see all available athletes.", ex1.getMessage());
 
         InvalidAthleteException ex2 = assertThrows(InvalidAthleteException.class,
                 () -> coach.flagAthlete("   ", "blue"));
-        assertEquals("Athlete ID cannot be empty.", ex2.getMessage());
+        assertEquals("Athlete with ID 'Athlete ID cannot be empty.' does not exist.\nTip:" +
+                " Use /listAthletes to see all available athletes.", ex2.getMessage());
 
         // not found
         InvalidAthleteException ex3 = assertThrows(InvalidAthleteException.class,
                 () -> coach.flagAthlete("9999", "blue"));
-        assertEquals("Athlete not found with ID: 9999", ex3.getMessage());
+        assertEquals("Athlete with ID '9999' does not exist.\nTip:" +
+                " Use /listAthletes to see all available athletes.", ex3.getMessage());
     }
 
     // leaderboardConstruct

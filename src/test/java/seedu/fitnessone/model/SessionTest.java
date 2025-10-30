@@ -81,40 +81,38 @@ class SessionTest {
     }
 
     @Test
-    void removeExercise_validId_removesCorrectItem() throws InvalidExerciseException {
+    void removeExercise_validIndex_removesCorrectItem() throws InvalidExerciseException {
         Session session = new Session(6, "notes");
-        Exercise exercise1 = session.addExercise("A", 1, 1); // Will get ID "01"
-        Exercise exercise2 = session.addExercise("B", 1, 1); // Will get ID "02"
-        Exercise exercise3 = session.addExercise("C", 1, 1); // Will get ID "03"
+        Exercise exercise1 = session.addExercise("A", 1, 1);
+        Exercise exercise2  = session.addExercise("B", 1, 1);
+        Exercise exercise3 = session.addExercise("C", 1, 1);
         assertEquals(3, session.getExercises().size());
 
-        session.removeExercise("02"); // Remove the middle exercise
+        session.removeExercise(1);
         assertEquals(2, session.getExercises().size());
-        
-        // Check exercises maintain their identity and IDs
         assertSame(exercise1, session.getExercises().get(0));
-        assertEquals("01", session.getExercises().get(0).getExerciseIDString());
         assertSame(exercise3, session.getExercises().get(1));
-        assertEquals("03", session.getExercises().get(1).getExerciseIDString());
     }
 
     @Test
-    void removeExercise_invalidId_throws() {
+    void removeExercise_negativeIndex_throws() {
         Session session = new Session(8, "notes");
         session.addExercise("Only", 1, 1);
 
         InvalidExerciseException ex = assertThrows(InvalidExerciseException.class,
-                () -> session.removeExercise("99")); // Non-existent ID
-        assertEquals("Exercise not found: 99", ex.getMessage());
+                () -> session.removeExercise(-1));
+        assertEquals("Exercise with ID 'Exercise not found: -1' is not available" +
+                " in the system.", ex.getMessage());
     }
 
     @Test
-    void removeExercise_badFormatId_throws() {
+    void removeExercise_indexTooLarge_throws() {
         Session session = new Session(9, "notes");
         session.addExercise("Only", 1, 1);
 
         InvalidExerciseException ex = assertThrows(InvalidExerciseException.class,
-                () -> session.removeExercise("bad")); // Invalid format
-        assertEquals("Exercise not found: bad", ex.getMessage());
+                () -> session.removeExercise(5));
+        assertEquals("Exercise with ID 'Exercise not found: 5' is not " +
+                "available in the system.", ex.getMessage());
     }
 }
