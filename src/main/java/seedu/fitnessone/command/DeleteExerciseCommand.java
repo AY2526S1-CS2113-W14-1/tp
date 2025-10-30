@@ -38,6 +38,8 @@ public class DeleteExerciseCommand implements Command {
             Session session = coachController.accessSessionID(athlete, sessionID);
             Exercise exercise = coachController.accessExerciseID(session, exerciseID);
             coachController.deleteExerciseFromSession(session, exercise);
+        view.printWithDivider("Deleted exercise (ID: " + exerciseID + ") from session " + sessionID + " for "
+            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
 
         } catch (InvalidAthleteException | InvalidSessionException | InvalidExerciseException e) {
             throw new InvalidCommandException(e.getMessage());

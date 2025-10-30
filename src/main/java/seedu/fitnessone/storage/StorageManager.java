@@ -12,6 +12,8 @@ import java.io.FileWriter;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -27,10 +29,45 @@ public class StorageManager {
     }
 
     /**
+     * Validate that an ID is strictly numeric and of the expected length.
+     * Returns the integer value if valid, otherwise records a parse error and returns null.
+     */
+    private Integer validateNumericId(String rawId, int expectedLength, int lineNumber, List<String> parseErrors,
+            String line, String fieldName) {
+        if (rawId == null) {
+            parseErrors.add("Line " + lineNumber + ": missing " + fieldName + " -> '" + line + "'");
+            return null;
+        }
+        if (rawId.length() != expectedLength) {
+            parseErrors.add("Line " + lineNumber + ": " + fieldName + " must be " + expectedLength
+                    + " characters long -> '" + line + "'");
+            return null;
+        }
+        for (int i = 0; i < rawId.length(); i++) {
+            if (!Character.isDigit(rawId.charAt(i))) {
+                parseErrors.add("Line " + lineNumber + ": invalid " + fieldName + " '" + rawId + "' -> '" + line + "'");
+                return null;
+            }
+        }
+        try {
+            int val = Integer.parseInt(rawId);
+            if (val < 0) {
+                parseErrors.add("Line " + lineNumber + ": negative " + fieldName + " '" + rawId + "' -> '" + line + "'");
+                return null;
+            }
+            return val;
+        } catch (NumberFormatException nfe) {
+            parseErrors.add("Line " + lineNumber + ": invalid " + fieldName + " digits '" + rawId + "' -> '" + line + "'");
+            return null;
+        }
+    }
+
+    /**
      * Load Coach data from storage. Caller should handle IOException.
      */
     public Coach load() throws IOException {
         Coach coach = new Coach();
+        assert filePath != null : "Storage filePath must not be null";
         File file = new File(filePath);
         // ensure parent directory exists so later saves won't fail
         File parent = file.getParentFile();
@@ -51,9 +88,12 @@ public class StorageManager {
         Map<String, Integer> athleteMaxSession = new HashMap<>();
         Map<String, Map<String, Integer>> sessionMaxExercise = new HashMap<>();
 
+        List<String> parseErrors = new ArrayList<>();
+        int lineNumber = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                lineNumber++;
                 if (line.trim().isEmpty()) {
                     continue;
                 }
@@ -62,89 +102,168 @@ public class StorageManager {
                     continue;
                 }
                 String type = parts[0];
-                switch (type) {
-                case "ATHLETE": {
-                    if (parts.length < 2) {
-                        // malformed ATHLETE line, skip
-                        continue;
-                    }
-                    String id = parts[1];
-                    String name = parts.length > 2 ? parts[2] : "";
-                    Athlete athlete = new Athlete(id, name);
-                    coach.addAthlete(athlete);
-                    athleteMap.put(id, athlete);
-                    athleteMaxSession.put(id, 0);
-                    sessionMaxExercise.put(id, new HashMap<>());
-                    break;
-                }
-                case "SESSION": {
-                    String athleteId = parts[1];
-                    String sessionId = parts[2];
-                    String notes = parts.length > 3 ? parts[3].replace("\\n", "\n") : "";
-                    boolean completed = parts.length > 4 && Boolean.parseBoolean(parts[4]);
-                    Athlete a = athleteMap.get(athleteId);
-                    if (a == null) {
-                        a = new Athlete(athleteId, "");
-                        coach.addAthlete(a);
-                        athleteMap.put(athleteId, a);
-                        athleteMaxSession.put(athleteId, 0);
-                        sessionMaxExercise.put(athleteId, new HashMap<>());
-                    }
-                    int sessIndex = Integer.parseInt(sessionId);
-                    Session s = new Session(sessIndex, notes);
-                    if (completed) {
-                        s.setCompleted();
-                    }
-                    a.addSession(s);
-                    int prevMax = athleteMaxSession.getOrDefault(athleteId, 0);
-                    int newMax = Math.max(prevMax, sessIndex);
-                    athleteMaxSession.put(athleteId, newMax);
-                    break;
-                }
-                case "EXERCISE": {
-                    String athleteId = parts[1];
-                    String sessionId = parts[2];
-                    String exerciseId = parts[3];
-                    String desc = parts.length > 4 ? parts[4].replace("\\n", "\n") : "";
-                    int sets = parts.length > 5 ? Integer.parseInt(parts[5]) : 0;
-                    int reps = parts.length > 6 ? Integer.parseInt(parts[6]) : 0;
-                    boolean completed = parts.length > 7 && Boolean.parseBoolean(parts[7]);
-                    Athlete a = athleteMap.get(athleteId);
-                    if (a == null) {
-                        a = new Athlete(athleteId, "");
-                        coach.addAthlete(a);
-                        athleteMap.put(athleteId, a);
-                        athleteMaxSession.put(athleteId, 0);
-                        sessionMaxExercise.put(athleteId, new HashMap<>());
-                    }
-                    // find session
-                    Session targetSession = null;
-                    for (Session s : a.getSessions()) {
-                        if (s.getSessionIdString().equals(sessionId)) {
-                            targetSession = s;
+                try {
+                    switch (type) {
+                    case "ATHLETE": {
+                        if (parts.length < 2) {
+                            parseErrors.add("Line " + lineNumber + ": ATHLETE line has too few fields -> '" + line + "'");
                             break;
                         }
+                        String rawId = parts[1];
+                        Integer aid = validateNumericId(rawId, 4, lineNumber, parseErrors, line, "athlete id");
+                        if (aid == null) {
+                            break;
+                        }
+                        String id = String.format("%04d", aid);
+                        String name = parts.length > 2 ? parts[2].replace("\\n", "\n") : "";
+                        Athlete athlete = new Athlete(id, name);
+                        coach.addAthlete(athlete);
+                        athleteMap.put(id, athlete);
+                        athleteMaxSession.put(id, 0);
+                        sessionMaxExercise.put(id, new HashMap<>());
+                        break;
                     }
-                    if (targetSession == null) {
-                        int sessIdx = Integer.parseInt(sessionId);
-                        targetSession = new Session(sessIdx, "");
-                        a.addSession(targetSession);
-                        int prev = athleteMaxSession.getOrDefault(athleteId, 0);
-                        athleteMaxSession.put(athleteId, Math.max(prev, sessIdx));
+                    case "SESSION": {
+                        if (parts.length < 3) {
+                            parseErrors.add("Line " + lineNumber + ": SESSION line has too few fields -> '" + line + "'");
+                            break;
+                        }
+                        String rawAthleteId = parts[1];
+                        Integer athleteAid = validateNumericId(rawAthleteId, 4, lineNumber, parseErrors, line, "athlete id");
+                        if (athleteAid == null) {
+                            break;
+                        }
+                        String athleteId = String.format("%04d", athleteAid);
+                        String sessionId = parts[2];
+                        String notes = parts.length > 3 ? parts[3].replace("\\n", "\n") : "";
+                        boolean completed = parts.length > 4 && Boolean.parseBoolean(parts[4]);
+                        Athlete a = athleteMap.get(athleteId);
+                        if (a == null) {
+                            a = new Athlete(athleteId, "");
+                            coach.addAthlete(a);
+                            athleteMap.put(athleteId, a);
+                            athleteMaxSession.put(athleteId, 0);
+                            sessionMaxExercise.put(athleteId, new HashMap<>());
+                        }
+                        Integer sessIndexObj = validateNumericId(sessionId, 3, lineNumber, parseErrors, line, "session id");
+                        if (sessIndexObj == null) {
+                            break;
+                        }
+                        int sessIndex = sessIndexObj;
+                        Session s = new Session(sessIndex, notes);
+                        if (completed) {
+                            s.setCompleted();
+                        }
+                        a.addSession(s);
+                        int prevMax = athleteMaxSession.getOrDefault(athleteId, 0);
+                        int newMax = Math.max(prevMax, sessIndex);
+                        athleteMaxSession.put(athleteId, newMax);
+                        break;
                     }
-                    int exIdx = Integer.parseInt(exerciseId);
-                    Exercise e = new Exercise(exIdx, desc, sets, reps);
-                    if (completed) {
-                        e.setCompleted();
+                    case "EXERCISE": {
+                        if (parts.length < 4) {
+                            parseErrors.add("Line " + lineNumber + ": EXERCISE line has too few fields -> '" + line + "'");
+                            break;
+                        }
+                        String rawAthleteIdEx = parts[1];
+                        Integer athleteAidEx = validateNumericId(rawAthleteIdEx, 4, lineNumber, parseErrors, line, "athlete id");
+                        if (athleteAidEx == null) {
+                            break;
+                        }
+                        String athleteId = String.format("%04d", athleteAidEx);
+                        String sessionId = parts[2];
+                        String exerciseId = parts[3];
+                        String desc = parts.length > 4 ? parts[4].replace("\\n", "\n") : "";
+                        int sets = 0;
+                        int reps = 0;
+                        try {
+                            sets = parts.length > 5 ? Integer.parseInt(parts[5]) : 0;
+                        } catch (NumberFormatException nfe) {
+                            parseErrors.add("Line " + lineNumber + ": invalid sets value '" + parts[5] + "' -> '" + line + "'");
+                            // continue parsing with default 0
+                        }
+                        try {
+                            reps = parts.length > 6 ? Integer.parseInt(parts[6]) : 0;
+                        } catch (NumberFormatException nfe) {
+                            parseErrors.add("Line " + lineNumber + ": invalid reps value '" + parts[6] + "' -> '" + line + "'");
+                        }
+                        boolean completed = parts.length > 7 && Boolean.parseBoolean(parts[7]);
+                        Athlete a = athleteMap.get(athleteId);
+                        if (a == null) {
+                            a = new Athlete(athleteId, "");
+                            coach.addAthlete(a);
+                            athleteMap.put(athleteId, a);
+                            athleteMaxSession.put(athleteId, 0);
+                            sessionMaxExercise.put(athleteId, new HashMap<>());
+                        }
+                        // find session
+                        Session targetSession = null;
+                        for (Session s : a.getSessions()) {
+                            if (s.getSessionIdString().equals(sessionId)) {
+                                targetSession = s;
+                                break;
+                            }
+                        }
+                        if (targetSession == null) {
+                            Integer sessIdxObj = validateNumericId(sessionId, 3, lineNumber, parseErrors, line, "session id");
+                            if (sessIdxObj == null) {
+                                break;
+                            }
+                            int sessIdx = sessIdxObj;
+                            targetSession = new Session(sessIdx, "");
+                            a.addSession(targetSession);
+                            int prev = athleteMaxSession.getOrDefault(athleteId, 0);
+                            athleteMaxSession.put(athleteId, Math.max(prev, sessIdx));
+                        }
+                        Integer exIdxObj = validateNumericId(exerciseId, 2, lineNumber, parseErrors, line, "exercise id");
+                        if (exIdxObj == null) {
+                            break;
+                        }
+                        int exIdx = exIdxObj;
+                        // basic sanity assertions
+                        assert sets >= 0 : "sets must be non-negative";
+                        assert reps >= 0 : "reps must be non-negative";
+                        Exercise e = new Exercise(exIdx, desc, sets, reps);
+                        if (completed) {
+                            e.setCompleted();
+                        }
+                        targetSession.getExercises().add(e);
+                        Map<String, Integer> map = sessionMaxExercise.get(athleteId);
+                        String key = targetSession.getSessionIdString();
+                        map.put(key, Math.max(map.getOrDefault(key, 0), exIdx));
+                        break;
                     }
-                    targetSession.getExercises().add(e);
-                    Map<String, Integer> map = sessionMaxExercise.get(athleteId);
-                    String key = targetSession.getSessionIdString();
-                    map.put(key, Math.max(map.getOrDefault(key, 0), exIdx));
-                    break;
+                    default:
+                        // unknown record type: warn and continue
+                        parseErrors.add("Line " + lineNumber + ": unknown record type '" + type + "' -> '" + line + "'");
+                        break;
+                    }
+                } catch (Exception ex) {
+                    // Catch any unexpected exception for this line and continue
+                    parseErrors.add("Line " + lineNumber + ": " + ex.getClass().getSimpleName() + " - "
+                            + ex.getMessage() + " -> '" + line + "'");
                 }
-                default:
-                    break;
+            }
+        }
+
+        if (!parseErrors.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Warnings while parsing storage file '").append(filePath).append("':\n");
+            for (String err : parseErrors) {
+                sb.append(err).append('\n');
+            }
+            // Print to stderr so callers (and logs) can see detailed diagnostics
+            System.err.println(sb.toString());
+        }
+
+        // final basic assertions to validate loaded model integrity
+        assert coach != null : "Coach should not be null after load";
+        for (Athlete a : coach.getAthletes()) {
+            assert a.getAthleteID() != null : "Athlete id must not be null";
+            for (Session s : a.getSessions()) {
+                assert s.getSessionIdString() != null : "Session id must not be null";
+                for (Exercise ex : s.getExercises()) {
+                    assert ex.getExerciseIDString() != null : "Exercise id must not be null";
                 }
             }
         }
@@ -179,6 +298,8 @@ public class StorageManager {
      * Save Coach data to storage. Caller should handle IOException.
      */
     public void save(Coach coach) throws IOException {
+        assert filePath != null : "Storage filePath must not be null";
+        assert coach != null : "coach must not be null when saving";
         File file = new File(filePath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
@@ -186,6 +307,7 @@ public class StorageManager {
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Athlete athlete : coach.getAthletes()) {
+                assert athlete.getAthleteID() != null : "Athlete id must not be null";
                 writer.write(String.join("|", "ATHLETE", athlete.getAthleteID(),
                         athlete.getAthleteName()));
                 writer.newLine();

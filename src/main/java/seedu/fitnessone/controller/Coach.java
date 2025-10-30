@@ -139,11 +139,8 @@ public class Coach {
 
     public void deleteExerciseFromSession(Session session, Exercise exercise)
             throws InvalidSessionException, InvalidExerciseException {
-        try {
-            session.getExercises().remove(exercise);
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        // Delete by exercise ID and let Session handle renumbering
+        session.removeExercise(exercise.getExerciseIDString());
     }
 
     public void flagAthlete(String athleteID, String flagColor) throws InvalidAthleteException {

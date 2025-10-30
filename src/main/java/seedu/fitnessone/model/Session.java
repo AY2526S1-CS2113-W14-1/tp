@@ -87,10 +87,34 @@ public class Session {
         this.nextExerciseIndex = value;
     }
 
-    public void removeExercise(int exerciseID) throws InvalidExerciseException {
-        if (exerciseID < 0 || exerciseID >= exercises.size()) {
-            throw new InvalidExerciseException("Exercise not found: " + exerciseID);
+    public void removeExercise(String exerciseID) throws InvalidExerciseException {
+        // Find and remove the exercise with the given ID
+        for (int i = 0; i < exercises.size(); i++) {
+            if (exercises.get(i).getExerciseIDString().equals(exerciseID)) {
+                exercises.remove(i);
+                renumberExercises(); // Renumber remaining exercises
+                return;
+            }
         }
-        exercises.remove(exerciseID);
+        throw new InvalidExerciseException("Exercise not found: " + exerciseID);
+    }
+
+    /**
+     * Renumber all exercises to ensure sequential IDs starting from 01
+     */
+    public void renumberExercises() {
+        for (int i = 0; i < exercises.size(); i++) {
+            Exercise exercise = exercises.get(i);
+            // Create new exercise with sequential ID but same other properties
+            Exercise renumbered = new Exercise(i + 1, 
+                exercise.getExerciseDescription(), 
+                exercise.getSets(), 
+                exercise.getReps());
+            if (exercise.isCompleted()) {
+                renumbered.setCompleted();
+            }
+            exercises.set(i, renumbered);
+        }
+        nextExerciseIndex = exercises.size() + 1;
     }
 }

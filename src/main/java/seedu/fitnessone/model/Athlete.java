@@ -90,19 +90,47 @@ public class Athlete {
     }
 
     public void removeSession(String sessionID) throws InvalidSessionException {
-        Iterator<Session> iterator = sessions.iterator();
-        boolean found = false;
-        while (iterator.hasNext()) {
-            Session session = iterator.next();
-            if (session.getSessionIdString().equals(sessionID)) {
-                iterator.remove();
-                found = true;
-                break;
+        // Find and remove the session with the given ID
+        for (int i = 0; i < sessions.size(); i++) {
+            if (sessions.get(i).getSessionIdString().equals(sessionID)) {
+                sessions.remove(i);
+                renumberSessions(); // Renumber remaining sessions
+                return;
             }
         }
-        if (!found) {
-            throw new InvalidSessionException("Session not found: " + sessionID);
+        throw new InvalidSessionException("Session not found: " + sessionID);
+    }
+    
+    /**
+     * Renumber all sessions to ensure sequential IDs starting from 001
+     */
+    private void renumberSessions() {
+        for (int i = 0; i < sessions.size(); i++) {
+            Session oldSession = sessions.get(i);
+            // Create new session with sequential ID but same properties
+            Session newSession = new Session(i + 1, oldSession.getTrainingNotes());
+            
+            // Copy over completion status
+            if (oldSession.isCompleted()) {
+                newSession.setCompleted();
+            }
+            
+            // Transfer all exercises
+            for (Exercise exercise : oldSession.getExercises()) {
+                Exercise newExercise = newSession.addExercise(
+                    exercise.getExerciseDescription(),
+                    exercise.getSets(),
+                    exercise.getReps()
+                );
+                if (exercise.isCompleted()) {
+                    newExercise.setCompleted();
+                }
+            }
+            
+            // Replace the old session
+            sessions.set(i, newSession);
         }
+        sessionIdCounter = sessions.size() + 1;
     }
     public ArrayList<Session> getSessions() {
         return sessions;
