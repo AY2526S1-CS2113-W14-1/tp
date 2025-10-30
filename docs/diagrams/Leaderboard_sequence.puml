@@ -1,0 +1,27 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant LeaderboardCmd as "LeaderboardCommand"
+participant Coach as "Coach"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/leaderboard"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : LeaderboardCommand instance
+FitnessONE -> LeaderboardCmd : execute(coachController, view)
+
+alt normal flow
+    LeaderboardCmd -> Coach : leaderboardConstruct()
+    Coach --> LeaderboardCmd : leaderboard String
+    LeaderboardCmd -> Ui : printWithDivider(leaderboard)
+    FitnessONE -> Storage : save(coachController)
+else error during leaderboard construction
+    LeaderboardCmd -> Coach : leaderboardConstruct()
+    Coach --> LeaderboardCmd : throws RuntimeException / domain error
+    LeaderboardCmd --> FitnessONE : throws InvalidCommandException (or handled)
+    FitnessONE -> Ui : printWithDivider("Error: " + message)
+end
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant DeleteCmd as "DeleteAthleteCommand"
+participant Coach as "Coach"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/deleteathlete 0123"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : DeleteAthleteCommand instance
+FitnessONE -> DeleteCmd : execute(coachController, view)
+
+alt normal flow
+    DeleteCmd -> Coach : deleteAthlete("0123")
+    DeleteCmd -> Ui : printWithDivider("Deleted athlete with ID 0123")
+    DeleteCmd --> FitnessONE : execute returns
+    FitnessONE -> Storage : save(coachController)
+    Storage --> FitnessONE : save result / IOException
+else athlete not found or error
+    DeleteCmd -> Coach : deleteAthlete("0123")
+    Coach --> DeleteCmd : throws InvalidAthleteException / IndexOutOfBoundsException
+    DeleteCmd --> FitnessONE : throws InvalidCommandException with message
+    FitnessONE -> Ui : printWithDivider("Invalid athlete: <message>")
+end
+
+@enduml

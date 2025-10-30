@@ -1,0 +1,24 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant ExitCmd as "ExitCommand"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "bye"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse("bye")
+Parser --> FitnessONE : ExitCommand instance
+FitnessONE -> ExitCmd : execute(coachController, view)
+ExitCmd -> Ui : printWithDivider("Bye. Hope to see you again soon!")
+FitnessONE -> ExitCmd : isExit()
+ExitCmd --> FitnessONE : true
+
+alt persist state before shutdown
+    FitnessONE -> Storage : save(coachController)
+    Storage --> FitnessONE : save result / IOException
+end
+
+FitnessONE -> User : application exits
+@enduml

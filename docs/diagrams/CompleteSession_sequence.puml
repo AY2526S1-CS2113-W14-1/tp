@@ -1,0 +1,32 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant CompleteCmd as "CompleteSessionCommand"
+participant Coach as "Coach"
+participant Athlete as "Athlete"
+participant Session as "Session"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/completeSession 0123 001"
+FitnessONE -> Ui : readCommand()
+Ui --> FitnessONE
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : CompleteSessionCommand instance
+FitnessONE -> CompleteCmd : execute(coachController, view)
+
+== Command resolves athlete and session ==
+CompleteCmd -> Coach : accessAthleteID("0123")
+Coach --> CompleteCmd : Athlete
+CompleteCmd -> Coach : accessSessionID(Athlete, "001")
+Coach --> CompleteCmd : Session
+
+== Command finds exercise and marks completed ==
+CompleteCmd -> Session : setCompleted()
+CompleteCmd -> Ui : printWithDivider("Session (ID: 001) completed ...")
+
+CompleteCmd --> FitnessONE : execute returns
+FitnessONE -> Storage : save(coachController)
+
+@enduml
