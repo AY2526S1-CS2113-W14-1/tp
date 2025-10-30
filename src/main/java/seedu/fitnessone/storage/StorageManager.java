@@ -32,32 +32,41 @@ public class StorageManager {
      * Validate that an ID is strictly numeric and of the expected length.
      * Returns the integer value if valid, otherwise records a parse error and returns null.
      */
-    private Integer validateNumericId(String rawId, int expectedLength, int lineNumber, List<String> parseErrors,
-            String line, String fieldName) {
+    private Integer validateNumericId(
+            String rawId, int expectedLength, int lineNumber,
+            List<String> parseErrors, String line, String fieldName) {
         if (rawId == null) {
-            parseErrors.add("Line " + lineNumber + ": missing " + fieldName + " -> '" + line + "'");
+            String error = String.format("Line %d: missing %s -> '%s'", lineNumber, fieldName, line);
+            parseErrors.add(error);
             return null;
         }
         if (rawId.length() != expectedLength) {
-            parseErrors.add("Line " + lineNumber + ": " + fieldName + " must be " + expectedLength
-                    + " characters long -> '" + line + "'");
+            String error = String.format("Line %d: %s must be %d characters long -> '%s'",
+                    lineNumber, fieldName, expectedLength, line);
+            parseErrors.add(error);
             return null;
         }
         for (int i = 0; i < rawId.length(); i++) {
             if (!Character.isDigit(rawId.charAt(i))) {
-                parseErrors.add("Line " + lineNumber + ": invalid " + fieldName + " '" + rawId + "' -> '" + line + "'");
+                String error = String.format("Line %d: invalid %s '%s' -> '%s'",
+                        lineNumber, fieldName, rawId, line);
+                parseErrors.add(error);
                 return null;
             }
         }
         try {
             int val = Integer.parseInt(rawId);
             if (val < 0) {
-                parseErrors.add("Line " + lineNumber + ": negative " + fieldName + " '" + rawId + "' -> '" + line + "'");
+                String error = String.format("Line %d: negative %s '%s' -> '%s'",
+                        lineNumber, fieldName, rawId, line);
+                parseErrors.add(error);
                 return null;
             }
             return val;
         } catch (NumberFormatException nfe) {
-            parseErrors.add("Line " + lineNumber + ": invalid " + fieldName + " digits '" + rawId + "' -> '" + line + "'");
+            String error = String.format("Line %d: invalid %s digits '%s' -> '%s'",
+                    lineNumber, fieldName, rawId, line);
+            parseErrors.add(error);
             return null;
         }
     }
@@ -106,7 +115,9 @@ public class StorageManager {
                     switch (type) {
                     case "ATHLETE": {
                         if (parts.length < 2) {
-                            parseErrors.add("Line " + lineNumber + ": ATHLETE line has too few fields -> '" + line + "'");
+                            String error = String.format("Line %d: ATHLETE line has too few fields -> '%s'",
+                                    lineNumber, line);
+                            parseErrors.add(error);
                             break;
                         }
                         String rawId = parts[1];
@@ -125,11 +136,14 @@ public class StorageManager {
                     }
                     case "SESSION": {
                         if (parts.length < 3) {
-                            parseErrors.add("Line " + lineNumber + ": SESSION line has too few fields -> '" + line + "'");
+                            String error = String.format("Line %d: SESSION line has too few fields -> '%s'",
+                                    lineNumber, line);
+                            parseErrors.add(error);
                             break;
                         }
                         String rawAthleteId = parts[1];
-                        Integer athleteAid = validateNumericId(rawAthleteId, 4, lineNumber, parseErrors, line, "athlete id");
+                        Integer athleteAid = validateNumericId(
+                                rawAthleteId, 4, lineNumber, parseErrors, line, "athlete id");
                         if (athleteAid == null) {
                             break;
                         }
@@ -145,7 +159,8 @@ public class StorageManager {
                             athleteMaxSession.put(athleteId, 0);
                             sessionMaxExercise.put(athleteId, new HashMap<>());
                         }
-                        Integer sessIndexObj = validateNumericId(sessionId, 3, lineNumber, parseErrors, line, "session id");
+                        Integer sessIndexObj = validateNumericId(sessionId, 3, lineNumber,
+                                parseErrors, line, "session id");
                         if (sessIndexObj == null) {
                             break;
                         }
@@ -162,11 +177,14 @@ public class StorageManager {
                     }
                     case "EXERCISE": {
                         if (parts.length < 4) {
-                            parseErrors.add("Line " + lineNumber + ": EXERCISE line has too few fields -> '" + line + "'");
+                            String error = String.format("Line %d: EXERCISE line has too few fields -> '%s'",
+                                    lineNumber, line);
+                            parseErrors.add(error);
                             break;
                         }
                         String rawAthleteIdEx = parts[1];
-                        Integer athleteAidEx = validateNumericId(rawAthleteIdEx, 4, lineNumber, parseErrors, line, "athlete id");
+                        Integer athleteAidEx = validateNumericId(
+                                rawAthleteIdEx, 4, lineNumber, parseErrors, line, "athlete id");
                         if (athleteAidEx == null) {
                             break;
                         }
@@ -179,13 +197,17 @@ public class StorageManager {
                         try {
                             sets = parts.length > 5 ? Integer.parseInt(parts[5]) : 0;
                         } catch (NumberFormatException nfe) {
-                            parseErrors.add("Line " + lineNumber + ": invalid sets value '" + parts[5] + "' -> '" + line + "'");
+                            String error = String.format("Line %d: invalid sets value '%s' -> '%s'",
+                                    lineNumber, parts[5], line);
+                            parseErrors.add(error);
                             // continue parsing with default 0
                         }
                         try {
                             reps = parts.length > 6 ? Integer.parseInt(parts[6]) : 0;
                         } catch (NumberFormatException nfe) {
-                            parseErrors.add("Line " + lineNumber + ": invalid reps value '" + parts[6] + "' -> '" + line + "'");
+                            String error = String.format("Line %d: invalid reps value '%s' -> '%s'",
+                                    lineNumber, parts[6], line);
+                            parseErrors.add(error);
                         }
                         boolean completed = parts.length > 7 && Boolean.parseBoolean(parts[7]);
                         Athlete a = athleteMap.get(athleteId);
@@ -205,7 +227,8 @@ public class StorageManager {
                             }
                         }
                         if (targetSession == null) {
-                            Integer sessIdxObj = validateNumericId(sessionId, 3, lineNumber, parseErrors, line, "session id");
+                            Integer sessIdxObj = validateNumericId(
+                                    sessionId, 3, lineNumber, parseErrors, line, "session id");
                             if (sessIdxObj == null) {
                                 break;
                             }
@@ -215,7 +238,8 @@ public class StorageManager {
                             int prev = athleteMaxSession.getOrDefault(athleteId, 0);
                             athleteMaxSession.put(athleteId, Math.max(prev, sessIdx));
                         }
-                        Integer exIdxObj = validateNumericId(exerciseId, 2, lineNumber, parseErrors, line, "exercise id");
+                        Integer exIdxObj = validateNumericId(
+                                exerciseId, 2, lineNumber, parseErrors, line, "exercise id");
                         if (exIdxObj == null) {
                             break;
                         }
@@ -235,13 +259,19 @@ public class StorageManager {
                     }
                     default:
                         // unknown record type: warn and continue
-                        parseErrors.add("Line " + lineNumber + ": unknown record type '" + type + "' -> '" + line + "'");
+                        String error = String.format("Line %d: unknown record type '%s' -> '%s'",
+                                lineNumber, type, line);
+                        parseErrors.add(error);
                         break;
                     }
                 } catch (Exception ex) {
                     // Catch any unexpected exception for this line and continue
-                    parseErrors.add("Line " + lineNumber + ": " + ex.getClass().getSimpleName() + " - "
-                            + ex.getMessage() + " -> '" + line + "'");
+                    String error = String.format("Line %d: %s - %s -> '%s'",
+                            lineNumber,
+                            ex.getClass().getSimpleName(),
+                            ex.getMessage(),
+                            line);
+                    parseErrors.add(error);
                 }
             }
         }
@@ -313,17 +343,30 @@ public class StorageManager {
                 writer.newLine();
                 for (Session session : athlete.getSessions()) {
                     String notes = session.getTrainingNotes().replace("\n", "\\n");
-                    String sessionLine = String.join("|", "SESSION", athlete.getAthleteID(),
-                            session.getSessionIdString(), notes, Boolean.toString(session.isCompleted()));
+                    String[] sessionFields = {
+                        "SESSION",
+                        athlete.getAthleteID(),
+                        session.getSessionIdString(),
+                        notes,
+                        Boolean.toString(session.isCompleted())
+                        };
+                    String sessionLine = String.join("|", sessionFields);
                     writer.write(sessionLine);
                     writer.newLine();
                     for (Exercise exercise : session.getExercises()) {
                         String desc = exercise.getExerciseDescription().replace("|", " ")
                                 .replace("\n", "\\n");
-                        String exerciseLine = String.join("|", "EXERCISE", athlete.getAthleteID(),
-                                session.getSessionIdString(), exercise.getExerciseIDString(), desc,
-                                Integer.toString(exercise.getSets()), Integer.toString(exercise.getReps()),
-                                Boolean.toString(exercise.isCompleted()));
+                        String[] exerciseFields = {
+                            "EXERCISE",
+                            athlete.getAthleteID(),
+                            session.getSessionIdString(),
+                            exercise.getExerciseIDString(),
+                            desc,
+                            Integer.toString(exercise.getSets()),
+                            Integer.toString(exercise.getReps()),
+                            Boolean.toString(exercise.isCompleted())
+                        };
+                        String exerciseLine = String.join("|", exerciseFields);
                         writer.write(exerciseLine);
                         writer.newLine();
                     }

@@ -31,7 +31,9 @@ public class FitnessONE {
             // If loading failed, it may be because the file is missing or the file
             // contents are corrupted/unreadable. Give the user clearer feedback.
             String msg = e.getMessage() == null ? "" : (": " + e.getMessage());
-            view.printWithDivider("Failed to load saved data (missing or corrupted)" + msg + ", starting with empty data.");
+            String errorMsg = String.format("Failed to load saved data (missing or corrupted)%s," 
+                    + " starting with empty data.", msg);
+            view.printWithDivider(errorMsg);
         }
     }
 

@@ -3,7 +3,6 @@ package seedu.fitnessone.model;
 import seedu.fitnessone.exception.InvalidSessionException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /*
  * All athletes will have 0001. 0002 .... auto created.
