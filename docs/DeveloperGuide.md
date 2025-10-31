@@ -438,7 +438,33 @@ FitnessONE empowers coaches to manage and monitor athletes’ progress more effi
 * Storing all information locally to ensure data privacy and offline availability
 * Automatically saving all changes to eliminate the need for manual save operations
 
-### User stories
+### User Stories
+
+| Version | As a...       | I want to...             | So that I can...                                                        |
+| :-----: | :------------ | :----------------------- | :---------------------------------------------------------------------- |
+|   v1.0  | Fitness coach | add a new athlete        | start tracking their sessions and performance individually              |
+|   v1.0  | Fitness coach | view athlete details     | see all sessions and exercises for a specific athlete                   |
+|   v1.0  | Fitness coach | list all athletes        | get an overview of everyone I’m coaching                                |
+|   v1.0  | Fitness coach | delete an athlete        | remove clients who are no longer active                                 |
+|   v1.0  | Fitness coach | create a new session     | plan structured workouts for an athlete                                 |
+|   v1.0  | Fitness coach | delete a session         | remove outdated or incorrect training sessions                          |
+|   v1.0  | Fitness coach | complete a session       | mark training sessions as done to track athlete progress                |
+|   v1.0  | Fitness coach | view all sessions        | review past and upcoming workouts for an athlete                        |
+|   v1.0  | Fitness coach | update session notes     | adjust or add relevant details after a session                          |
+|   v1.0  | Fitness coach | undo session completion  | correct mistakes when marking sessions as completed                     |
+|   v1.0  | Fitness coach | create an exercise       | define specific workouts within a session                               |
+|   v1.0  | Fitness coach | delete an exercise       | remove invalid or outdated exercises from a session                     |
+|   v1.0  | Fitness coach | view all exercises       | review what an athlete must perform in a given session                  |
+|   v1.0  | Fitness coach | complete an exercise     | track the completion status of each workout                             |
+|   v1.0  | Fitness coach | undo exercise completion | revert accidental completions for accuracy                              |
+|   v2.0  | Fitness coach | view the leaderboard     | compare athletes’ performance and identify top performers               |
+|   v2.0  | Fitness coach | view the help menu       | understand how to use all available commands                            |
+|   v2.0  | Fitness coach | flag athletes            | prioritize athletes based on training urgency or performance level      |
+|   v2.0  | Fitness coach | save all athlete data, sessions, and exercises   | persist my athletes’ progress and training plans for later use |
+|   v2.0  | Fitness coach | load saved athlete data, sessions, and exercises | restore all information without re-entering it manually        |
+
+
+
 
 ### Use cases
 
