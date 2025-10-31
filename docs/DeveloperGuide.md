@@ -772,7 +772,85 @@ Extensions
 
 ### Non-Functional Requirements
 
+#### 1. Performance
+* FitnessONE should respond to user commands within **few** under normal usage
+* The system should handle up to **9999 athletes**, **999 sessions per athletes**, and **99 exercises per session**
+* File read/write operations (saving and loading) should complete within **few seconds**
+
+#### 2. Reliability
+* Data should be automatically saved after every major operation (e.g., adding/deleting athletes, sessions, exercises)
+
+#### 3. Compatibility
+* FitnessONE must run on any operating system with **Java 17 or higher** installed.
+* It should work consistently across **Windows, macOS, and Linux**.
+
+#### 4. Usability
+* Commands should follow a consistent CLI syntax and argument order.
+* Error messages must clearly explain what went wrong and how to fix it.
+* Leaderboards and progress summaries should be easy to read and interpret quickly.
+
+#### 5. Maintainability
+* The codebase must remain modular — each component (UI, Logic, Model, Storage) should be independently testable.
+* All public classes and methods must include concise Javadoc comments describing their purpose and behavior.
+
+#### 6. Extensibility
+* New commands or data types should be implementable without modifying core logic, following the Command pattern.
+* The modular architecture should allow easy integration of new features such as export, or performance analytics.
+
+#### 7. Security
+* File operations should be restricted to FitnessONE's working directory to prevent unauthorized access.
+* Deserialization must reject malformed or unexpected input to ensure application safety.
+
+#### 8. Portability
+* The application must be distributable as a single standalone `.jar` file with no external dependencies.
+* All file paths should be relative, ensuring consistent behavior across machines.
+
+#### 9. Testing Coverage
+* Each component should achieve at least **90% unit test coverage**.
+* Core features (Add/Delete athletes, sessions, exercises, leaderboard) must include valid JUnit test cases.
+
+
 ### Glossary
+
+**CLI (Command-Line Interface)**  
+A text-based interface where users interact with FitnessONE by typing commands, instead of using a graphical interface. The CLI allows fast, efficient management of athletes, sessions, and exercises.
+
+**Coach / Fitness Coach**  
+The primary user of FitnessONE. Coaches create, manage, and track athletes, their sessions, and exercises. They also monitor performance using leaderboards and flagging.
+
+**Athlete**  
+An individual whose training is tracked within FitnessONE. Each athlete has a unique ID, a list of sessions, exercises, notes, and can be flagged for priority tracking.
+
+**Session**  
+A structured workout or training period assigned to an athlete. Sessions contain exercises, notes, completion status, and can be added, updated, completed, or deleted.
+
+**Exercise**  
+A specific activity within a session. Exercises have details like name, sets, reps, and completion status. They can be added, viewed, completed, undone, or deleted.
+
+**Leaderboard**  
+A ranking of athletes based on performance metrics, such as completed sessions and exercises. Coaches can view leaderboards to monitor progress and motivate athletes.
+
+**Flagging**  
+A visual priority system where athletes are assigned colors (e.g., red, yellow, green, blue) to indicate training urgency or performance level.
+
+**Persistence / Save & Load**  
+Functionality that allows all athletes, sessions, and exercises to be saved to a file and later restored. This ensures data continuity and eliminates the need to re-enter information.
+
+**Command**  
+A specific instruction entered by the user via the CLI to perform actions like adding an athlete, completing an exercise, or viewing the leaderboard.
+
+**ID (Identifier)**  
+A unique code assigned to each athlete, session, and exercise. IDs ensure accurate referencing and tracking across the system.
+
+**Completion / Undo**  
+Actions that allow marking sessions or exercises as completed, and optionally undoing them to correct mistakes.
+
+**Help Menu**  
+A CLI feature that lists all available commands and their usage, helping users understand how to interact with the system efficiently.
+
+**StorageManager**  
+The component responsible for persisting and restoring data. It handles saving/loading athlete profiles, sessions, exercises, and leaderboard information, ensuring data integrity.
+
 
 ## Appendix: Instructions for manual testing
 
