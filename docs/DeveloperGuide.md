@@ -583,13 +583,443 @@ If any of the above steps fail, capture the console output and the contents of `
 
 ### Product scope
 
-### User stories
+#### Target User profile:
+
+FitnessONE is designed for professional fitness coaches and personal trainers who:
+
+* Manage multiple athletes simultaneously
+* Need to track detailed training programs, including sessions and individual exercises
+* Can type fast and are comfortable using command-line interfaces
+* Value speed, data accuracy, and organization in their workflow
+* Want to monitor athlete progress through completion tracking and performance metrics
+* Prefer quick access to athlete information without navigating through multiple GUI screens
+* Need to prioritize athletes based on urgency or training status
+
+#### Value Proposition:
+
+FitnessONE empowers coaches to manage and monitor athletes’ progress more efficiently than traditional GUI-based fitness management software by:
+
+* Allowing fast creation, viewing, and management of athletes, sessions, and exercises directly from the command line
+* Automating ID assignment and progress tracking for each athlete, session, and exercise
+* Providing clear, structured summaries of training data and athlete performance
+* Including a leaderboard feature that helps coaches compare athletes’ progress and use insights to motivate their teams
+* Offering visual prioritization through color-coded athlete flags (red, yellow, green, blue, ...) for status or urgency tracking
+* Storing all information locally to ensure data privacy and offline availability
+* Automatically saving all changes to eliminate the need for manual save operations
+
+### User Stories
+
+| Version | As a...       | I want to...             | So that I can...                                                        |
+| :-----: | :------------ | :----------------------- | :---------------------------------------------------------------------- |
+|   v1.0  | Fitness coach | add a new athlete        | start tracking their sessions and performance individually              |
+|   v1.0  | Fitness coach | view athlete details     | see all sessions and exercises for a specific athlete                   |
+|   v1.0  | Fitness coach | list all athletes        | get an overview of everyone I’m coaching                                |
+|   v1.0  | Fitness coach | delete an athlete        | remove clients who are no longer active                                 |
+|   v1.0  | Fitness coach | create a new session     | plan structured workouts for an athlete                                 |
+|   v1.0  | Fitness coach | delete a session         | remove outdated or incorrect training sessions                          |
+|   v1.0  | Fitness coach | complete a session       | mark training sessions as done to track athlete progress                |
+|   v1.0  | Fitness coach | view all sessions        | review past and upcoming workouts for an athlete                        |
+|   v1.0  | Fitness coach | update session notes     | adjust or add relevant details after a session                          |
+|   v1.0  | Fitness coach | undo session completion  | correct mistakes when marking sessions as completed                     |
+|   v1.0  | Fitness coach | create an exercise       | define specific workouts within a session                               |
+|   v1.0  | Fitness coach | delete an exercise       | remove invalid or outdated exercises from a session                     |
+|   v1.0  | Fitness coach | view all exercises       | review what an athlete must perform in a given session                  |
+|   v1.0  | Fitness coach | complete an exercise     | track the completion status of each workout                             |
+|   v1.0  | Fitness coach | undo exercise completion | revert accidental completions for accuracy                              |
+|   v2.0  | Fitness coach | view the leaderboard     | compare athletes’ performance and identify top performers               |
+|   v2.0  | Fitness coach | view the help menu       | understand how to use all available commands                            |
+|   v2.0  | Fitness coach | flag athletes            | prioritize athletes based on training urgency or performance level      |
+|   v2.0  | Fitness coach | save all athlete data, sessions, and exercises   | persist my athletes’ progress and training plans for later use |
+|   v2.0  | Fitness coach | load saved athlete data, sessions, and exercises | restore all information without re-entering it manually        |
+
 
 ### Use cases
 
+For all use cases below, the System is FitnessONE and the Actor is the user, unless otherwise specified.
+
+#### Use Case: Use Case: Add a New Athlete
+
+MSS
+
+1. User enters the command to add a new athlete (e.g., /newathlete John Doe)
+2. System creates a new athlete profile, assigns a unique ID, and adds it to storage
+3. System confirms with a message displaying the newly assigned ID
+
+Extensions
+2a. Athlete name is empty or invalid
+	2a1. FitnessOne shows an error message
+
+#### Use Case: Delete an Athlete
+
+MSS
+
+1. User issues the command to delete an athlete (e.g., /deleteathlete 0001)
+2. System checks if the athlete exists
+3. System deletes the athlete and all associated sessions and exercises
+4. System confirms the deletion with a message
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Add a New Session
+
+MSS
+
+1. User enters the command to add a session (e.g., /newsession 0001 Leg day)
+2. System checks if the athlete ID exists
+3. System creates a session, assigns a unique session ID, and adds it to the athlete profile
+4. System confirms the new session with details (ID, notes)
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+3a. Sessions Note is empty or invalid
+	3a1. FitnessOne shows an error message
+
+#### Use Case: Delete a Session
+
+MSS
+
+1. User issues delete session command (e.g., /deletesession 0001 001)
+2. System checks athlete and session IDs
+3. System deletes the session and all its exercises
+4. System confirms the session deletion
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Add an Exercise
+
+MSS
+
+1. User commands to add an exercise (e.g., /newexercise 0001 001 Bench Press 5 10)
+2. System validates athlete and session IDs
+3. System adds the exercise to the session with a unique ID
+4. System confirms creation with exercise details
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+3a. Invalid command format
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: Delete an Exercise
+
+MSS
+
+1. User enters the delete exercise command (e.g., /deleteexercise 0001 001 01)
+2. System checks if athlete, session, and exercise IDs exist
+3. System deletes the specified exercise
+4. System confirms deletion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: Complete an Exercise
+
+MSS
+
+1. User enters the complete exercise command (/completeexercise 0001 001 01)
+2. System verifies that all IDs are valid and exist
+3. System marks the exercise as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+ 
+#### Use Case: Complete a Session
+
+MSS
+
+1. User enters the complete session command (/completesession 0001 001)
+2. System verifies that all IDs (session and athlete ID) are valid and exist
+3. System marks the session as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Undo an Exercise
+
+MSS
+
+1. User enters the complete exercise command (undoexercise 0001 001 01)
+2. System verifies that all IDs are valid and exist
+3. System marks the exercise as not completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+ 
+#### Use Case: Complete a Session
+
+MSS
+
+1. User enters the complete session command (/undosession 0001 001)
+2. System verifies that all IDs (session and athlete ID) are valid and exist
+3. System marks the session as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Flag an Athlete
+
+MSS
+
+1. User enters the command to flag an athlete (e.g., /flagathlete 0001 red)
+2. System checks athlete ID, validates color
+3. System updates the flag color
+4. System confirms flag update
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Flag color invalid, empty
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: List All Athletes
+
+MSS
+
+1. User enters the command to list all athletes (/listathletes)
+2. System retrieves a list of all athletes, including flags and IDs
+3. System displays the list in a clear format to the user
+
+#### Use Case: View Athlete Details
+
+MSS
+
+1. User enters the command to view an athlete (e.g., /viewathlete 0001)
+2. System checks if the athlete ID exists
+3. System retrieves and displays all details for that athlete, including sessions and exercises
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View All Sessions for an Athlete
+
+MSS
+
+1. User enters the command to view all sessions for an athlete User enters the command to view all exercises (e.g., /viewexercises 0001 001)
+2. System verifies the athlete ID
+3. System retrieves and displays all sessions for the specified athlete
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View All Exercises in a Session
+
+MSS
+
+1. User enters the command to view all exercises (e.g., /viewexercises 0001 001)
+2. System checks both athlete and session IDs
+3. System retrieves and displays all exercises in the specified session
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Update Session Notes
+
+MSS
+
+1. User enters the command to update session notes (e.g., /updatesessionnote 0001 001 push)
+2. System checks athlete and session IDs
+3. System updates the session’s notes with the new text
+4. System confirms update with a message
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View Help (List All Commands)
+
+MSS
+
+1. User enters /help
+2. System displays a list of all available commands with descriptions and usage
+
+#### Use Case: View Leaderboard
+
+MSS 
+
+1. User enters /leaderboard
+2. System calculates athlete scores based on completion (sessions, exercises)
+3. System sorts athletes by score and displays the ranking
+
+
+#### Use Case: Persist and Restore Coach Data
+
+MSS
+
+1. The user executes actions that modify the coach’s data (e.g. adding athletes, sessions, exercises)
+2. The System (FitnessONE) calls StorageManager’s save() method to persist the data to file
+3. Data is written in a structured, line-based format
+4. When the application starts (or user requests a reload), the System calls StorageManager’s load() method
+5. StorageManager parses the file and reconstructs all Coach, Athlete, Session, and Exercise objects in memory, restoring the full application state
+
+Extensions
+
+2a. The data file does not exist yet
+ 2a1. StorageManager creates any necessary folders and returns an empty Coach
+
+2b. The file exists but is empty
+ 2b1. StorageManager loads an empty Coach
+
+4a. The file is malformed (incorrect ID length/type, missing fields, parsing error)
+ 4a1. StorageManager records all parse errors, displays them (stderr), and attempts to recover or skip problematic lines
+
+4b. Some IDs are duplicated or invalid
+ 4b1. StorageManager skips faulty records and proceeds with valid ones only
+
+5a. The final loaded data is inconsistent (e.g., missing athlete/session/exercise IDs)
+ 5a1. StorageManager asserts and logs errors, but the app remains operational if possible
+
+
 ### Non-Functional Requirements
 
+#### 1. Performance
+* FitnessONE should respond to user commands within **few** under normal usage
+* The system should handle up to **9999 athletes**, **999 sessions per athletes**, and **99 exercises per session**
+* File read/write operations (saving and loading) should complete within **few seconds**
+
+#### 2. Reliability
+* Data should be automatically saved after every major operation (e.g., adding/deleting athletes, sessions, exercises)
+
+#### 3. Compatibility
+* FitnessONE must run on any operating system with **Java 17 or higher** installed.
+* It should work consistently across **Windows, macOS, and Linux**.
+
+#### 4. Usability
+* Commands should follow a consistent CLI syntax and argument order.
+* Error messages must clearly explain what went wrong and how to fix it.
+* Leaderboards and progress summaries should be easy to read and interpret quickly.
+
+#### 5. Maintainability
+* The codebase must remain modular — each component (UI, Logic, Model, Storage) should be independently testable.
+* All public classes and methods must include concise Javadoc comments describing their purpose and behavior.
+
+#### 6. Extensibility
+* New commands or data types should be implementable without modifying core logic, following the Command pattern.
+* The modular architecture should allow easy integration of new features such as export, or performance analytics.
+
+#### 7. Security
+* File operations should be restricted to FitnessONE's working directory to prevent unauthorized access.
+* Deserialization must reject malformed or unexpected input to ensure application safety.
+
+#### 8. Portability
+* The application must be distributable as a single standalone `.jar` file with no external dependencies.
+* All file paths should be relative, ensuring consistent behavior across machines.
+
+#### 9. Testing Coverage
+* Each component should achieve at least **90% unit test coverage**.
+* Core features (Add/Delete athletes, sessions, exercises, leaderboard) must include valid JUnit test cases.
+
+
 ### Glossary
+
+**CLI (Command-Line Interface)**  
+A text-based interface where users interact with FitnessONE by typing commands, instead of using a graphical interface. The CLI allows fast, efficient management of athletes, sessions, and exercises.
+
+**Coach / Fitness Coach**  
+The primary user of FitnessONE. Coaches create, manage, and track athletes, their sessions, and exercises. They also monitor performance using leaderboards and flagging.
+
+**Athlete**  
+An individual whose training is tracked within FitnessONE. Each athlete has a unique ID, a list of sessions, exercises, notes, and can be flagged for priority tracking.
+
+**Session**  
+A structured workout or training period assigned to an athlete. Sessions contain exercises, notes, completion status, and can be added, updated, completed, or deleted.
+
+**Exercise**  
+A specific activity within a session. Exercises have details like name, sets, reps, and completion status. They can be added, viewed, completed, undone, or deleted.
+
+**Leaderboard**  
+A ranking of athletes based on performance metrics, such as completed sessions and exercises. Coaches can view leaderboards to monitor progress and motivate athletes.
+
+**Flagging**  
+A visual priority system where athletes are assigned colors (e.g., red, yellow, green, blue) to indicate training urgency or performance level.
+
+**Persistence / Save & Load**  
+Functionality that allows all athletes, sessions, and exercises to be saved to a file and later restored. This ensures data continuity and eliminates the need to re-enter information.
+
+**Command**  
+A specific instruction entered by the user via the CLI to perform actions like adding an athlete, completing an exercise, or viewing the leaderboard.
+
+**ID (Identifier)**  
+A unique code assigned to each athlete, session, and exercise. IDs ensure accurate referencing and tracking across the system.
+
+**Completion / Undo**  
+Actions that allow marking sessions or exercises as completed, and optionally undoing them to correct mistakes.
+
+**Help Menu**  
+A CLI feature that lists all available commands and their usage, helping users understand how to interact with the system efficiently.
+
+**StorageManager**  
+The component responsible for persisting and restoring data. It handles saving/loading athlete profiles, sessions, exercises, and leaderboard information, ensuring data integrity.
+
 
 ## Appendix: Instructions for manual testing
 
