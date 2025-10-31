@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,26 +31,35 @@ public class DeleteSessionCommandTest {
     }
 
     @Test
-    public void deleter_missingSessionId_deleteSession() {
-        String input = "NewSession 0001";
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
-            new DeleteSessionCommand(input);
-        });
-        assertEquals("Invalid Command. Check if there's athletes or sessions created.", exception.getMessage());
+    void deleter_missingSessionId_throwsOnExecute() throws InvalidCommandException, InvalidAthleteException {
+        Coach coach = new Coach();
+        UiStub ui = new UiStub();
+
+        new NewAthleteCommand("new athlete John").execute(coach, ui);
+        String athleteId = coach.accessAthlete("John").getAthleteID();
+
+        DeleteSessionCommand cmd = new DeleteSessionCommand("deleteSession " + athleteId);
+        InvalidCommandException ex = assertThrows(InvalidCommandException.class,
+                () -> cmd.execute(coach, ui));
+        assertEquals("Unknown command: 'Invalid Command. Check if there's athletes" +
+                " or sessions created.'. Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
-    public void deleter_missingAthleteId_throwsInvalidAthleteException() {
-        String input = "NewSession 002";
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
-            new NewSessionCommand(input);
-        });
-        assertEquals("Athlete ID must be 4 characters long.", exception.getMessage());
+    void deleter_missingAthleteId_throwsOnExecute() throws InvalidCommandException {
+        Coach coach = new Coach();
+        UiStub ui = new UiStub();
+        DeleteSessionCommand cmd = new DeleteSessionCommand("deleteSession 002"); // 3 digits only
+
+        InvalidCommandException ex = assertThrows(InvalidCommandException.class,
+                () -> cmd.execute(coach, ui));
+        assertEquals("Unknown command: 'Athlete ID must be 4 characters long.'." +
+                " Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
     public void execute_validDeletion_deleteSessionAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException {
         Coach coachTest = new Coach();
         DeleteSessionCommandTest.UiStub uiStub = new DeleteSessionCommandTest.UiStub();
         String athleteName = "John Doe";
@@ -85,10 +95,10 @@ public class DeleteSessionCommandTest {
 
         String inputDeleteSession = "deleteSession "+athleteId+" 999";
         DeleteSessionCommand sessionDeleteCommand = new DeleteSessionCommand(inputDeleteSession);
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
+        InvalidSessionException exception = assertThrows(InvalidSessionException.class, () -> {
             sessionDeleteCommand.execute(coachTest, uiStub);
         });
-        assertEquals("Session not found: 999", exception.getMessage());
+        assertEquals("Session with ID '999' could not be found.", exception.getMessage());
     }
     @Test
     public void execute_invalidDeletionWithIncorrectAthleleId_deleteSessionAndPrints()
@@ -108,9 +118,10 @@ public class DeleteSessionCommandTest {
 
         String inputDeleteSession = "deleteSession 0100 001";
         DeleteSessionCommand sessionDeleteCommand = new DeleteSessionCommand(inputDeleteSession);
-        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () -> {
+        InvalidAthleteException exception = assertThrows(InvalidAthleteException.class, () -> {
             sessionDeleteCommand.execute(coachTest, uiStub);
         });
-        assertEquals("Athlete not found: 0100", exception.getMessage());
+        assertEquals("Athlete with ID '0100' does not exist.\nTip: Use /listAthletes to see" +
+                " all available athletes.", exception.getMessage());
     }
 }

@@ -28,16 +28,22 @@ public class FitnessONE {
         } catch (IOException e) {
             coachController = new Coach();
             view.showWelcome();
-            view.printWithDivider("No saved data found, starting with empty data.");
+            // If loading failed, it may be because the file is missing or the file
+            // contents are corrupted/unreadable. Give the user clearer feedback.
+            String msg = e.getMessage() == null ? "" : (": " + e.getMessage());
+            String errorMsg = String.format("Failed to load saved data (missing or corrupted)%s," 
+                    + " starting with empty data.", msg);
+            view.printWithDivider(errorMsg);
         }
     }
 
     private void run() {
         boolean isExit = false;
         while (!isExit) {
+            Command c = null;
             try {
                 String userInput = view.readCommand();
-                Command c = Parser.parse(userInput);
+                c = Parser.parse(userInput);
                 c.execute(coachController, view);
                 isExit = c.isExit();
                 // persist state after every successful command
@@ -48,12 +54,23 @@ public class FitnessONE {
                 }
             } catch (InvalidCommandException e) {
                 view.printWithDivider("InvalidCommandException: " + e.getMessage());
-
+                if (c != null) {
+                    c.help(view);
+                }
             } catch (InvalidIDException e) {
                 view.printWithDivider("InvalidIDException: " + e.getMessage());
+                if (c != null) {
+                    c.help(view);
+                }
+            } catch (InvalidSessionException e) {
+                view.printWithDivider("InvalidSessionException " + e.getMessage());
 
-            } catch (InvalidSessionException | InvalidExerciseException | InvalidAthleteException e) {
-                throw new RuntimeException(e);
+            } catch (InvalidExerciseException e) {
+                view.printWithDivider("InvalidExerciseException " + e.getMessage());
+
+            } catch (InvalidAthleteException e) {
+                view.printWithDivider("InvalidAthleteException " + e.getMessage());
+
             }
         }
     }

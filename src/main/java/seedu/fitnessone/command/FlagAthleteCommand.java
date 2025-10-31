@@ -2,30 +2,29 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
-import java.util.Arrays;
-
 public class FlagAthleteCommand implements Command {
-    private final String athleteName;
-    private final String flagColor;
+    private static final String COMMAND_WORD = "/flagathlete";
+    private static final String USAGE = "/flagathlete <Athlete ID> <Color>";
+    private static final String DESCRIPTION = "Flags an athlete with a color for priority tracking";
+    private static final String EXAMPLE = "/flagathlete 0001 red";
+    private static final String NOTE = "Available colors: red, yellow, green. Athlete ID = 4 digits";
 
-    public FlagAthleteCommand(String trimmedInput) throws InvalidCommandException{
-        try {
-            String info = trimmedInput.split("\\s+", 2)[1];
-            String[] tokens = info.split("\\s+");
-            if  (tokens.length < 2) {
-                throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
-                        "the correct format is\n" +
-                        "/flagAthlete <Athlete Name> <Flag Color>");
-            }
-            flagColor = tokens[tokens.length - 1];
-            athleteName = String.join(" ", Arrays.copyOf(tokens, tokens.length - 1));
-        }catch (Exception e) {
-            throw new InvalidCommandException("oops, seems like you forgot smth?\n" +
-                    "the correct format is\n" +
-                    "/flagAthlete <Athlete Name> <Flag Color>");
-        }
+    private final String inputString;
+
+    public FlagAthleteCommand(String inputString){
+        this.inputString = inputString;
+    }
+
+
+
+    private boolean isValidColor(String color) {
+        return switch (color) {
+        case "red", "yellow", "green", "blue", "orange", "purple", "brown", "black", "white" -> true;
+        default -> false;
+        };
     }
 
     private String colorToEmoji(String color) {
@@ -45,18 +44,38 @@ public class FlagAthleteCommand implements Command {
 
 
     @Override
-    public void execute(Coach coachController, Ui view){
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String[] parts = inputString.trim().split("\\s+");
+        if (parts.length < 3) {
+            throw new InvalidCommandException("Flag color was not specified.\nUsage: " + USAGE);
+        }
+        String flagColor = parts[2].toLowerCase();
+        if (!isValidColor(flagColor)) {
+            throw new InvalidCommandException("Invalid color: " + flagColor + "\n" + NOTE);
+        }
         try {
             String emojiFlag = colorToEmoji(flagColor);
-            coachController.flagAthlete(athleteName, emojiFlag);
-            view.printWithDivider("Athlete " + athleteName + " flagged as: " + emojiFlag);
+            coachController.flagAthlete(athleteID, emojiFlag);
+            view.printWithDivider("Athlete " + athleteID + " flagged as: " + emojiFlag);
         } catch (InvalidAthleteException e) {
-            view.printWithDivider("Error: Athlete not found - " + athleteName);
+            throw new InvalidCommandException("Athlete not found: " + athleteID);
         }
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public void help(Ui view) {
+        view.divider();
+        view.println("Command: " + COMMAND_WORD);
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
+        view.println("Note: " + NOTE);
+        view.divider();
     }
 }

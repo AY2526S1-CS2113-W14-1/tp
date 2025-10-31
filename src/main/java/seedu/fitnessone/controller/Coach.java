@@ -52,7 +52,7 @@ public class Coach {
                 return newSession;
             }
         }
-        throw new InvalidAthleteException("Athlete not found: " + athleteID);
+        throw new InvalidAthleteException(athleteID);
     }
 
     public void deleteSessionFromAthlete(String athleteID, String sessionID)
@@ -64,7 +64,7 @@ public class Coach {
                 return;
             }
         }
-        throw new InvalidAthleteException("Athlete not found (ID): " + athleteID);
+        throw new InvalidAthleteException(athleteID);
     }
 
     public String newAthlete(String athleteName) {
@@ -82,7 +82,7 @@ public class Coach {
                 return athlete.toString();
             }
         }
-        throw new InvalidAthleteException("athleteID " + athleteID + " not found.");
+        throw new InvalidAthleteException(athleteID);
     }
 
     public void printAthletes(Ui view) {
@@ -103,7 +103,7 @@ public class Coach {
                 return athlete;
             }
         }
-        throw new InvalidAthleteException("Athlete not found: " + athleteName);
+        throw new InvalidAthleteException(athleteName);
     }
 
 
@@ -113,7 +113,7 @@ public class Coach {
                 return athlete;
             }
         }
-        throw new InvalidAthleteException("Athlete not found: " + athleteID);
+        throw new InvalidAthleteException(athleteID);
     }
 
     public Session accessSessionID(Athlete athlete, String sessionID) throws InvalidSessionException {
@@ -123,7 +123,7 @@ public class Coach {
                 return session;
             }
         }
-        throw new InvalidSessionException("Session not found: " + sessionID);
+        throw new InvalidSessionException(sessionID);
     }
 
     public Exercise accessExerciseID(Session session, String exerciseID) throws InvalidExerciseException {
@@ -133,17 +133,14 @@ public class Coach {
                 return exercise;
             }
         }
-        throw new InvalidExerciseException("Exercise not found: " + exerciseID);
+        throw new InvalidExerciseException(exerciseID);
     }
 
 
     public void deleteExerciseFromSession(Session session, Exercise exercise)
             throws InvalidSessionException, InvalidExerciseException {
-        try {
-            session.getExercises().remove(exercise);
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        // Delete by exercise ID and let Session handle renumbering
+        session.removeExercise(exercise.getExerciseIDString());
     }
 
     public void flagAthlete(String athleteID, String flagColor) throws InvalidAthleteException {
@@ -162,7 +159,7 @@ public class Coach {
             }
         }
 
-        throw new InvalidAthleteException("Athlete not found with ID: " + athleteID);
+        throw new InvalidAthleteException(athleteID);
     }
 
     private class AthleteAchievement {
@@ -182,7 +179,7 @@ public class Coach {
     }
     public String leaderboardConstruct(){
         if (athletes.isEmpty()) {
-            return "No athletes found sia, add some athletes and let them do workout!!";
+            return "No athletes found, add some athletes and let them do workout!!";
         }
         List<AthleteAchievement> leaderboard = new ArrayList<>();
         for  (Athlete athlete : athletes) {

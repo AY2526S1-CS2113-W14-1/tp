@@ -10,34 +10,51 @@ import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
 public class UpdateSessionNotesCommand implements Command {
-    private final String athleteID;
-    private final String sessionID;
-    private final String sessionNotes;
+    private static final String COMMAND_WORD = "/updatesessionnote";
+    private static final String USAGE = "/updatesessionnote <Athlete ID> <Session ID> <New Notes>";
+    private static final String DESCRIPTION = "Updates training notes to specified session";
+    private static final String EXAMPLE = "/updatesessionnote 0001 001 Chest-Day";
+    private static final String NOTE = "Athlete ID = 4 digits, Session ID = 3 digits";
 
-    public UpdateSessionNotesCommand(String inputString) throws InvalidCommandException {
-        this.athleteID = Parser.checkAthleteIDValidity(inputString);
-        this.sessionID = Parser.checkSessionIDValidity(inputString);
-        this.sessionNotes = Parser.isTrainingNotes(inputString);
+    private final String inputString;
+
+    public UpdateSessionNotesCommand(String inputString) {
+        this.inputString = inputString;
     }
 
+
+
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        try {
-            Athlete athlete = coachController.accessAthleteID(athleteID);
-            Session session = coachController.accessSessionID(athlete, sessionID);
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException,
+            InvalidAthleteException, InvalidSessionException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String sessionID = Parser.checkSessionIDValidity(inputString);
+        String sessionNotes = Parser.isTrainingNotes(inputString);
 
-            session.setTrainingNotes(sessionNotes);
+        Athlete athlete = coachController.accessAthleteID(athleteID);
+        Session session = coachController.accessSessionID(athlete, sessionID);
 
-            view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
-                    " session: " + sessionID + " with notes: " + sessionNotes + ".");
+        session.setTrainingNotes(sessionNotes);
 
-        } catch (InvalidAthleteException | InvalidSessionException e) {
-            throw new InvalidCommandException(e.getMessage());
-        }
+        view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
+                " session: " + sessionID + " with notes: " + sessionNotes + ".");
     }
 
     @Override
     public boolean isExit() {
         return false;
     }
+
+
+    @Override
+    public void help(Ui view) {
+        view.divider();
+        view.println("Command: " + COMMAND_WORD);
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
+        view.println("Note: " + NOTE);
+        view.divider();
+    }
 }
+

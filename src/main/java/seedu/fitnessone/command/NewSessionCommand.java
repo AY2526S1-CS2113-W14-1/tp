@@ -9,32 +9,26 @@ import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 
 public class NewSessionCommand implements Command {
-    private final String athleteID;
-    private String trainingNotes;
+    private static final String COMMAND_WORD = "/newsession";
+    private static final String USAGE = "/newsession <Athlete ID> <Description>";
+    private static final String DESCRIPTION = "Adds a session to the specified athlete with a description";
+    private static final String EXAMPLE = "/newsession 0001 Legs";
+    private static final String NOTE = "Athlete ID = 4 digits";
 
-    /**
-     * command constructor.
-     *
-     * @param trimmedInput String.
-     */
-    public NewSessionCommand(String trimmedInput) throws InvalidCommandException {
-        this.athleteID = Parser.checkAthleteIDValidity(trimmedInput);
-        this.trainingNotes = findTrainingNotes(trimmedInput);
-        if (this.trainingNotes.equals(athleteID)) {
-            trainingNotes = "";
-        }
+    private final String inputString;
+
+    public NewSessionCommand(String inputString) throws InvalidCommandException{
+        this.inputString = inputString;
     }
+
 
     private String findTrainingNotes(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
-
         String[] inputParts = inputString.split("\\s+", 3);
-
         if (inputParts.length != 3) {
             throw new InvalidCommandException("Invalid input, try /NewSession <Athlete ID> " +
                     "<Session Notes>");
         }
-
         return inputParts[2];
     }
 
@@ -45,8 +39,11 @@ public class NewSessionCommand implements Command {
      * @param view            The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException {
-        Athlete athlete = coachController.accessAthleteID(this.athleteID);
+    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        String trainingNotes = findTrainingNotes(inputString);
+
+        Athlete athlete = coachController.accessAthleteID(athleteID);
         Session newSession = coachController.addSessionToAthlete(athleteID, trainingNotes);
 
         String output = "New session created:\n" + " Athlete Name: "
@@ -64,5 +61,17 @@ public class NewSessionCommand implements Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+
+    @Override
+    public void help(Ui view) {
+        view.divider();
+        view.println("Command: " + COMMAND_WORD);
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
+        view.println("Note: " + NOTE);
+        view.divider();
     }
 }

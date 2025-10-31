@@ -71,11 +71,11 @@ public class Athlete {
     }
 
     public int getAchievementScore() {
-        setAchivementScore();
+        setAchievementScore();
         return achievementScore;
     }
 
-    public void setAchivementScore() {
+    public void setAchievementScore() {
         achievementScore = 0;
         for (Session session : sessions) {
             for (Exercise exercise : session.getExercises()) {
@@ -90,6 +90,7 @@ public class Athlete {
     }
 
     public void removeSession(String sessionID) throws InvalidSessionException {
+        // Find and remove the session with the given ID
         Iterator<Session> iterator = sessions.iterator();
         boolean found = false;
         while (iterator.hasNext()) {
