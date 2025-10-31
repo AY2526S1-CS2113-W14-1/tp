@@ -1,0 +1,33 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant DeleteExerciseCmd as "DeleteExerciseCommand"
+participant Coach as "Coach"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/deleteexercise 0123 001 01"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : DeleteExerciseCommand instance
+FitnessONE -> DeleteExerciseCmd : execute(coachController, view)
+
+alt normal flow
+    DeleteExerciseCmd -> Coach : accessAthleteID("0123")
+    Coach --> DeleteExerciseCmd : Athlete
+    DeleteExerciseCmd -> Coach : accessSessionID(Athlete, "001")
+    Coach --> DeleteExerciseCmd : Session
+    DeleteExerciseCmd -> Coach : accessExerciseID(Session, "01")
+    Coach --> DeleteExerciseCmd : Exercise
+    DeleteExerciseCmd -> Coach : deleteExerciseFromSession(Session, Exercise)
+    DeleteExerciseCmd -> Ui : printWithDivider("Deleted exercise 01 from session 001")
+    FitnessONE -> Storage : save(coachController)
+    Storage --> FitnessONE
+else error flow
+    DeleteExerciseCmd -> Coach : accessAthleteID("0123")
+    Coach --> DeleteExerciseCmd : throws InvalidAthleteException / InvalidSessionException / InvalidExerciseException
+    DeleteExerciseCmd --> FitnessONE : throws InvalidCommandException with message
+    FitnessONE -> Ui : printWithDivider("Error: <message>")
+end
+@enduml

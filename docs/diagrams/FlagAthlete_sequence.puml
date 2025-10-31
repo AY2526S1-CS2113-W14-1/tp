@@ -1,0 +1,27 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant FlagCmd as "FlagAthleteCommand"
+participant Coach as "Coach"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/flagathlete John Doe red"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : FlagAthleteCommand instance
+FitnessONE -> FlagCmd : execute(coachController, view)
+
+alt normal flow
+    FlagCmd -> Coach : flagAthlete("John Doe", "color")
+    FlagCmd -> Ui : printWithDivider("Athlete John Doe flagged...")
+    FitnessONE -> Storage : save(coachController)
+else athlete not found
+    FlagCmd -> Coach : flagAthlete("John Doe", "color")
+    Coach --> FlagCmd : throws InvalidAthleteException
+    FlagCmd -> Ui : printWithDivider("Error: Athlete not found - John Doe")
+    FlagCmd --> FitnessONE : execute returns (with handled error)
+end
+
+@enduml

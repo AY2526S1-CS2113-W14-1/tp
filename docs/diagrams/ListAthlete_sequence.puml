@@ -1,0 +1,26 @@
+@startuml
+actor User
+participant FitnessONE as "FitnessONE.run"
+participant Ui as "Ui"
+participant Parser as "Parser"
+participant ListCmd as "ListAthleteCommand"
+participant Coach as "Coach"
+participant Storage as "StorageManager"
+
+User -> FitnessONE : type "/listathletes"
+FitnessONE -> Ui : readCommand()
+FitnessONE -> Parser : parse(input)
+Parser --> FitnessONE : ListAthleteCommand instance
+FitnessONE -> ListCmd : execute(coachController, view)
+
+alt normal flow
+    ListCmd -> Coach : printAthletes(view)
+    Coach -> Ui : printAthletes invokes view.printWithDivider(...) / multiple prints
+    FitnessONE -> Storage : save(coachController)
+else error while listing
+    ListCmd -> Coach : printAthletes(view)
+    Coach --> ListCmd : throws RuntimeException / domain error
+    ListCmd --> FitnessONE : throws InvalidCommandException (or handled)
+    FitnessONE -> Ui : printWithDivider("Error: " + message)
+end
+@enduml
