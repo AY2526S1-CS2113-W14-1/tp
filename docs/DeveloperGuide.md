@@ -182,6 +182,11 @@ Step-by-step explanation (map to code):
 4. CompleteExerciseCommand.resolve: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
 5. The command iterates session.getExercises(), compares exercise.getExerciseIDString(), calls exercise.setCompleted() when matched, and prints confirmation via view.printWithDivider.
 6. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete, session or exercise is not found, Coach throws InvalidAthleteException/InvalidSessionException/InvalidExerciseException; 
+2. CompleteExerciseCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message. 
+3. FitnessONE.run does not call save on failure.
+
 
 CompleteSession feature
 Purpose: show how the application handles a user request to complete a single session, which is implemented by CompleteSessionCommand.
@@ -194,6 +199,11 @@ Step-by-step explanation (map to code):
 4. CompleteSessionCommand.resolve: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
 5. The command calls session.setCompleted() when matched, and prints confirmation via view.printWithDivider.
 6. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete or session is not found, Coach throws InvalidAthleteException/InvalidSessionException;
+2. CompleteSessionCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
+
 
 DeleteAthlete feature
 Purpose: show how the application handles a user request to delete an athlete, which is implemented by DeleteAthleteCommand.
@@ -205,6 +215,10 @@ Step-by-step explanation (map to code):
 3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to DeleteAthleteCommand.execute.
 4. DeleteAthleteCommand.resolve: it asks Coach to call deleteAthlete() when matched, and prints confirmation via view.printWithDivider.
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete is not found, Coach throws InvalidAthleteException;
+2. DeleteAthleteCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
 
 DeleteExercise feature
 Purpose: show how the application handles a user request to delete a single exercise, which is implemented by DeleteExerciseCommand.
@@ -217,6 +231,10 @@ Step-by-step explanation (map to code):
 4. DeleteExerciseCommand.resolve: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
 5. The command iterates session.getExercises(), compares exercise.getExerciseIDString(), calls DeleteExerciseFromSession() when matched, and prints confirmation via view.printWithDivider.
 6. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete, session or exercise is not found, Coach throws InvalidAthleteException/InvalidSessionException/InvalidExerciseException;
+2. DeleteExerciseCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
 
 DeleteSession feature
 Purpose: show how the application handles a user request to delete a single session, which is implemented by DeleteSessionCommand.
@@ -229,6 +247,10 @@ Step-by-step explanation (map to code):
 4. DeleteSessionCommand.resolve: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
 5. The command calls coach.deleteSessionFromAthlete() when matched, and prints confirmation via view.printWithDivider.
 6. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete or session is not found, Coach throws InvalidAthleteException/InvalidSessionException;
+2. DeleteSessionCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
 
 Exit feature
 Purpose: show how the application handles a user request to exit, which is implemented by ExitCommand.
@@ -251,6 +273,10 @@ Step-by-step explanation (map to code):
 3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to FlagAthleteCommand.execute.
 4. FlagAthleteCommand.resolve: it asks Coach to call flagAthlete() when matched, and prints confirmation via view.printWithDivider.
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the athlete is not found, Coach throws InvalidAthleteException;
+2. FlagAthleteCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
 
 Leaderboard feature
 Purpose: show how the application handles a user request to show leaderboard, which is implemented by LeaderboardCommand.
@@ -262,6 +288,9 @@ Step-by-step explanation (map to code):
 3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to LeaderboardCommand.execute.
 4. LeaderboardCommand.resolve: it asks Coach to call leaderboardConstruct(), and prints leaderboard via view.printWithDivider.
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the input contains redundant message, DeleteAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+2. FitnessONE.run does not call save on failure.
 
 ListAthlete feature
 Purpose: show how the application handles a user request to list athletes, which is implemented by ListAthleteCommand.
@@ -273,6 +302,9 @@ Step-by-step explanation (map to code):
 3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to ListAthleteCommand.execute.
 4. printAthletes.resolve: it asks Coach to call printAthlete(), and prints athletes via view.printWithDivider.
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+error handling:
+1. If the input contains redundant message, ListAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+2. FitnessONE.run does not call save on failure.
 
 ## Appendix E: Instructions for Manual Testing (storage)
 
