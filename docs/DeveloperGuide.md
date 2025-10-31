@@ -171,7 +171,7 @@ Design notes
 
 This section describes some noteworthy details on how certain features are implemented. In general, the caller is the run method in FitnessONE; it reads user input, passes it to Parser.parse() to obtain a Command, invokes Command.execute(), then persists state.
 
-# CompleteExercise feature
+### CompleteExercise feature
 
 Purpose: show how the application handles a user request to complete a single exercise, which is implemented by CompleteExerciseCommand.
 
@@ -191,7 +191,7 @@ error handling:
 3. FitnessONE.run does not call save on failure.
 
 
-# CompleteSession feature
+### CompleteSession feature
 
 Purpose: show how the application handles a user request to complete a single session, which is implemented by CompleteSessionCommand.
 
@@ -211,7 +211,7 @@ error handling:
 3. FitnessONE.run does not call save on failure.
 
 
-# DeleteAthlete feature
+### DeleteAthlete feature
 
 Purpose: show how the application handles a user request to delete an athlete, which is implemented by DeleteAthleteCommand.
 
@@ -229,7 +229,7 @@ error handling:
 2. DeleteAthleteCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 3. FitnessONE.run does not call save on failure.
 
-# DeleteExercise feature
+### DeleteExercise feature
 
 Purpose: show how the application handles a user request to delete a single exercise, which is implemented by DeleteExerciseCommand.
 
@@ -248,7 +248,7 @@ error handling:
 2. DeleteExerciseCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 3. FitnessONE.run does not call save on failure.
 
-# DeleteSession feature
+### DeleteSession feature
 
 Purpose: show how the application handles a user request to delete a single session, which is implemented by DeleteSessionCommand.
 
@@ -267,7 +267,7 @@ error handling:
 2. DeleteSessionCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 3. FitnessONE.run does not call save on failure.
 
-# Exit feature
+### Exit feature
 
 Purpose: show how the application handles a user request to exit, which is implemented by ExitCommand.
 
@@ -280,7 +280,7 @@ Step-by-step explanation (map to code):
 4. The command prints confirmation via view.printWithDivider.
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
 
-# FlagAthlete feature
+### FlagAthlete feature
 
 Purpose: show how the application handles a user request to flag an athlete, which is implemented by FlagAthleteCommand.
 
@@ -298,7 +298,7 @@ error handling:
 2. FlagAthleteCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 3. FitnessONE.run does not call save on failure.
 
-# Leaderboard feature
+### Leaderboard feature
 
 Purpose: show how the application handles a user request to show leaderboard, which is implemented by LeaderboardCommand.
 
@@ -315,7 +315,7 @@ error handling:
 1. If the input contains redundant message, DeleteAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 2. FitnessONE.run does not call save on failure.
 
-# ListAthlete feature
+### ListAthlete feature
 
 Purpose: show how the application handles a user request to list athletes, which is implemented by ListAthleteCommand.
 
