@@ -464,9 +464,311 @@ FitnessONE empowers coaches to manage and monitor athletes’ progress more effi
 |   v2.0  | Fitness coach | load saved athlete data, sessions, and exercises | restore all information without re-entering it manually        |
 
 
-
-
 ### Use cases
+
+For all use cases below, the System is FitnessONE and the Actor is the user, unless otherwise specified.
+
+#### Use Case: Use Case: Add a New Athlete
+
+MSS
+
+1. User enters the command to add a new athlete (e.g., /newathlete John Doe)
+2. System creates a new athlete profile, assigns a unique ID, and adds it to storage
+3. System confirms with a message displaying the newly assigned ID
+
+Extensions
+2a. Athlete name is empty or invalid
+	2a1. FitnessOne shows an error message
+
+#### Use Case: Delete an Athlete
+
+MSS
+
+1. User issues the command to delete an athlete (e.g., /deleteathlete 0001)
+2. System checks if the athlete exists
+3. System deletes the athlete and all associated sessions and exercises
+4. System confirms the deletion with a message
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Add a New Session
+
+MSS
+
+1. User enters the command to add a session (e.g., /newsession 0001 Leg day)
+2. System checks if the athlete ID exists
+3. System creates a session, assigns a unique session ID, and adds it to the athlete profile
+4. System confirms the new session with details (ID, notes)
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+3a. Sessions Note is empty or invalid
+	3a1. FitnessOne shows an error message
+
+#### Use Case: Delete a Session
+
+MSS
+
+1. User issues delete session command (e.g., /deletesession 0001 001)
+2. System checks athlete and session IDs
+3. System deletes the session and all its exercises
+4. System confirms the session deletion
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Add an Exercise
+
+MSS
+
+1. User commands to add an exercise (e.g., /newexercise 0001 001 Bench Press 5 10)
+2. System validates athlete and session IDs
+3. System adds the exercise to the session with a unique ID
+4. System confirms creation with exercise details
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+3a. Invalid command format
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: Delete an Exercise
+
+MSS
+
+1. User enters the delete exercise command (e.g., /deleteexercise 0001 001 01)
+2. System checks if athlete, session, and exercise IDs exist
+3. System deletes the specified exercise
+4. System confirms deletion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: Complete an Exercise
+
+MSS
+
+1. User enters the complete exercise command (/completeexercise 0001 001 01)
+2. System verifies that all IDs are valid and exist
+3. System marks the exercise as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+ 
+#### Use Case: Complete a Session
+
+MSS
+
+1. User enters the complete session command (/completesession 0001 001)
+2. System verifies that all IDs (session and athlete ID) are valid and exist
+3. System marks the session as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Undo an Exercise
+
+MSS
+
+1. User enters the complete exercise command (undoexercise 0001 001 01)
+2. System verifies that all IDs are valid and exist
+3. System marks the exercise as not completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Exercise ID invalid, empty or not found
+ 3a1. FitnessOne shows an error message
+ 
+#### Use Case: Complete a Session
+
+MSS
+
+1. User enters the complete session command (/undosession 0001 001)
+2. System verifies that all IDs (session and athlete ID) are valid and exist
+3. System marks the session as completed
+4. System confirms completion to the user
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Flag an Athlete
+
+MSS
+
+1. User enters the command to flag an athlete (e.g., /flagathlete 0001 red)
+2. System checks athlete ID, validates color
+3. System updates the flag color
+4. System confirms flag update
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+ 
+3a. Flag color invalid, empty
+ 3a1. FitnessOne shows an error message
+
+#### Use Case: List All Athletes
+
+MSS
+
+1. User enters the command to list all athletes (/listathletes)
+2. System retrieves a list of all athletes, including flags and IDs
+3. System displays the list in a clear format to the user
+
+#### Use Case: View Athlete Details
+
+MSS
+
+1. User enters the command to view an athlete (e.g., /viewathlete 0001)
+2. System checks if the athlete ID exists
+3. System retrieves and displays all details for that athlete, including sessions and exercises
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View All Sessions for an Athlete
+
+MSS
+
+1. User enters the command to view all sessions for an athlete User enters the command to view all exercises (e.g., /viewexercises 0001 001)
+2. System verifies the athlete ID
+3. System retrieves and displays all sessions for the specified athlete
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View All Exercises in a Session
+
+MSS
+
+1. User enters the command to view all exercises (e.g., /viewexercises 0001 001)
+2. System checks both athlete and session IDs
+3. System retrieves and displays all exercises in the specified session
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: Update Session Notes
+
+MSS
+
+1. User enters the command to update session notes (e.g., /updatesessionnote 0001 001 push)
+2. System checks athlete and session IDs
+3. System updates the session’s notes with the new text
+4. System confirms update with a message
+
+Extensions
+
+2a. Athlete ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+2a. Session ID invalid, empty or not found
+ 2a1. FitnessOne shows an error message
+
+#### Use Case: View Help (List All Commands)
+
+MSS
+
+1. User enters /help
+2. System displays a list of all available commands with descriptions and usage
+
+#### Use Case: View Leaderboard
+
+MSS 
+
+1. User enters /leaderboard
+2. System calculates athlete scores based on completion (sessions, exercises)
+3. System sorts athletes by score and displays the ranking
+
+
+#### Use Case: Persist and Restore Coach Data
+
+MSS
+
+1. The user executes actions that modify the coach’s data (e.g. adding athletes, sessions, exercises)
+2. The System (FitnessONE) calls StorageManager’s save() method to persist the data to file
+3. Data is written in a structured, line-based format
+4. When the application starts (or user requests a reload), the System calls StorageManager’s load() method
+5. StorageManager parses the file and reconstructs all Coach, Athlete, Session, and Exercise objects in memory, restoring the full application state
+
+Extensions
+
+2a. The data file does not exist yet
+ 2a1. StorageManager creates any necessary folders and returns an empty Coach
+
+2b. The file exists but is empty
+ 2b1. StorageManager loads an empty Coach
+
+4a. The file is malformed (incorrect ID length/type, missing fields, parsing error)
+ 4a1. StorageManager records all parse errors, displays them (stderr), and attempts to recover or skip problematic lines
+
+4b. Some IDs are duplicated or invalid
+ 4b1. StorageManager skips faulty records and proceeds with valid ones only
+
+5a. The final loaded data is inconsistent (e.g., missing athlete/session/exercise IDs)
+ 5a1. StorageManager asserts and logs errors, but the app remains operational if possible
+
 
 ### Non-Functional Requirements
 
