@@ -414,6 +414,30 @@ If any of the above steps fail, capture the console output and the contents of `
 
 ### Product scope
 
+#### Target User profile:
+
+FitnessONE is designed for professional fitness coaches and personal trainers who:
+
+* Manage multiple athletes simultaneously
+* Need to track detailed training programs, including sessions and individual exercises
+* Can type fast and are comfortable using command-line interfaces
+* Value speed, data accuracy, and organization in their workflow
+* Want to monitor athlete progress through completion tracking and performance metrics
+* Prefer quick access to athlete information without navigating through multiple GUI screens
+* Need to prioritize athletes based on urgency or training status
+
+#### Value Proposition:
+
+FitnessONE empowers coaches to manage and monitor athletes’ progress more efficiently than traditional GUI-based fitness management software by:
+
+* Allowing fast creation, viewing, and management of athletes, sessions, and exercises directly from the command line
+* Automating ID assignment and progress tracking for each athlete, session, and exercise
+* Providing clear, structured summaries of training data and athlete performance
+* Including a leaderboard feature that helps coaches compare athletes’ progress and use insights to motivate their teams
+* Offering visual prioritization through color-coded athlete flags (red, yellow, green, blue, ...) for status or urgency tracking
+* Storing all information locally to ensure data privacy and offline availability
+* Automatically saving all changes to eliminate the need for manual save operations
+
 ### User stories
 
 ### Use cases
