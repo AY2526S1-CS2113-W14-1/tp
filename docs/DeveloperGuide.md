@@ -317,7 +317,7 @@ Step-by-step explanation (map to code):
 5. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
 
 error handling:
-1. If the input contains redundant message, DeleteAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+1. If the input contains redundant message, LeaderboardCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 2. FitnessONE.run does not call save on failure.
 
 ### ListAthlete feature

@@ -27,6 +27,7 @@ public class UpdateSessionNotesCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidAthleteException, InvalidSessionException {
+
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String sessionID = Parser.checkSessionIDValidity(inputString);
         String sessionNotes = Parser.isTrainingNotes(inputString);

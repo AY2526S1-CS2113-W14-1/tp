@@ -11,6 +11,13 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
 
 public class ExitCommand implements Command {
+    private static final String COMMAND_WORD = "bye";
+    private static final String DESCRIPTION = "Exit the application";
+    private static final String USAGE = "bye";
+    private final String inputString;
+    public ExitCommand(String inputString) {
+        this.inputString = inputString;
+    }
 
 
     /**
@@ -21,6 +28,9 @@ public class ExitCommand implements Command {
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        if (inputString.split(" ").length > 1) {
+            throw new InvalidCommandException(USAGE);
+        }
         view.printWithDivider("Bye. Hope to see you again soon!");
     }
 

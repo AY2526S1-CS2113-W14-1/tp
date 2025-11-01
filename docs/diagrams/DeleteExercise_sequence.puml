@@ -8,26 +8,66 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/deleteexercise 0123 001 01"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so activation bar starts at command header
+Parser -> DeleteExerciseCmd ++ : new DeleteExerciseCommand("0123","001","01")
+DeleteExerciseCmd --> Parser -- : constructed
 Parser --> FitnessONE : DeleteExerciseCommand instance
+deactivate Parser
+
 FitnessONE -> DeleteExerciseCmd : execute(coachController, view)
+activate DeleteExerciseCmd
 
 alt normal flow
     DeleteExerciseCmd -> Coach : accessAthleteID("0123")
+    activate Coach
     Coach --> DeleteExerciseCmd : Athlete
+
     DeleteExerciseCmd -> Coach : accessSessionID(Athlete, "001")
     Coach --> DeleteExerciseCmd : Session
+
     DeleteExerciseCmd -> Coach : accessExerciseID(Session, "01")
     Coach --> DeleteExerciseCmd : Exercise
+
     DeleteExerciseCmd -> Coach : deleteExerciseFromSession(Session, Exercise)
+    Coach --> DeleteExerciseCmd : confirmed
+    deactivate Coach
+
     DeleteExerciseCmd -> Ui : printWithDivider("Deleted exercise 01 from session 001")
+    activate Ui
+    Ui --> DeleteExerciseCmd : printed
+    deactivate Ui
+
+    DeleteExerciseCmd --> FitnessONE : execute returns
+    deactivate DeleteExerciseCmd
+
     FitnessONE -> Storage : save(coachController)
-    Storage --> FitnessONE
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else error flow
     DeleteExerciseCmd -> Coach : accessAthleteID("0123")
+    activate DeleteExerciseCmd
+    activate Coach
     Coach --> DeleteExerciseCmd : throws InvalidAthleteException / InvalidSessionException / InvalidExerciseException
+    deactivate Coach
+
     DeleteExerciseCmd --> FitnessONE : throws InvalidCommandException with message
+    deactivate DeleteExerciseCmd
+
     FitnessONE -> Ui : printWithDivider("Error: <message>")
+    activate Ui
+    Ui --> FitnessONE : printed
+    deactivate Ui
 end
+
+deactivate FitnessONE
 @enduml

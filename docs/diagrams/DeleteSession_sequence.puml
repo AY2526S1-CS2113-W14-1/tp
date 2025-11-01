@@ -8,23 +8,64 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/deletesession 0123 001"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so the command's activation bar is attached to its header
+Parser -> DeleteSessionCmd ++ : new DeleteSessionCommand("0123","001")
+DeleteSessionCmd --> Parser -- : constructed
 Parser --> FitnessONE : DeleteSessionCommand instance
+deactivate Parser
+
 FitnessONE -> DeleteSessionCmd : execute(coachController, view)
+activate DeleteSessionCmd
 
 alt normal flow
     DeleteSessionCmd -> Coach : accessAthleteID("0123")
+    activate Coach
     Coach --> DeleteSessionCmd : Athlete
+
     DeleteSessionCmd -> Coach : accessSessionID(Athlete, "001")
     Coach --> DeleteSessionCmd : Session
+
     DeleteSessionCmd -> Coach : deleteSessionFromAthlete("0123", "001")
+    Coach --> DeleteSessionCmd : confirmed
+    deactivate Coach
+
     DeleteSessionCmd -> Ui : printWithDivider("Session 001 del...")
+    activate Ui
+    Ui --> DeleteSessionCmd : printed
+    deactivate Ui
+
+    DeleteSessionCmd --> FitnessONE : execute returns
+    deactivate DeleteSessionCmd
+
     FitnessONE -> Storage : save(coachController)
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else athlete or session not found
+
     DeleteSessionCmd -> Coach : accessAthleteID("0123")
+    activate DeleteSessionCmd
+    activate Coach
     Coach --> DeleteSessionCmd : throws InvalidAthleteException / InvalidSessionException
+    deactivate Coach
+
     DeleteSessionCmd --> FitnessONE : throws InvalidCommandException with message
+    deactivate DeleteSessionCmd
+
     FitnessONE -> Ui : printWithDivider("Error: <message>")
+    activate Ui
+    Ui --> FitnessONE : printed
+    deactivate Ui
 end
+
+deactivate FitnessONE
 @enduml

@@ -21,6 +21,9 @@ public class DeleteAthleteCommand implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidAthleteException {
+        if (inputString.split(" ").length > 2) {
+            throw new InvalidCommandException(USAGE);
+        }
         String athleteID = Parser.checkAthleteIDValidity(inputString);
 
         coachController.deleteAthlete(athleteID);

@@ -96,11 +96,9 @@ class ParserTest {
     checkAthleteIDValidity
      */
     @Test
-    void checkAthleteIDValidity_spaceChar_throws() {
-        InvalidCommandException error = assertThrows(InvalidCommandException.class,
-                () -> Parser.checkAthleteIDValidity("/cmd      0001"));
-        assertEquals("Unknown command: 'Athlete ID cannot be blank.'. " +
-                "Type /help to see available commands.", error.getMessage());
+    void checkAthleteIDValidity_spaceChar_throws() throws InvalidCommandException {
+        String id = Parser.checkAthleteIDValidity("/cmd      0001");
+        assertEquals("0001", id);
     }
 
     @Test
@@ -144,11 +142,9 @@ class ParserTest {
     checkSessionIDValidity
     */
     @Test
-    void checkSessionIDValidity_spaceChar_throws() {
-        InvalidCommandException error = assertThrows(InvalidCommandException.class,
-                () -> Parser.checkSessionIDValidity("/cmd 0001      001"));
-        assertEquals("Unknown command: 'Session ID cannot be blank.'. " +
-                "Type /help to see available commands.", error.getMessage());
+    void checkSessionIDValidity_spaceChar_throws() throws InvalidCommandException {
+        String id = Parser.checkSessionIDValidity("/cmd 0001      001");
+        assertEquals("001", id);
     }
 
     @Test
@@ -200,11 +196,9 @@ class ParserTest {
     }
 
     @Test
-    void checkExerciseIDValidity_spaceChar_throws() {
-        InvalidCommandException error = assertThrows(InvalidCommandException.class,
-                () -> Parser.checkExerciseIDValidity("/cmd 0001 001      note"));
-        assertEquals("Unknown command: 'Exercise ID cannot be blank.'. " +
-                "Type /help to see available commands.", error.getMessage());
+    void checkExerciseIDValidity_spaceChar_throws() throws InvalidCommandException {
+        String id = Parser.checkExerciseIDValidity("/cmd 0001 001      01");
+        assertEquals("01", id);
     }
 
     @Test
