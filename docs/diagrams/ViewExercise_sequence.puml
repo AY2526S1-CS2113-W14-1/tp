@@ -1,0 +1,55 @@
+@startuml
+title ViewExercise Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant ViewExerciseCommand
+participant Coach
+
+User -> FitnessONE: (user types "/viewexercises 0001 001")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/viewexercises 0001 001"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/viewexercises 0001 001")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> ViewExerciseCommand: <<create>> ViewExerciseCommand("0001 001")
+activate ViewExerciseCommand
+ViewExerciseCommand --> Parser: constructed
+deactivate ViewExerciseCommand
+Parser --> FitnessONE: ViewExerciseCommand instance
+deactivate Parser
+
+FitnessONE -> ViewExerciseCommand: execute(coachController, view)
+activate ViewExerciseCommand
+ViewExerciseCommand -> Coach: accessAthleteID(athleteID)
+activate Coach
+Coach --> ViewExerciseCommand: Athlete instance
+deactivate Coach
+ViewExerciseCommand -> Coach: accessSessionID(athlete, sessionID)
+activate Coach
+Coach --> ViewExerciseCommand: Session instance
+deactivate Coach
+ViewExerciseCommand -> Session: getExercises()
+activate Session
+Session --> ViewExerciseCommand: Exercise list
+deactivate Session
+
+ViewExerciseCommand -> Ui: print session and exercises details
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate ViewExerciseCommand
+
+alt invalid input (wrong number of args)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: usage message")
+end
+
+deactivate FitnessONE
+@enduml

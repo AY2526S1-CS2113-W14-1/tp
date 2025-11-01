@@ -1,0 +1,61 @@
+@startuml
+title UndoSession Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant UndoSessionCommand
+participant Coach
+participant StorageManager
+
+User -> FitnessONE: (user types "/undosession 0001 003")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/undosession 0001 003"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/undosession 0001 003")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> UndoSessionCommand: <<create>> UndoSessionCommand("0001 003")
+activate UndoSessionCommand
+UndoSessionCommand --> Parser: constructed
+deactivate UndoSessionCommand
+Parser --> FitnessONE: UndoSessionCommand instance
+deactivate Parser
+
+FitnessONE -> UndoSessionCommand: execute(coachController, view)
+activate UndoSessionCommand
+UndoSessionCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> UndoSessionCommand: athlete
+deactivate Coach
+UndoSessionCommand -> Coach: accessSessionID(athlete, "003")
+activate Coach
+Coach --> UndoSessionCommand: session
+deactivate Coach
+UndoSessionCommand -> session: setNotCompleted()
+UndoSessionCommand -> Ui: printWithDivider("Session (ID: 003) has been marked as not completed for ...")
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate UndoSessionCommand
+
+alt invalid input (wrong format)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: /undosession <Athlete ID> <Session ID>")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager --> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml
