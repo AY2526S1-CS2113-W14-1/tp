@@ -1,0 +1,74 @@
+@startuml
+title NewExercise Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant NewExerciseCommand
+participant Coach
+participant StorageManager
+participant Athlete
+participant Session
+participant Exercise
+
+User -> FitnessONE: (user types "/newexercise 0001 001 leg-press 5 15")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/newexercise 0001 001 leg-press 5 15"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/newexercise 0001 001 leg-press 5 15")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> NewExerciseCommand: <<create>> NewExerciseCommand("0001 001 leg-press 5 15")
+activate NewExerciseCommand
+NewExerciseCommand --> Parser: constructed
+deactivate NewExerciseCommand
+Parser --> FitnessONE: NewExerciseCommand instance
+deactivate Parser
+
+FitnessONE -> NewExerciseCommand: execute(coachController, view)
+activate NewExerciseCommand
+NewExerciseCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> NewExerciseCommand: Athlete
+deactivate Coach
+
+NewExerciseCommand -> Coach: accessSessionID(Athlete, "001")
+activate Coach
+Coach --> NewExerciseCommand: Session
+deactivate Coach
+
+NewExerciseCommand -> Session: addExercise("leg-press", 5, 15)
+activate Session
+Session -> Exercise: <<create>> Exercise("leg-press", 5, 15)
+activate Exercise
+Exercise --> Session: Exercise instance
+deactivate Exercise
+Session --> NewExerciseCommand: Exercise
+deactivate Session
+
+NewExerciseCommand -> Ui: printWithDivider("New exercise created!")
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate NewExerciseCommand
+
+alt invalid input (missing or malformed parameters)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: input format incorrect")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager --> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+title ViewSessions Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant ViewSessionsCommand
+participant Coach
+
+User -> FitnessONE: (user types "/viewsessions 0001")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/viewsessions 0001"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/viewsessions 0001")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> ViewSessionsCommand: <<create>> ViewSessionsCommand("0001")
+activate ViewSessionsCommand
+ViewSessionsCommand --> Parser: constructed
+deactivate ViewSessionsCommand
+Parser --> FitnessONE: ViewSessionsCommand instance
+deactivate Parser
+
+FitnessONE -> ViewSessionsCommand: execute(coachController, view)
+activate ViewSessionsCommand
+ViewSessionsCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> ViewSessionsCommand: Athlete instance
+deactivate Coach
+ViewSessionsCommand -> Athlete: getSessions()
+activate Athlete
+Athlete --> ViewSessionsCommand: ArrayList<Session>
+deactivate Athlete
+
+loop for each session
+    ViewSessionsCommand -> Session: isCompleted()
+    activate Session
+    Session --> ViewSessionsCommand: status
+    deactivate Session
+    ViewSessionsCommand -> Ui: println(session info)
+end
+
+ViewSessionsCommand -> Ui: divider()
+activate Ui
+Ui --> User: display sessions
+deactivate Ui
+deactivate ViewSessionsCommand
+
+deactivate FitnessONE
+@enduml

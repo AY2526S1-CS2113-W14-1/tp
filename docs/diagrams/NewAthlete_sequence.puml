@@ -1,0 +1,56 @@
+@startuml
+title NewAthlete Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant NewAthleteCommand
+participant Coach
+participant StorageManager
+
+User -> FitnessONE: (user types "/newathlete Jonas Hardwell")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/newathlete Jonas Hardwell"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/newathlete Jonas Hardwell")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> NewAthleteCommand: <<create>> NewAthleteCommand("Jonas Hardwell")
+activate NewAthleteCommand
+NewAthleteCommand --> Parser: constructed
+deactivate NewAthleteCommand
+Parser --> FitnessONE: NewAthleteCommand instance
+deactivate Parser
+
+FitnessONE -> NewAthleteCommand: execute(coachController, view)
+activate NewAthleteCommand
+NewAthleteCommand -> Coach: newAthlete("Jonas Hardwell")
+activate Coach
+Coach --> NewAthleteCommand: athleteInfoString
+deactivate Coach
+NewAthleteCommand -> Ui: printWithDivider("Athlete added: ...")
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate NewAthleteCommand
+
+alt invalid input (missing name)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: athlete name was not specified")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager --> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml

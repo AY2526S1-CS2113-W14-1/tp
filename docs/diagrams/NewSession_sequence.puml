@@ -1,0 +1,62 @@
+@startuml
+title NewSession Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant NewSessionCommand
+participant Coach
+participant StorageManager
+
+User -> FitnessONE: (user types "/newsession 0001 Legs")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/newsession 0001 Legs"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/newsession 0001 Legs")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> NewSessionCommand: <<create>> NewSessionCommand("0001 Legs")
+activate NewSessionCommand
+NewSessionCommand --> Parser: constructed
+deactivate NewSessionCommand
+Parser --> FitnessONE: NewSessionCommand instance
+deactivate Parser
+
+FitnessONE -> NewSessionCommand: execute(coachController, view)
+activate NewSessionCommand
+NewSessionCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> NewSessionCommand: Athlete object
+deactivate Coach
+
+NewSessionCommand -> Coach: addSessionToAthlete("0001", "Legs")
+activate Coach
+Coach --> NewSessionCommand: new Session object
+deactivate Coach
+
+NewSessionCommand -> Ui: printWithDivider("New session created: ...")
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate NewSessionCommand
+
+alt invalid input (missing athlete ID or description)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: ...")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager --> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml
