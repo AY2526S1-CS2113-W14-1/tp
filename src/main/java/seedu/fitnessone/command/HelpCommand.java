@@ -1,16 +1,25 @@
 package seedu.fitnessone.command;
 
 import seedu.fitnessone.controller.Coach;
+import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
 
 public class HelpCommand implements Command {
     private static final String COMMAND_WORD = "/help";
+    private static final String USAGE = "/help";
+    private static final String DESCRIPTION = "Displays all available commands";
+    private static final String EXAMPLE = "/help";
+    private final String inputString;
 
     public HelpCommand(String inputString) {
+        this.inputString = inputString;
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+        if (!inputString.trim().equals(COMMAND_WORD)) {
+            throw new InvalidCommandException("Usage: " + USAGE + "\nThis command doesn't take any arguments.");
+        }
         view.divider();
         view.println("FitnessONE - Available Commands");
         view.println("");
@@ -62,9 +71,9 @@ public class HelpCommand implements Command {
     public void help(Ui view) {
         view.divider();
         view.println("Command: " + COMMAND_WORD);
-        view.println("Usage: /help");
-        view.println("Description: Displays all available commands");
-        view.println("Example: /help");
+        view.println("Usage: " + USAGE);
+        view.println("Description: " + DESCRIPTION);
+        view.println("Example: " + EXAMPLE);
         view.divider();
     }
 }

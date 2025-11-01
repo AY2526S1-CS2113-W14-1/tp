@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ViewExerciseCommand implements Command {
     private static final String COMMAND_WORD = "/viewexercises";
-    private static final String USAGE = "/viewexercises <Athlete ID>";
+    private static final String USAGE = "/viewexercises <Athlete ID> <Session ID>";
     private static final String DESCRIPTION = "Views the exercise IDs which are used in other commands";
     private static final String EXAMPLE = "/viewexercises 0001 001";
     private static final String NOTE = "Athlete ID = 4 digits, Session ID = 3 digits";
