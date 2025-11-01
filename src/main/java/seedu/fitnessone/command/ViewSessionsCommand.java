@@ -35,12 +35,12 @@ public class ViewSessionsCommand implements Command {
 
         view.divider();
         view.println("Athlete ID: " + athlete.getAthleteID() + " | Name: " + athlete.getAthleteName() + "\n");
-        view.println("Status | Session ID | Date | Notes: ");
+        view.println("Status | Session ID   | Date                   | Notes ");
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
             String status = session.isCompleted() ? "[X]" : "[ ]";
 
-            view.println((i + 1) + ". " + status + ".   Session: " +
+            view.println((i + 1) + ". " + status + " | Session: " +
                     session.getSessionIdString() + " | Date: "
                     + session.getSessionDateString() + " | " + session.getTrainingNotes());
         }

@@ -148,8 +148,8 @@ Displays a list of all registered athletes with their IDs and priority flags.
 **Expected output:**
 ```
 ____________________________________________________________
-    1. [🟥] Jonas Hardwell (0001)
-    2. [🟨] John Doe (0002)
+    1. [RED] Jonas Hardwell (0001)
+    2. [YELLOW] John Doe (0002)
     3. [ ] Jonathan Well (0003)
 
 ____________________________________________________________
@@ -163,7 +163,7 @@ Assigns a color flag to an athlete for priority tracking.
 
 **Format:** `/flagathlete <Athlete ID> <Color>`
 
-**Supported colors:** `red`, `yellow`, `green`, `blue`
+**Supported colors:** `red`, `yellow`, `green`
 
 **Example:**
 ```
@@ -173,7 +173,7 @@ Assigns a color flag to an athlete for priority tracking.
 **Expected output:**
 ```
 ____________________________________________________________
-Athlete 0001 flagged as: 🟥
+Athlete 0001 flagged as: RED
 ____________________________________________________________
 ```
 
@@ -245,10 +245,10 @@ Displays all sessions for a specific athlete, showing completion status, date, a
 ____________________________________________________________
 Athlete ID: 0001 | Name: Jonas Hardwell
 
-Status | Session ID | Date | Notes:
-1. [ ]   Session: 001 | Date: 29-10-2025 08:00 | Morning session
-2. [X]   Session: 002 | Date: 29-10-2025 10:00 | Pre training warmup
-3. [ ]   Session: 003 | Date: 29-10-2025 15:00 | Post training cool down
+Status |  Session ID   | Date                   | Notes
+1. [ ] |  Session: 001 | Date: 29-10-2025 08:00 | Morning session
+2. [X] |  Session: 002 | Date: 29-10-2025 10:00 | Pre training warmup
+3. [ ] |  Session: 003 | Date: 29-10-2025 15:00 | Post training cool down
 ____________________________________________________________
 ```
 
