@@ -13,11 +13,11 @@ import seedu.fitnessone.model.Exercise;
 import java.util.ArrayList;
 
 public class ViewExerciseCommand implements Command {
-    private static final String COMMAND_WORD = "/viewsessions";
-    private static final String USAGE = "/viewsessions <Athlete ID>";
-    private static final String DESCRIPTION = "Views the session IDs which are used in other commands";
-    private static final String EXAMPLE = "/viewsessions 0001";
-    private static final String NOTE = "Athlete ID = 4 digits";
+    private static final String COMMAND_WORD = "/viewexercises";
+    private static final String USAGE = "/viewexercises <Athlete ID>";
+    private static final String DESCRIPTION = "Views the exercise IDs which are used in other commands";
+    private static final String EXAMPLE = "/viewexercises 0001 001";
+    private static final String NOTE = "Athlete ID = 4 digits, Session ID = 3 digits";
     private final String inputString;
 
 
@@ -29,6 +29,9 @@ public class ViewExerciseCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidAthleteException, InvalidSessionException {
+        if (inputString.split(" ").length > 3) {
+            throw new InvalidCommandException(USAGE);
+        }
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String sessionID = Parser.checkSessionIDValidity(inputString);
 

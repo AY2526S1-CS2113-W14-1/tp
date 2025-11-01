@@ -47,6 +47,9 @@ public class FlagAthleteCommand implements Command {
     public void execute(Coach coachController, Ui view) throws InvalidCommandException {
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String[] parts = inputString.trim().split("\\s+");
+        if (inputString.split(" ").length > 3) {
+            throw new InvalidCommandException(USAGE);
+        }
         if (parts.length < 3) {
             throw new InvalidCommandException("Flag color was not specified.\nUsage: " + USAGE);
         }

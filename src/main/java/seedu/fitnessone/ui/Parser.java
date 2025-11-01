@@ -43,7 +43,7 @@ public class Parser {
         String commandWord = trimmedInput.split("\\s+", 2)[0];
 
         return switch (commandWord) {
-        case "bye" -> new ExitCommand();
+        case "bye" -> new ExitCommand(trimmedInput);
         case "/help" -> new HelpCommand(trimmedInput);
         /*------------------ATHLETE COMMANDS ------------------ */
         case "/newathlete" -> new NewAthleteCommand(trimmedInput);

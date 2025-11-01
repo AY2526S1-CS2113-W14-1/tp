@@ -25,8 +25,11 @@ public class ViewSessionsCommand implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
-        String athleteID = Parser.checkAthleteIDValidity(inputString);
+        if (inputString.split(" ").length > 2) {
+            throw new InvalidCommandException(USAGE);
+        }
 
+        String athleteID = Parser.checkAthleteIDValidity(inputString);
         Athlete athlete = coachController.accessAthleteID(athleteID);
         ArrayList<Session> sessions = athlete.getSessions();
 

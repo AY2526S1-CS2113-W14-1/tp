@@ -28,6 +28,9 @@ public class CompleteExerciseCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        if (inputString.split(" ").length > 4) {
+            throw new InvalidCommandException(USAGE);
+        }
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String sessionID = Parser.checkSessionIDValidity(inputString);
         String exerciseID = Parser.checkExerciseIDValidity(inputString);
