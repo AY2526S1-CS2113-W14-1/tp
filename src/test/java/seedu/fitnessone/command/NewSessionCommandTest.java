@@ -24,21 +24,21 @@ public class NewSessionCommandTest {
     }
 
     @Test
-    public void constructor_validInput_createsNewSession() throws InvalidCommandException {
+    public void constructor_validInput_createsNewSession() {
         String input = "NewSession 0001 Legs";
         NewSessionCommand command = new NewSessionCommand(input);
         assertNotNull(command);
     }
 
     @Test
-    public void constructor_validInputWithoutTrainingNotes_createsNewSession() throws InvalidCommandException {
+    public void constructor_validInputWithoutTrainingNotes_createsNewSession()  {
         String input = "NewSession 0001 0001";
         NewSessionCommand command = new NewSessionCommand(input);
         assertNotNull(command);
     }
 
     @Test
-    public void constructor_withoutTrainingNote_createsNewSession() throws InvalidCommandException {
+    public void constructor_withoutTrainingNote_createsNewSession()  {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         NewSessionCommand cmd = new NewSessionCommand("NewSession 0001");
@@ -50,7 +50,7 @@ public class NewSessionCommandTest {
     }
 
     @Test
-    public void constructor_missingAthleteId_throwsInvalidAthleteException() throws InvalidCommandException {
+    public void constructor_missingAthleteId_throwsInvalidAthleteException() {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         NewSessionCommand cmd = new NewSessionCommand("NewSession Legs ");
@@ -77,10 +77,10 @@ public class NewSessionCommandTest {
         sessionCommand.execute(coachTest, uiStub);
         assertEquals(2, coachTest.accessAthlete("jonas hardwell").getSessionID());
         assertEquals("New session created:\n" +
-                " Athlete Name: jonas hardwell | ID: "+athleteId+"\n" +
+                "\tAthlete Name: jonas hardwell | ID: "+athleteId+"\n" +
                 "\n" +
-                "Session ID: 001\n" +
-                "Session Description: Legs\n", uiStub.lastPrinted);
+                "\tSession ID: 001\n" +
+                "\tSession Description: Legs\n", uiStub.lastPrinted);
     }
     @Test
     public void execute_validSessionWithoutTrainNote_addsSessionAndPrints()
@@ -96,9 +96,9 @@ public class NewSessionCommandTest {
 
         assertEquals(2, coach.accessAthlete("jonas hardwell").getSessionID());
         assertEquals("New session created:\n" +
-                        " Athlete Name: jonas hardwell | ID: " + athleteId + "\n\n" +
-                        "Session ID: 001\n" +
-                        "Session Description: " + athleteId + "\n", ui.lastPrinted);
+                        "\tAthlete Name: jonas hardwell | ID: " + athleteId + "\n\n" +
+                        "\tSession ID: 001\n" +
+                        "\tSession Description: " + athleteId + "\n", ui.lastPrinted);
     }
 
     @Test

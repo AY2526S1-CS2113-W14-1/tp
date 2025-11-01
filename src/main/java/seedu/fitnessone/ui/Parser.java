@@ -40,6 +40,7 @@ public class Parser {
             throw new InvalidCommandException("Input cannot be empty");
         }
         String trimmedInput = input.trim().toLowerCase();
+        trimmedInput = trimmedInput.trim().replaceAll("\\s+", " ");
         String commandWord = trimmedInput.split("\\s+", 2)[0];
 
         return switch (commandWord) {
@@ -104,7 +105,7 @@ public class Parser {
 
     public static String checkSessionIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
-
+        inputString = inputString.trim().replaceAll("\\s+", " ");
         if (inputString.split(" ").length < 3) {
             throw new InvalidCommandException("Invalid Command. Check if there's athletes or sessions created.");
         }
@@ -134,7 +135,7 @@ public class Parser {
 
     public static String checkExerciseIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
-
+        inputString = inputString.trim().replaceAll("\\s+", " ");
 
         if (inputString.split(" ").length < 4) {
             throw new InvalidCommandException("Input is empty. Check if there's athletes or sessions created.");
