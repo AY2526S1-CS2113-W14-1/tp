@@ -51,7 +51,7 @@ public class FlagAthleteCommandTest {
         flagCommand.execute(coachTest, uiStub);
 
         assert uiStub.lastPrinted != null : "UI should have printed message";
-        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: \uD83D\uDFE5") :
+        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: RED") :
                 "Printed message should match expected";
     }
 
@@ -72,7 +72,6 @@ public class FlagAthleteCommandTest {
             flagCommand.execute(coachTest, uiStub);
             assert false : "Should have thrown InvalidCommandException";
         } catch (InvalidCommandException e) {
-            // Vérifier seulement que le message contient les parties importantes
             assert e.getMessage().contains("Flag color was not specified") :
                     "Exception message should mention missing color";
             assert e.getMessage().contains("/flagathlete") :
@@ -97,7 +96,6 @@ public class FlagAthleteCommandTest {
             flagCommand.execute(coachTest, uiStub);
             assert false : "Should have thrown InvalidCommandException";
         } catch (InvalidCommandException e) {
-            // Vérifier les parties principales du message
             assert e.getMessage().contains("Invalid color") :
                     "Exception message should mention invalid color";
             assert e.getMessage().contains("pink") :
@@ -116,7 +114,6 @@ public class FlagAthleteCommandTest {
             flagCommand.execute(coachTest, uiStub);
             assert false : "Should have thrown InvalidCommandException";
         } catch (InvalidCommandException e) {
-            // Vérifier seulement que le message mentionne l'athlète non trouvé
             assert e.getMessage().contains("9999") :
                     "Exception message should mention the athlete ID";
             assert e.getMessage().contains("not found") || e.getMessage().contains("does not exist") :
@@ -139,7 +136,7 @@ public class FlagAthleteCommandTest {
         flagCommand.execute(coachTest, uiStub);
 
         assert uiStub.lastPrinted != null : "UI should have printed message";
-        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: \uD83D\uDFE9") :
+        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: GREEN") :
                 "Printed message should match expected for uppercase color";
     }
 
@@ -154,16 +151,14 @@ public class FlagAthleteCommandTest {
 
         String athleteId = coachTest.accessAthlete("Multi Color Test").getAthleteID();
 
-        // Test yellow
         FlagAthleteCommand flagCommand1 = new FlagAthleteCommand("/flagathlete " + athleteId + " yellow");
         flagCommand1.execute(coachTest, uiStub);
-        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: \uD83D\uDFE8") :
+        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: YELLOW") :
                 "Yellow flag should work";
 
-        // Test blue
-        FlagAthleteCommand flagCommand2 = new FlagAthleteCommand("/flagathlete " + athleteId + " blue");
+        FlagAthleteCommand flagCommand2 = new FlagAthleteCommand("/flagathlete " + athleteId + " red");
         flagCommand2.execute(coachTest, uiStub);
-        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: \uD83D\uDFE6") :
+        assert uiStub.lastPrinted.equals("Athlete " + athleteId + " flagged as: RED") :
                 "Blue flag should work";
     }
 }
