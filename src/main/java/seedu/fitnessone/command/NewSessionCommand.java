@@ -17,7 +17,7 @@ public class NewSessionCommand implements Command {
 
     private final String inputString;
 
-    public NewSessionCommand(String inputString) throws InvalidCommandException{
+    public NewSessionCommand(String inputString) {
         this.inputString = inputString;
     }
 
@@ -40,16 +40,17 @@ public class NewSessionCommand implements Command {
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
+
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String trainingNotes = findTrainingNotes(inputString);
 
         Athlete athlete = coachController.accessAthleteID(athleteID);
         Session newSession = coachController.addSessionToAthlete(athleteID, trainingNotes);
 
-        String output = "New session created:\n" + " Athlete Name: "
+        String output = "New session created:\n" + "\tAthlete Name: "
                 + athlete.getAthleteName() + " | ID: " + athleteID + "\n\n"
-                + "Session ID: " + newSession.getSessionIdString() + "\n"
-                + "Session Description: " + newSession.getTrainingNotes() + "\n";
+                + "\tSession ID: " + newSession.getSessionIdString() + "\n"
+                + "\tSession Description: " + newSession.getTrainingNotes() + "\n";
         view.printWithDivider(output);
     }
 

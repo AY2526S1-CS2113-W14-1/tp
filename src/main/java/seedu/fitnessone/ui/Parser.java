@@ -75,6 +75,7 @@ public class Parser {
      */
     public static String checkAthleteIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
+        inputString = inputString.trim().replaceAll("\\s+", " ");
 
         if (inputString.split(" ").length < 2) {
             throw new InvalidCommandException("Input is empty. Check if there's athletes or sessions created.");

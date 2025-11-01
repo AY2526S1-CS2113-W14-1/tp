@@ -11,28 +11,62 @@ participant Exercise as "Exercise"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/completeexercise 0123 001 01"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+Parser -> CompleteCmd ++ : new CompleteExerciseCommand("0123","001","01")
+
+CompleteCmd --> Parser -- : constructed
+
 Parser --> FitnessONE : CompleteExerciseCommand instance
+deactivate Parser
+
 FitnessONE -> CompleteCmd : execute(coachController, view)
+activate CompleteCmd
 
 == Command resolves athlete and session ==
 CompleteCmd -> Coach : accessAthleteID("0123")
+activate Coach
 Coach --> CompleteCmd : Athlete
 CompleteCmd -> Coach : accessSessionID(Athlete, "001")
 Coach --> CompleteCmd : Session
+deactivate Coach
 
 == Command finds exercise and marks completed ==
 CompleteCmd -> Session : getExercises()
+activate Session
 Session --> CompleteCmd : List<Exercise>
+
 loop check exercises
     CompleteCmd -> Exercise : getExerciseIDString()
+    activate Exercise
     alt match found
         CompleteCmd -> Exercise : setCompleted()
         CompleteCmd -> Ui : printWithDivider("Exercise (ID: 01) completed ...")
-        break
+        activate Ui
+        Ui --> CompleteCmd : printed
+        deactivate Ui
+
+    else no match
+        Exercise --> CompleteCmd : id
+        deactivate Exercise
+    deactivate Session
     end
 end
-FitnessONE -> Storage : save(coachController)
 
+
+CompleteCmd -> Storage : save(coachController)
+activate Storage
+Storage --> CompleteCmd : saved
+deactivate Storage
+
+deactivate CompleteCmd
+deactivate FitnessONE
 @enduml

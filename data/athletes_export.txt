@@ -37,3 +37,12 @@ EXERCISE|0006|001|02|Push-ups|3|12|false
 ATHLETE|0007|asfd
 ATHLETE|0008|john applessed
 ATHLETE|0009|binoo
+ATHLETE|0010|gordon
+SESSION|0010|001|eat|false
+ATHLETE|0011|winnie
+ATHLETE|0012|winnie pooo
+ATHLETE|0013|gordon
+SESSION|0013|001|eat|false
+SESSION|0013|003|eatt|false
+SESSION|0013|004|wow|false
+SESSION|0013|005|happy|false

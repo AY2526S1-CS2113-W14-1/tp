@@ -8,19 +8,56 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/listathletes"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so the activation bar is attached to the command header
+Parser -> ListCmd ++ : new ListAthleteCommand()
+ListCmd --> Parser -- : constructed
 Parser --> FitnessONE : ListAthleteCommand instance
+deactivate Parser
+
 FitnessONE -> ListCmd : execute(coachController, view)
+activate ListCmd
 
 alt normal flow
     ListCmd -> Coach : printAthletes(view)
+    activate Coach
     Coach -> Ui : printAthletes invokes view.printWithDivider(...) / multiple prints
+    activate Ui
+    Ui --> Coach : printed
+    deactivate Ui
+    Coach --> ListCmd : finished printing
+    deactivate Coach
+
+    ListCmd --> FitnessONE : execute returns
+    deactivate ListCmd
+
     FitnessONE -> Storage : save(coachController)
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else error while listing
     ListCmd -> Coach : printAthletes(view)
+    activate ListCmd
+    activate Coach
     Coach --> ListCmd : throws RuntimeException / domain error
+    deactivate Coach
+
     ListCmd --> FitnessONE : throws InvalidCommandException (or handled)
+    deactivate ListCmd
+
     FitnessONE -> Ui : printWithDivider("Error: " + message)
+    activate Ui
+    Ui --> FitnessONE : printed
+    deactivate Ui
 end
+
+deactivate FitnessONE
 @enduml

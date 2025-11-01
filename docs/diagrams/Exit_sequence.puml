@@ -7,18 +7,41 @@ participant ExitCmd as "ExitCommand"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "bye"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse("bye")
+activate Parser
+' Parser constructs the command so the activation bar is attached to the command header
+Parser -> ExitCmd ++ : new ExitCommand("bye")
+ExitCmd --> Parser -- : constructed
 Parser --> FitnessONE : ExitCommand instance
+deactivate Parser
+
 FitnessONE -> ExitCmd : execute(coachController, view)
+activate ExitCmd
+
 ExitCmd -> Ui : printWithDivider("Bye. Hope to see you again soon!")
+activate Ui
+Ui --> ExitCmd : printed
+deactivate Ui
+
 FitnessONE -> ExitCmd : isExit()
 ExitCmd --> FitnessONE : true
 
+deactivate ExitCmd
+
 alt persist state before shutdown
     FitnessONE -> Storage : save(coachController)
+    activate Storage
     Storage --> FitnessONE : save result / IOException
+    deactivate Storage
 end
 
 FitnessONE -> User : application exits
+deactivate FitnessONE
 @enduml

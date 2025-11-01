@@ -8,20 +8,57 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/leaderboard"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so the command's activation bar is attached to its header
+Parser -> LeaderboardCmd ++ : new LeaderboardCommand()
+LeaderboardCmd --> Parser -- : constructed
 Parser --> FitnessONE : LeaderboardCommand instance
+deactivate Parser
+
 FitnessONE -> LeaderboardCmd : execute(coachController, view)
+activate LeaderboardCmd
 
 alt normal flow
     LeaderboardCmd -> Coach : leaderboardConstruct()
+    activate Coach
     Coach --> LeaderboardCmd : leaderboard String
+    deactivate Coach
+
     LeaderboardCmd -> Ui : printWithDivider(leaderboard)
+    activate Ui
+    Ui --> LeaderboardCmd : printed
+    deactivate Ui
+
+    LeaderboardCmd --> FitnessONE : execute returns
+    deactivate LeaderboardCmd
+
     FitnessONE -> Storage : save(coachController)
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else error during leaderboard construction
     LeaderboardCmd -> Coach : leaderboardConstruct()
+    activate LeaderboardCmd
+    activate Coach
     Coach --> LeaderboardCmd : throws RuntimeException / domain error
+    deactivate Coach
+
     LeaderboardCmd --> FitnessONE : throws InvalidCommandException (or handled)
+    deactivate LeaderboardCmd
+
     FitnessONE -> Ui : printWithDivider("Error: " + message)
+    activate Ui
+    Ui --> FitnessONE : printed
+    deactivate Ui
 end
+
+deactivate FitnessONE
 @enduml

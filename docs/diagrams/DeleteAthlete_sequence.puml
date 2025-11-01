@@ -8,22 +8,56 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/deleteathlete 0123"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so activation bar starts at command header
+Parser -> DeleteCmd ++ : new DeleteAthleteCommand("0123")
+DeleteCmd --> Parser -- : constructed
 Parser --> FitnessONE : DeleteAthleteCommand instance
+deactivate Parser
+
 FitnessONE -> DeleteCmd : execute(coachController, view)
+activate DeleteCmd
 
 alt normal flow
     DeleteCmd -> Coach : deleteAthlete("0123")
+    activate Coach
+    Coach --> DeleteCmd : deleted (confirmation)
+    deactivate Coach
+
     DeleteCmd -> Ui : printWithDivider("Deleted athlete with ID 0123")
+    activate Ui
+    Ui --> DeleteCmd : printed
+    deactivate Ui
+
     DeleteCmd --> FitnessONE : execute returns
+    deactivate DeleteCmd
+
     FitnessONE -> Storage : save(coachController)
-    Storage --> FitnessONE : save result / IOException
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else athlete not found or error
     DeleteCmd -> Coach : deleteAthlete("0123")
+    activate Coach
     Coach --> DeleteCmd : throws InvalidAthleteException / IndexOutOfBoundsException
+    deactivate Coach
+
     DeleteCmd --> FitnessONE : throws InvalidCommandException with message
+    deactivate DeleteCmd
+
     FitnessONE -> Ui : printWithDivider("Invalid athlete: <message>")
+    activate Ui
+    Ui --> FitnessONE : printed
+    deactivate Ui
 end
 
+deactivate FitnessONE
 @enduml

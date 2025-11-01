@@ -8,20 +8,57 @@ participant Coach as "Coach"
 participant Storage as "StorageManager"
 
 User -> FitnessONE : type "/flagathlete John Doe red"
+activate FitnessONE
+
 FitnessONE -> Ui : readCommand()
+activate Ui
+Ui --> FitnessONE : input
+deactivate Ui
+
 FitnessONE -> Parser : parse(input)
+activate Parser
+' Parser constructs the command so activation bar starts at the command header
+Parser -> FlagCmd ++ : new FlagAthleteCommand("John Doe","red")
+FlagCmd --> Parser -- : constructed
 Parser --> FitnessONE : FlagAthleteCommand instance
+deactivate Parser
+
 FitnessONE -> FlagCmd : execute(coachController, view)
+activate FlagCmd
 
 alt normal flow
-    FlagCmd -> Coach : flagAthlete("John Doe", "color")
+    FlagCmd -> Coach : flagAthlete("John Doe", "red")
+    activate Coach
+    Coach --> FlagCmd : confirmed
+    deactivate Coach
+
     FlagCmd -> Ui : printWithDivider("Athlete John Doe flagged...")
+    activate Ui
+    Ui --> FlagCmd : printed
+    deactivate Ui
+
+    FlagCmd --> FitnessONE : execute returns
+    deactivate FlagCmd
+
     FitnessONE -> Storage : save(coachController)
+    activate Storage
+    Storage --> FitnessONE : saved / ok
+    deactivate Storage
 else athlete not found
-    FlagCmd -> Coach : flagAthlete("John Doe", "color")
+    FlagCmd -> Coach : flagAthlete("John Doe", "red")
+    activate FlagCmd
+    activate Coach
     Coach --> FlagCmd : throws InvalidAthleteException
+    deactivate Coach
+
     FlagCmd -> Ui : printWithDivider("Error: Athlete not found - John Doe")
-    FlagCmd --> FitnessONE : execute returns (with handled error)
+    activate Ui
+    Ui --> FlagCmd : printed
+    deactivate Ui
+
+    FlagCmd --> FitnessONE : execute returns (handled error)
+    deactivate FlagCmd
 end
 
+deactivate FitnessONE
 @enduml

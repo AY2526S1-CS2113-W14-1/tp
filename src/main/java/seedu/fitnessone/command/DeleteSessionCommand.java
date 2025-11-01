@@ -41,7 +41,11 @@ public class DeleteSessionCommand implements Command {
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidSessionException, InvalidAthleteException {
-
+        System.out.println("gna check length now");
+        System.out.println(inputString.split(" ").length);
+        if (inputString.split(" ").length != 3) {
+            throw new InvalidCommandException(USAGE);
+        }
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String sessionID = Parser.checkSessionIDValidity(inputString);
 
