@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class NewExerciseCommand implements Command {
 
     private static final String COMMAND_WORD = "/newexercise";
-    private static final String USAGE = "/newexercise <Athlete ID> <Session ID> <Exercise Description>";
+    private static final String USAGE = "/newexercise <Athlete ID> <Session ID> <Exercise Description> <set> <rep>";
     private static final String DESCRIPTION = "Adds an exercise to the specified session";
     private static final String EXAMPLE = "/newexercise 0001 001 leg-press 5 15";
     private static final String NOTE = "Athlete ID = 4 digits, Session ID = 3 digits, Exercise ID = 2";
@@ -50,6 +50,10 @@ public class NewExerciseCommand implements Command {
             sets = Integer.parseInt(parts[secondLast]);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Sets and reps must be integers.");
+        }
+
+        if (sets < 0 || reps < 0 ) {
+            throw new InvalidCommandException("Sets and reps must be positive integers.");
         }
 
         String descriptionOnly = String.join(" ",

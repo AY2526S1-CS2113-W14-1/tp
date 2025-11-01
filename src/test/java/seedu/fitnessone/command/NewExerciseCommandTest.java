@@ -131,7 +131,7 @@ public class NewExerciseCommandTest {
         // Match the command’s actual message:
         assertEquals(
                 "Unknown command: 'Invalid input. Please follow: /newexercise <Athlete ID> " +
-                        "<Session ID> <Exercise Description>'. Type /help to see available commands.",
+                        "<Session ID> <Exercise Description> <set> <rep>'. Type /help to see available commands.",
                 ex.getMessage()
         );
     }
