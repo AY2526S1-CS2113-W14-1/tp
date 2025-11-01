@@ -50,7 +50,8 @@ public class ViewExerciseCommand implements Command {
             Exercise exercise = exercises.get(i);
             String status = exercise.isCompleted() ? "[X]" : "[ ]";
             int displayIndex = i + 1;
-            view.println(displayIndex + ".   " + status + " " + exercise.getExerciseDescription()
+            view.println(displayIndex + ".   " + status + "  ID: " +
+                    exercise.getExerciseIDString() + " " + exercise.getExerciseDescription()
                     + " (" + exercise.getSets() + "x" + exercise.getReps() + ")");
         }
 

@@ -36,7 +36,7 @@ public class UndoExerciseCommand implements Command {
         String sessionID = Parser.checkSessionIDValidity(inputString);
         String exerciseID = Parser.checkExerciseIDValidity(inputString);
 
-        Athlete athlete = coachController.accessAthlete(athleteID);
+        Athlete athlete = coachController.accessAthleteID(athleteID);
         Session session = coachController.accessSessionID(athlete, sessionID);
         ArrayList<Exercise> exercises = session.getExercises();
 

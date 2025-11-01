@@ -245,8 +245,8 @@ class ParserTest {
     void onlyDescription_missing_throws() {
         InvalidCommandException error = assertThrows(InvalidCommandException.class,
                 () -> Parser.onlyDescription("/updatesessionnote 0001 001   "));
-        assertTrue(error.getMessage().contains("The correct format is:"),
-                "Should guide correct usage when notes are empty.");
+        assertTrue(error.getMessage().contains("Description cannot be empty"),
+                "Should indicate that description cannot be empty. Actual message: " + error.getMessage());
     }
 
     /*

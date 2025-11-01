@@ -169,7 +169,8 @@ public class Parser {
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
 
         if (parts.length < 4 || parts[3].trim().isEmpty()) {
-            throw new InvalidCommandException("The correct format is:\n/trainingNotes <Athlete ID> <Session ID> ...");
+            throw new InvalidCommandException("Description cannot be empty. " +
+                    "Format: /newexercise <Athlete ID> <Session ID> <Description> <sets> <reps>");
         }
 
         return parts[3].trim();
@@ -181,9 +182,8 @@ public class Parser {
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
 
         if (parts.length < 4 || parts[3].trim().isEmpty()) {
-            throw new InvalidCommandException("Training notes cannot be empty.\n" +
-                    "The correct format is:\n" +
-                    "/trainingNotes <Athlete ID> <Session ID> <Notes>");
+            throw new InvalidCommandException("Training notes cannot be empty. " +
+                    "Format: /updatesessionnote <Athlete ID> <Session ID> <Notes>");
         }
 
         return parts[3].trim();

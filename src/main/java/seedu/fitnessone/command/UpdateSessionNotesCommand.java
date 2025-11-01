@@ -37,7 +37,7 @@ public class UpdateSessionNotesCommand implements Command {
 
         session.setTrainingNotes(sessionNotes);
 
-        view.printWithDivider("Successfully updated Athlete + (ID: " + athleteID + ")," +
+        view.printWithDivider("Successfully updated Athlete (ID: " + athleteID + ")," +
                 " session: " + sessionID + " with notes: " + sessionNotes + ".");
     }
 
