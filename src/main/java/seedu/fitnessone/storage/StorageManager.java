@@ -155,6 +155,7 @@ public class StorageManager {
                         String sessionId = parts[2];
                         String notes = parts.length > 3 ? parts[3].replace("\\n", "\n") : "";
                         boolean completed = parts.length > 4 && Boolean.parseBoolean(parts[4]);
+                        String dateString = parts.length > 5 ? parts[5] : "";
                         Athlete a = athleteMap.get(athleteId);
                         if (a == null) {
                             a = new Athlete(athleteId, "");
@@ -172,6 +173,9 @@ public class StorageManager {
                         Session s = new Session(sessIndex, notes);
                         if (completed) {
                             s.setCompleted();
+                        }
+                        if (!dateString.isEmpty()) {
+                            s.setSessionDateString(dateString);
                         }
                         a.addSession(s);
                         int prevMax = athleteMaxSession.getOrDefault(athleteId, 0);
@@ -353,7 +357,8 @@ public class StorageManager {
                         athlete.getAthleteID(),
                         session.getSessionIdString(),
                         notes,
-                        Boolean.toString(session.isCompleted())
+                        Boolean.toString(session.isCompleted()),
+                        session.getSessionDateString()
                         };
                     String sessionLine = String.join("|", sessionFields);
                     writer.write(sessionLine);
