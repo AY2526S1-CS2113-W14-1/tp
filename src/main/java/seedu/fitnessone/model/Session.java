@@ -105,13 +105,13 @@ public class Session {
         }
     }
 
-        public void setSessionDateString(String dateString) {
+    public void setSessionDateString(String dateString) {
         this.sessionDateString = dateString;
         try {
             this.sessionDate = LocalDateTime.parse(dateString, DATE_TIME_FORMAT);
         } catch (Exception e) {
             this.sessionDate = LocalDateTime.now();
             this.sessionDateString = this.sessionDate.format(DATE_TIME_FORMAT);
-            }
+        }
     }
 }
