@@ -35,11 +35,16 @@ public class CompleteSessionCommand implements Command {
 
         Athlete athlete = coachController.accessAthleteID(athleteID);
         Session session = coachController.accessSessionID(athlete, sessionID);
-        session.setCompleted();
 
-        view.printWithDivider("Session (ID: " + sessionID + ") completed by "
-                + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-
+        if(!session.isCompleted()) {
+            session.setCompleted();
+            view.printWithDivider("Session (ID: " + sessionID + ") completed by "
+                    + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+        } else {
+            view.printWithDivider("Session (ID: " + sessionID + ") has already " +
+                    "been marked completed for "
+                    + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+        }
 
     }
 

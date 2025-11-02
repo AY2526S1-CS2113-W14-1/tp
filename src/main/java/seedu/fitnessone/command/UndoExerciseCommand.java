@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
@@ -28,7 +29,7 @@ public class UndoExerciseCommand implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
-            InvalidAthleteException, InvalidSessionException {
+            InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
         if (inputString.split(" ").length > 4) {
             throw new InvalidCommandException(USAGE);
         }
@@ -40,14 +41,28 @@ public class UndoExerciseCommand implements Command {
         Session session = coachController.accessSessionID(athlete, sessionID);
         ArrayList<Exercise> exercises = session.getExercises();
 
+        boolean found = false;
         for (Exercise exercise : exercises) {
             if (exercise.getExerciseIDString().equals(exerciseID)) {
-                exercise.setNotCompleted();
-                view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
-                        "Session (ID: " + sessionID + ") has been marked as not completed for "
-                        + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                if(exercise.isCompleted()){
+                    exercise.setNotCompleted();
+                    view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
+                            "Session (ID: " + sessionID + ") has been marked as not completed for "
+                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                }
+                else{
+                    view.printWithDivider("Exercise (ID: " + exerciseID + ") has already " +
+                            "been marked as not completed for "
+                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                }
+                found = true;
                 break;
             }
+        }
+        if (!found) {
+            throw new InvalidExerciseException("Exercise with ID '" + exerciseID
+                    + "' not found for athlete '" + athlete.getAthleteName()
+                    + "' (ID: " + athleteID + "), session ID: " + sessionID + ".");
         }
     }
 

@@ -42,10 +42,17 @@ public class CompleteExerciseCommand implements Command {
         boolean found = false;
         for (Exercise exercise : exercises) {
             if (exercise.getExerciseIDString().equals(exerciseID)) {
-                exercise.setCompleted();
-                view.printWithDivider("Exercise (ID: " + exerciseID + ") completed by "
-                        + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                if(!exercise.isCompleted()) {
+                    exercise.setCompleted();
+                    view.printWithDivider("Exercise (ID: " + exerciseID + ") completed by "
+                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                } else {
+                    view.printWithDivider("Exercise (ID: " + exerciseID + ") has already " +
+                            "been marked completed for "
+                            + athlete.getAthleteName() + " (ID: " + athleteID + ").");
+                }
                 found = true;
+                break;
             }
         }
         if (!found) {
