@@ -127,7 +127,11 @@ public class StorageManager {
                         }
                         String id = String.format("%04d", aid);
                         String name = parts.length > 2 ? parts[2].replace("\\n", "\n") : "";
+                        String flag = parts.length > 3 ? parts[3] : "";
                         Athlete athlete = new Athlete(id, name);
+                        if (!flag.isEmpty()) {
+                            athlete.setFlagColor(flag);
+                        }
                         coach.addAthlete(athlete);
                         athleteMap.put(id, athlete);
                         athleteMaxSession.put(id, 0);
@@ -338,8 +342,9 @@ public class StorageManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Athlete athlete : coach.getAthletes()) {
                 assert athlete.getAthleteID() != null : "Athlete id must not be null";
+                String flag = athlete.getFlagColor() != null ? athlete.getFlagColor() : "";
                 writer.write(String.join("|", "ATHLETE", athlete.getAthleteID(),
-                        athlete.getAthleteName()));
+                        athlete.getAthleteName(), flag));
                 writer.newLine();
                 for (Session session : athlete.getSessions()) {
                     String notes = session.getTrainingNotes().replace("\n", "\\n");
