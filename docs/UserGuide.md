@@ -67,7 +67,7 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
   e.g. `<ATHLETE_NAME> [COLOR]` can be used as `John Doe red` or as `John Doe`.
 
 * Parameters must be in the specified order.<br>
-  e.g. if the command specifies `/newexercise <ATHLETE_ID>  <SESSION_ID> <Description> <SETS> <REPS>`, the order must be followed.
+  e.g. if the command specifies `/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS>`, the order must be followed.
 
 * **ID Formats:**
   * Athlete ID: 4 digits (e.g., `0001`)
@@ -520,7 +520,7 @@ FitnessONE - Available Commands
 /undosession <ATHLETE_ID>  <SESSION_ID> - Undo completion
 
 === EXERCISE COMMANDS ===
-/newexercise <ATHLETE_ID>  <SESSION_ID> <Description> <SETS> <REPS> - Create exercise
+/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS> - Create exercise
 /deleteexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID> - Delete exercise
 /viewexercises <ATHLETE_ID>  <SESSION_ID> - View all exercises
 /completeexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID> - Complete exercise
@@ -602,7 +602,7 @@ A: Yes, each athlete is uniquely identified by their athlete ID, not their name.
 | **Complete session**     | `/completesession <ATHLETE_ID>  <SESSION_ID>`                         | `/completesession 0001 001`              |
 | **Undo session**         | `/undosession <ATHLETE_ID>  <SESSION_ID>`                             | `/undosession 0001 001`                  |
 | **Delete session**       | `/deletesession <ATHLETE_ID>  <SESSION_ID>`                           | `/deletesession 0001 001`                |
-| **Add exercise**         | `/newexercise <ATHLETE_ID>  <SESSION_ID> <Description> <SETS> <REPS>` | `/newexercise 0001 001 Bench Press 5 10` |
+| **Add exercise**         | `/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS>` | `/newexercise 0001 001 Bench Press 5 10` |
 | **View exercises**       | `/viewexercises <ATHLETE_ID>  <SESSION_ID>`                           | `/viewexercises 0001 001`                |
 | **Complete exercise**    | `/completeexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`          | `/completeexercise 0001 001 01`          |
 | **Undo exercise**        | `/undoexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`              | `/undoexercise 0001 001 01`              |
