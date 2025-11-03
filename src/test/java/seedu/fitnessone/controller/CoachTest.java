@@ -10,6 +10,7 @@ import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Ui;
+
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,20 +35,26 @@ class CoachTest {
     static class UiStub extends Ui {
         final StringBuilder log = new StringBuilder();
 
-        @Override public void divider() {
+        @Override
+        public void divider() {
             log.append("---\n");
         }
 
-        @Override public void print(String input) {
+        @Override
+        public void print(String input) {
             log.append(input);
         }
 
-        @Override public void println(String input) {
+        @Override
+        public void println(String input) {
             log.append(input).append("\n");
         }
-        @Override public void printWithDivider(String input) {
+
+        @Override
+        public void printWithDivider(String input) {
             log.append(input).append("\n");
         }
+
         String out() {
             return log.toString();
         }
@@ -84,7 +91,7 @@ class CoachTest {
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
 
-        Session session= coach.addSessionToAthlete(id, "Legs");
+        Session session = coach.addSessionToAthlete(id, "Legs");
         assertNotNull(session);
         assertTrue(athlete.getSessions().contains(session));
         assertEquals("Legs", session.getTrainingNotes());
@@ -155,7 +162,7 @@ class CoachTest {
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
 
-        Session session= coach.addSessionToAthlete(id, "Push");
+        Session session = coach.addSessionToAthlete(id, "Push");
         // add an exercise using the real model API
         ArrayList<Exercise> list = session.getExercises();
         // Assuming Exercise has (index, description, sets, reps)
@@ -176,12 +183,12 @@ class CoachTest {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
-        Session session= coach.addSessionToAthlete(id, "core");
+        Session session = coach.addSessionToAthlete(id, "core");
 
         Exercise exercise = new Exercise(0, "twists", 1, 60);
-        session.getExercises().add (exercise);
+        session.getExercises().add(exercise);
 
-        coach.deleteExerciseFromSession(session,  exercise);
+        coach.deleteExerciseFromSession(session, exercise);
 
         assertTrue(session.getExercises().isEmpty());
     }
