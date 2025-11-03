@@ -1,5 +1,7 @@
 ATHLETE|0002|Sarah Johnson|RED
 SESSION|0002|001|HIIT AMRAP short intervals|true|03-11-2025 13:01
+EXERCISE|0002|001|01|push ups|21|10|false
+EXERCISE|0002|001|02|push ups with capital|12|6|false
 SESSION|0002|002|Endurance run|true|03-11-2025 13:01
 EXERCISE|0002|002|01|Treadmill run|1|45|true
 SESSION|0002|003|Core focus|false|03-11-2025 13:01
@@ -47,4 +49,103 @@ SESSION|0013|003|eatt|true|03-11-2025 13:01
 SESSION|0013|004|wow|false|03-11-2025 13:01
 SESSION|0013|005|happy|false|03-11-2025 13:01
 ATHLETE|0014|Buahsf Afdsa s/o Dsf|
-ATHLETE|0015|Asofiasf Sadof Asfoas Dfa Foiasifao Sdfoi Asf Oa Oifoiasio Fiad Oifaois Dfoias Foaoidifoi Aos If Iafo Aio Sd Oi Afo Io Ia Ofoais Iofiaifaisf Aiooi F Ia Oif Oias Oi|
+SESSION|0014|001|Load test|false|03-11-2025 13:01
+EXERCISE|0014|001|01|Test exercise 01|1|1|false
+EXERCISE|0014|001|02|Test exercise 02|1|1|false
+EXERCISE|0014|001|03|Test exercise 03|1|1|false
+EXERCISE|0014|001|04|Test exercise 04|1|1|false
+EXERCISE|0014|001|05|Test exercise 05|1|1|false
+EXERCISE|0014|001|06|Test exercise 06|1|1|false
+EXERCISE|0014|001|07|Test exercise 07|1|1|false
+EXERCISE|0014|001|08|Test exercise 08|1|1|false
+EXERCISE|0014|001|09|Test exercise 09|1|1|false
+EXERCISE|0014|001|10|Test exercise 10|1|1|false
+EXERCISE|0014|001|11|Test exercise 11|1|1|false
+EXERCISE|0014|001|12|Test exercise 12|1|1|false
+EXERCISE|0014|001|13|Test exercise 13|1|1|false
+EXERCISE|0014|001|14|Test exercise 14|1|1|false
+EXERCISE|0014|001|15|Test exercise 15|1|1|false
+EXERCISE|0014|001|16|Test exercise 16|1|1|false
+EXERCISE|0014|001|17|Test exercise 17|1|1|false
+EXERCISE|0014|001|18|Test exercise 18|1|1|false
+EXERCISE|0014|001|19|Test exercise 19|1|1|false
+EXERCISE|0014|001|20|Test exercise 20|1|1|false
+EXERCISE|0014|001|21|Test exercise 21|1|1|false
+EXERCISE|0014|001|22|Test exercise 22|1|1|false
+EXERCISE|0014|001|23|Test exercise 23|1|1|false
+EXERCISE|0014|001|24|Test exercise 24|1|1|false
+EXERCISE|0014|001|25|Test exercise 25|1|1|false
+EXERCISE|0014|001|26|Test exercise 26|1|1|false
+EXERCISE|0014|001|27|Test exercise 27|1|1|false
+EXERCISE|0014|001|28|Test exercise 28|1|1|false
+EXERCISE|0014|001|29|Test exercise 29|1|1|false
+EXERCISE|0014|001|30|Test exercise 30|1|1|false
+EXERCISE|0014|001|31|Test exercise 31|1|1|false
+EXERCISE|0014|001|32|Test exercise 32|1|1|false
+EXERCISE|0014|001|33|Test exercise 33|1|1|false
+EXERCISE|0014|001|34|Test exercise 34|1|1|false
+EXERCISE|0014|001|35|Test exercise 35|1|1|false
+EXERCISE|0014|001|36|Test exercise 36|1|1|false
+EXERCISE|0014|001|37|Test exercise 37|1|1|false
+EXERCISE|0014|001|38|Test exercise 38|1|1|false
+EXERCISE|0014|001|39|Test exercise 39|1|1|false
+EXERCISE|0014|001|40|Test exercise 40|1|1|false
+EXERCISE|0014|001|41|Test exercise 41|1|1|false
+EXERCISE|0014|001|42|Test exercise 42|1|1|false
+EXERCISE|0014|001|43|Test exercise 43|1|1|false
+EXERCISE|0014|001|44|Test exercise 44|1|1|false
+EXERCISE|0014|001|45|Test exercise 45|1|1|false
+EXERCISE|0014|001|46|Test exercise 46|1|1|false
+EXERCISE|0014|001|47|Test exercise 47|1|1|false
+EXERCISE|0014|001|48|Test exercise 48|1|1|false
+EXERCISE|0014|001|49|Test exercise 49|1|1|false
+EXERCISE|0014|001|50|Test exercise 50|1|1|false
+EXERCISE|0014|001|51|Test exercise 51|1|1|false
+EXERCISE|0014|001|52|Test exercise 52|1|1|false
+EXERCISE|0014|001|53|Test exercise 53|1|1|false
+EXERCISE|0014|001|54|Test exercise 54|1|1|false
+EXERCISE|0014|001|55|Test exercise 55|1|1|false
+EXERCISE|0014|001|56|Test exercise 56|1|1|false
+EXERCISE|0014|001|57|Test exercise 57|1|1|false
+EXERCISE|0014|001|58|Test exercise 58|1|1|false
+EXERCISE|0014|001|59|Test exercise 59|1|1|false
+EXERCISE|0014|001|60|Test exercise 60|1|1|false
+EXERCISE|0014|001|61|Test exercise 61|1|1|false
+EXERCISE|0014|001|62|Test exercise 62|1|1|false
+EXERCISE|0014|001|63|Test exercise 63|1|1|false
+EXERCISE|0014|001|64|Test exercise 64|1|1|false
+EXERCISE|0014|001|65|Test exercise 65|1|1|false
+EXERCISE|0014|001|66|Test exercise 66|1|1|false
+EXERCISE|0014|001|67|Test exercise 67|1|1|false
+EXERCISE|0014|001|68|Test exercise 68|1|1|false
+EXERCISE|0014|001|69|Test exercise 69|1|1|false
+EXERCISE|0014|001|70|Test exercise 70|1|1|false
+EXERCISE|0014|001|71|Test exercise 71|1|1|false
+EXERCISE|0014|001|72|Test exercise 72|1|1|false
+EXERCISE|0014|001|73|Test exercise 73|1|1|false
+EXERCISE|0014|001|74|Test exercise 74|1|1|false
+EXERCISE|0014|001|75|Test exercise 75|1|1|false
+EXERCISE|0014|001|76|Test exercise 76|1|1|false
+EXERCISE|0014|001|77|Test exercise 77|1|1|false
+EXERCISE|0014|001|78|Test exercise 78|1|1|false
+EXERCISE|0014|001|79|Test exercise 79|1|1|false
+EXERCISE|0014|001|80|Test exercise 80|1|1|false
+EXERCISE|0014|001|81|Test exercise 81|1|1|false
+EXERCISE|0014|001|82|Test exercise 82|1|1|false
+EXERCISE|0014|001|83|Test exercise 83|1|1|false
+EXERCISE|0014|001|84|Test exercise 84|1|1|false
+EXERCISE|0014|001|85|Test exercise 85|1|1|false
+EXERCISE|0014|001|86|Test exercise 86|1|1|false
+EXERCISE|0014|001|87|Test exercise 87|1|1|false
+EXERCISE|0014|001|88|Test exercise 88|1|1|false
+EXERCISE|0014|001|89|Test exercise 89|1|1|false
+EXERCISE|0014|001|90|Test exercise 90|1|1|false
+EXERCISE|0014|001|91|Test exercise 91|1|1|false
+EXERCISE|0014|001|92|Test exercise 92|1|1|false
+EXERCISE|0014|001|93|Test exercise 93|1|1|false
+EXERCISE|0014|001|94|Test exercise 94|1|1|false
+EXERCISE|0014|001|95|Test exercise 95|1|1|false
+EXERCISE|0014|001|96|Test exercise 96|1|1|false
+EXERCISE|0014|001|97|Test exercise 97|1|1|false
+EXERCISE|0014|001|98|Test exercise 98|1|1|false
+EXERCISE|0014|001|99|Test exercise 99|1|1|false

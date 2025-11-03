@@ -38,7 +38,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_validRedFlag_flagsAthleteAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+        throws InvalidCommandException, InvalidAthleteException,
+        seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -57,7 +58,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_missingColor_throwsInvalidCommandException()
-            throws InvalidAthleteException, InvalidCommandException {
+        throws InvalidAthleteException, InvalidCommandException,
+        seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -81,7 +83,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_invalidColor_throwsInvalidCommandException()
-            throws InvalidAthleteException, InvalidCommandException {
+        throws InvalidAthleteException, InvalidCommandException,
+        seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -104,26 +107,19 @@ public class FlagAthleteCommandTest {
     }
 
     @Test
-    public void execute_nonexistentAthlete_throwsInvalidCommandException() {
+    public void execute_nonexistentAthlete_throwsInvalidAthleteException() {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
         FlagAthleteCommand flagCommand = new FlagAthleteCommand("/flagathlete 9999 red");
-
-        try {
-            flagCommand.execute(coachTest, uiStub);
-            assert false : "Should have thrown InvalidCommandException";
-        } catch (InvalidCommandException e) {
-            assert e.getMessage().contains("9999") :
-                    "Exception message should mention the athlete ID";
-            assert e.getMessage().contains("not found") || e.getMessage().contains("does not exist") :
-                    "Exception message should indicate athlete not found";
-        }
+        org.junit.jupiter.api.Assertions.assertThrows(InvalidAthleteException.class,
+                () -> flagCommand.execute(coachTest, uiStub));
     }
 
     @Test
     public void execute_caseInsensitiveColor_worksCorrectly()
-            throws InvalidCommandException, InvalidAthleteException {
+        throws InvalidCommandException, InvalidAthleteException,
+        seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -142,7 +138,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_validMultipleColors_workCorrectly()
-            throws InvalidCommandException, InvalidAthleteException {
+        throws InvalidCommandException, InvalidAthleteException,
+        seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 

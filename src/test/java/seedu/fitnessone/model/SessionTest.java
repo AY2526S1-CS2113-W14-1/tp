@@ -2,6 +2,7 @@ package seedu.fitnessone.model;
 
 import org.junit.jupiter.api.Test;
 import seedu.fitnessone.exception.InvalidExerciseException;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
 
 import java.util.regex.Pattern;
 
@@ -59,7 +60,7 @@ class SessionTest {
     }
 
     @Test
-    void addExercise_addsAndReturnsSameInstance() {
+    void addExercise_addsAndReturnsSameInstance() throws ExerciseLimitReachedException {
         Session session = new Session(3, "notes");
         Exercise exercise1 = session.addExercise("Pushups", 3, 10);
         Exercise exercise2  = session.addExercise("Squats", 4, 8);
@@ -72,12 +73,11 @@ class SessionTest {
     }
 
     @Test
-    void addExercise_wrapsIndexWhenNextExerciseIndexIs99() {
+    void addExercise_whenAtCapacity_throws() {
         Session session = new Session(4, "notes");
         session.setNextExerciseIndex(99);
-        Exercise exercise = session.addExercise("Wrapped", 1, 1);
-        assertNotNull(exercise);
-        assertEquals(1, session.getExercises().size());
+        assertThrows(ExerciseLimitReachedException.class,
+                () -> session.addExercise("Overflow", 1, 1));
     }
 
     /*@Test
@@ -95,7 +95,7 @@ class SessionTest {
     }*/
 
     @Test
-    void removeExercise_negativeIndex_throws() {
+    void removeExercise_negativeIndex_throws() throws ExerciseLimitReachedException {
         Session session = new Session(8, "notes");
         session.addExercise("Only", 1, 1);
 
@@ -106,7 +106,7 @@ class SessionTest {
     }
 
     @Test
-    void removeExercise_indexTooLarge_throws() {
+    void removeExercise_indexTooLarge_throws() throws ExerciseLimitReachedException {
         Session session = new Session(9, "notes");
         session.addExercise("Only", 1, 1);
 

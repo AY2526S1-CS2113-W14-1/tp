@@ -2,6 +2,7 @@ package seedu.fitnessone.model;
 
 import org.junit.jupiter.api.Test;
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 
 import java.util.ArrayList;
 
@@ -78,7 +79,7 @@ class AthleteTest {
     }
 
     @Test
-    void getSessionID_incrementsEachCall_andSetSessionIdCounterWorks() {
+    void getSessionID_incrementsEachCall_andSetSessionIdCounterWorks() throws SessionLimitReachedException {
         Athlete athlete = new Athlete("jonas");
         int id1 = athlete.getSessionID();
         int id2 = athlete.getSessionID();

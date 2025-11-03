@@ -26,7 +26,10 @@ public interface Command {
      * @param view View used for assisting with user interaction.
      */
     void execute(Coach coachController, Ui view) throws InvalidCommandException,
-            InvalidAthleteException, InvalidSessionException, InvalidExerciseException;
+            InvalidAthleteException, InvalidSessionException, InvalidExerciseException,
+            seedu.fitnessone.exception.AthleteLimitReachedException,
+            seedu.fitnessone.exception.SessionLimitReachedException,
+            seedu.fitnessone.exception.ExerciseLimitReachedException;
     boolean isExit();
     void help(Ui view);
 }

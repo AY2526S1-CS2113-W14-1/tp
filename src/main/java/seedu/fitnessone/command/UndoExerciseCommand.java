@@ -49,8 +49,7 @@ public class UndoExerciseCommand implements Command {
                     view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
                             "Session (ID: " + sessionID + ") has been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-                }
-                else{
+                } else {
                     view.printWithDivider("Exercise (ID: " + exerciseID + ") has already " +
                             "been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");

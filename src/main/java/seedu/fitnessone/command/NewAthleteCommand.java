@@ -3,6 +3,7 @@ package seedu.fitnessone.command;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.ui.Ui;
+import seedu.fitnessone.exception.AthleteLimitReachedException;
 
 public class NewAthleteCommand implements Command {
     private static final String COMMAND_WORD = "/newathlete";
@@ -23,7 +24,7 @@ public class NewAthleteCommand implements Command {
     }
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException, AthleteLimitReachedException {
         // Guard: ensure there is a name after the command word
         if (inputString.length() <= COMMAND_WORD.length()) {
             throw new InvalidCommandException("Athlete name was not specified. Usage: " + USAGE);

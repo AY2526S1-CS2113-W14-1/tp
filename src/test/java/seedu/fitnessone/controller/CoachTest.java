@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.exception.AthleteLimitReachedException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
@@ -60,7 +62,7 @@ class CoachTest {
 
     // addAthlete / getAthletes / newAthlete / deleteAthlete
     @Test
-    void newAthlete_addsDeleteAthlete_removes() throws InvalidAthleteException {
+    void newAthlete_addsDeleteAthlete_removes() throws InvalidAthleteException, AthleteLimitReachedException {
         int before = coach.getAthletes().size();
         String output = coach.newAthlete("jonas hardwell");
         assertNotNull(output);
@@ -79,7 +81,8 @@ class CoachTest {
 
     // addSessionToAthlete / deleteSessionFromAthlete
     @Test
-    void addSessionToAthlete_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException {
+    void addSessionToAthlete_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException,
+        AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -106,7 +109,7 @@ class CoachTest {
 
     // printAthletes
     @Test
-    void printAthletes_emptyNonEmpty() {
+    void printAthletes_emptyNonEmpty() throws AthleteLimitReachedException {
         UiStub ui = new UiStub();
         coach.printAthletes(ui);
         assertTrue(ui.out().startsWith("---"));
@@ -125,7 +128,7 @@ class CoachTest {
 
     // accessAthlete / accessAthleteID
     @Test
-    void accessAthleteID_foundMissing() throws InvalidAthleteException {
+    void accessAthleteID_foundMissing() throws InvalidAthleteException, AthleteLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         assertSame(athlete, coach.accessAthleteID(athlete.getAthleteID()));
@@ -136,7 +139,8 @@ class CoachTest {
 
     // accessSessionID / accessExerciseID
     @Test
-    void accessSessionID_foundMissing() throws InvalidAthleteException, InvalidSessionException {
+    void accessSessionID_foundMissing() throws InvalidAthleteException, InvalidSessionException,
+        AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -150,7 +154,8 @@ class CoachTest {
     }
 
     @Test
-    void accessExerciseID_foundMissing() throws InvalidAthleteException, InvalidExerciseException {
+    void accessExerciseID_foundMissing() throws InvalidAthleteException, InvalidExerciseException,
+        AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -172,7 +177,8 @@ class CoachTest {
     // deleteExerciseFromSession (normal + error path)
     @Test
     void deleteExerciseFromSession_removesNormally() throws
-            InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+        InvalidAthleteException, InvalidSessionException, InvalidExerciseException,
+        AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -188,7 +194,7 @@ class CoachTest {
 
 
     @Test
-    void flagAthlete_success_errors() throws InvalidAthleteException {
+    void flagAthlete_success_errors() throws InvalidAthleteException, AthleteLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -216,7 +222,7 @@ class CoachTest {
 
     // leaderboardConstruct
     @Test
-    void leaderboardConstruct_emptyNonEmpty() {
+    void leaderboardConstruct_emptyNonEmpty() throws AthleteLimitReachedException {
         assertEquals("No athletes found, add some athletes and let them do workout!!",
                 coach.leaderboardConstruct());
 

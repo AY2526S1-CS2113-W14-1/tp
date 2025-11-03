@@ -1,6 +1,7 @@
 package seedu.fitnessone.model;
 
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,7 +66,10 @@ public class Athlete {
         assert sessions.size() == before + 1 : "ERROR: Session not added correctly. Verify.";
     }
 
-    public int getSessionID() {
+    public int getSessionID() throws SessionLimitReachedException {
+        if (sessionIdCounter >= 999) {
+            throw new SessionLimitReachedException();
+        }
         sessionIdCounter++;
         return sessionIdCounter;
     }
@@ -123,5 +127,13 @@ public class Athlete {
 
     public void setFlagColor(String flagColor) {
         this.flagColor = flagColor;
+    }
+
+    /**
+     * Exposes the next athlete ID integer value to allow controllers to enforce
+     * a hard upper bound on the 4-digit ID space without coupling to formatting.
+     */
+    public static int peekNextIdValue() {
+        return nextIntID;
     }
 }

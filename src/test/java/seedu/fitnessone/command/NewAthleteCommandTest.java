@@ -50,7 +50,7 @@ public class NewAthleteCommandTest {
         NewAthleteCommandTest.CoachStub coach = new NewAthleteCommandTest.CoachStub();
         NewAthleteCommandTest.UiStub ui = new NewAthleteCommandTest.UiStub();
         InvalidCommandException ex = assertThrows(InvalidCommandException.class, () -> cmd.execute(coach, ui));
-        assertEquals("Unknown command: 'athlete name was not specified'." +
+        assertEquals("Unknown command: 'Athlete name was not specified. Usage: /newathlete <Athlete Name>'." +
                 " Type /help to see available commands.", ex.getMessage());
     }
 
@@ -61,7 +61,7 @@ public class NewAthleteCommandTest {
         NewAthleteCommandTest.CoachStub coach = new NewAthleteCommandTest.CoachStub();
         NewAthleteCommandTest.UiStub ui = new NewAthleteCommandTest.UiStub();
         InvalidCommandException ex = assertThrows(InvalidCommandException.class, () -> cmd.execute(coach, ui));
-        assertEquals("Unknown command: 'athlete name was not specified'." +
+        assertEquals("Unknown command: 'Athlete name was not specified. Usage: /newathlete <Athlete Name>'." +
                 " Type /help to see available commands.", ex.getMessage());
     }
 

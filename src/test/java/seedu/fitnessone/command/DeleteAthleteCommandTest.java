@@ -58,7 +58,8 @@ class DeleteAthleteCommandTest {
 
     // Successful deletion
     @Test
-    void execute_validDeletion_deletesAthleteAndPrints() throws InvalidAthleteException, InvalidCommandException {
+    void execute_validDeletion_deletesAthleteAndPrints() throws InvalidAthleteException, InvalidCommandException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         // Arrange
         String name = " jonas hardwell";
         coach.newAthlete(name);

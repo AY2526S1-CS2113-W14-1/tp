@@ -11,6 +11,9 @@ import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
 import seedu.fitnessone.storage.StorageManager;
+import seedu.fitnessone.exception.AthleteLimitReachedException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
 
 public class FitnessONE {
     private final Ui view;
@@ -52,6 +55,15 @@ public class FitnessONE {
                 } catch (IOException ioEx) {
                     view.printWithDivider("Failed to save data: " + ioEx.getMessage());
                 }
+            } catch (AthleteLimitReachedException e) {
+                view.printWithDivider("AthleteLimitReachedException " + e.getMessage());
+
+            } catch (SessionLimitReachedException e) {
+                view.printWithDivider("SessionLimitReachedException " + e.getMessage());
+
+            } catch (ExerciseLimitReachedException e) {
+                view.printWithDivider("ExerciseLimitReachedException " + e.getMessage());
+
             } catch (InvalidCommandException e) {
                 view.printWithDivider("InvalidCommandException: " + e.getMessage());
                 if (c != null) {
