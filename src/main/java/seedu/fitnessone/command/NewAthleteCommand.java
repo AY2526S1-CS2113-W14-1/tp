@@ -9,7 +9,6 @@ public class NewAthleteCommand implements Command {
     private static final String USAGE = "/newathlete <Athlete Name>";
     private static final String DESCRIPTION = "Creates a new log for a new athlete with a specified name";
     private static final String EXAMPLE = "/newathlete Jonas Hardwell";
-    private static final String NOTE = null;
 
     private final String inputString;
 
@@ -27,7 +26,7 @@ public class NewAthleteCommand implements Command {
         String athleteName;
         athleteName = inputString.substring(11).trim();
         if (athleteName.isBlank()) {
-            throw new InvalidCommandException("Athlete name was not specified.");
+            throw new InvalidCommandException("Athlete name was not specified");
         }
         if (!athleteName.matches("[A-Za-z ]+")) {
             throw new InvalidCommandException("Athlete name must contain only letters and spaces.");

@@ -22,7 +22,7 @@ public class UndoExerciseCommand implements Command {
 
     private final String inputString;
 
-    public UndoExerciseCommand(String inputString){
+    public UndoExerciseCommand(String inputString) {
         this.inputString = inputString;
     }
 
@@ -44,13 +44,12 @@ public class UndoExerciseCommand implements Command {
         boolean found = false;
         for (Exercise exercise : exercises) {
             if (exercise.getExerciseIDString().equals(exerciseID)) {
-                if(exercise.isCompleted()){
+                if (exercise.isCompleted()) {
                     exercise.setNotCompleted();
                     view.printWithDivider("Exercise (ID: " + exerciseID + "), " +
                             "Session (ID: " + sessionID + ") has been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");
-                }
-                else{
+                } else {
                     view.printWithDivider("Exercise (ID: " + exerciseID + ") has already " +
                             "been marked as not completed for "
                             + athlete.getAthleteName() + " (ID: " + athleteID + ").");
