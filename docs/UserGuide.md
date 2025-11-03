@@ -46,13 +46,15 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 4. Open a command terminal, navigate (`cd`) into the folder you put the jar file in, and use the `java -jar FitnessONE.jar` command to run the application.
 
-5. Type a command in the terminal and press Enter to execute it. For example:
+5. Here's what you should see when the application starts successfully: 
+
+6. Type a command in the terminal and press Enter to execute it. For example:
    * `/help` : Shows a list of all available commands.
    * `/newathlete John Doe` : Adds a new athlete named "John Doe".
    * `/listathletes` : Lists all athletes.
    * `bye` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -572,8 +574,8 @@ FitnessONE data is saved in the hard disk automatically after any command that c
 
 The data file is located at `[JAR file location]/data/athletes_export.txt`.
 
-<div markdown="1" class="alert alert-info">:bulb: **Tip:** 
-FitnessONE creates the data folder and file automatically if they don't exist.
+<div markdown="1" class="alert alert-info">
+:bulb: **Tip:** FitnessONE creates the data folder and file automatically if they don't exist.
 </div>
 --------------------------------------------------------------------------------------------------------------------
 
