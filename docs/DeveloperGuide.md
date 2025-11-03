@@ -384,8 +384,8 @@ For the tests themselves we split them up first of all in different components t
 
 ## Appendix E: Instructions for Manual Testing
 
-This section guides testers through manual validation of FitnessOne’s core features.
-Ensure that the JAR file has been correctly built (e.g., FitnessOne.jar) and run in a terminal:
+This section will assist and guide testers through manual validation of FitnessOne’s core features.
+Make sure that the JAR file has been correctly built (e.g., FitnessOne.jar) and can be run in a terminal:
 ```
 java -jar FitnessOne.jar
 ```
@@ -397,7 +397,7 @@ Test Case: ```/newAthlete Jonas Hardwell```
 Expected: ```New athlete created: Jonas Hardwell```
 
 Notes: Name cannot be blank.
-Error Case: /newAthlete → “athlete name was not specified”
+Error Case: /newAthlete => “athlete name was not specified”
 
 ### 2. Adding a Training Session
 
@@ -411,11 +411,11 @@ Athlete Name: jonas hardwell | ID: 0001
 Session ID: 002
 Session Description: legs
 ```
-Error Case: ```/newsession 9999 Legs``` → ```Athlete not found: 9999```
+Error Case: ```/newsession 9999 Legs``` => ```Athlete not found: 9999```
 
 ### 3. Adding an Exercise
 
-Prerequisite: Athlete and session exist.
+Prerequisite: The Athlete and session exist.
 Test Case:```newExercise 0001 001 Pushups 3 12```
 
 Expected:
@@ -433,7 +433,7 @@ Exercise Description: leg-press
 sets x reps: 5 x 15
 ```
 
-Error Case: ```newExercise 0001 001 Pushups five 12``` → ```Sets and reps must be integers.```
+Error Case: ```newExercise 0001 001 Pushups five 12``` => ```Sets and reps must be integers.```
 
 ### 4. Mark an Exercise Complete
 
@@ -443,7 +443,7 @@ Test Case: ```/completeExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/completeExercise 0001 001 99``` → ```There was an error while trying to complete the session.
+Error Case: ```/completeExercise 0001 001 99``` => ```There was an error while trying to complete the session.
 Try: /completeSession <Athlete ID> <Session ID> <Exercise ID>```
 
 ### 5. Mark a Session Complete
@@ -454,7 +454,7 @@ Test Case: ```/completeSession 0001 001```
 
 Expected: ```Session (ID: 001) completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/completeSession 0001 999``` → ```"There was an error while trying to complete the session.
+Error Case: ```/completeSession 0001 999``` => ```"There was an error while trying to complete the session.
 Try: /completeSession <Athlete ID> <Session ID>"```
 
 
@@ -466,7 +466,7 @@ Test Case: ```/undoExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01) has been marked as not completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/undoExercise 0001 001 99``` → ```Exercise not found: 99```
+Error Case: ```/undoExercise 0001 001 99``` => ```Exercise not found: 99```
 
 ### 7. Unmark a Session Complete
 
@@ -476,7 +476,7 @@ Test Case: ```/undoSession 0001 001```
 
 Expected: ```Session (ID: 001) has been marked as not completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/undoSession 0001 999``` → ```Session not found: 999```
+Error Case: ```/undoSession 0001 999``` => ```Session not found: 999```
 
 ### 6. Deleting an Exercise
 
@@ -486,7 +486,7 @@ Test Case: ```/deleteExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01), for Session (ID: 001) deleted for Jonas Hardwell (ID: 0001)```
 
-Error Case: ```/deleteExercise 0001 001 99``` → ```Exercise not found: 99```
+Error Case: ```/deleteExercise 0001 001 99``` => ```Exercise not found: 99```
 
 
 ### 7. Deleting a Session
@@ -497,7 +497,7 @@ Test Case: ```/deletesession 0001 001```
 
 Expected: ```Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)```
 
-Error Case: ```deleteSession 0001 999``` → ```Session not found: 999```
+Error Case: ```deleteSession 0001 999``` => ```Session not found: 999```
 
 ### 8. Flagging an Athlete
 
@@ -507,15 +507,15 @@ Test Case: ```/flagathlete 0001 Red```
 
 Expected: ```Athlete 0001 flagged as: Red  ```
 
-Error Case 1: ```/flagathlete 9999 Red ``` → ``` Athlete not found: 9999```
-Error Case 2: ```/flagathlete 0001 reddd ``` → ``` Invalid color: reddd```
+Error Case 1: ```/flagathlete 9999 Red ``` => ``` Athlete not found: 9999```
+Error Case 2: ```/flagathlete 0001 reddd ``` => ``` Invalid color: reddd```
 
 ### 9. Deleting an Athlete
 
 Test Case:``` /deleteathlete 0001```
 Expected: ```Deleted athlete with ID 0001```
 
-Error Case: ```/deleteathlete 9999``` → ```Athlete not found: 9999```
+Error Case: ```/deleteathlete 9999``` => ```Athlete not found: 9999```
 
 ### 10. Viewing the Leaderboard
 
@@ -536,8 +536,8 @@ Invalid Command. Type /help for a list of available commands.
 ```
 
 ### Notes
-Copy-paste commands one by one to verify command parsing and UI responses.
-You need not test every invalid variation—just ensure at least one invalid example per command behaves correctly.
+Copy and paste the commands one by one to verify command parsing and UI responses are correct.
+You do not need to test every invalid variation, make sure at least one invalid example per command behaves correctly.
 
 ## Instructions for Manual Testing (storage)
 
