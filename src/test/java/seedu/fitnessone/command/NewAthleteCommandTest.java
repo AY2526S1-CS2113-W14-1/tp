@@ -67,7 +67,6 @@ public class NewAthleteCommandTest {
 
     }
 
-
     @Test
     public void execute_validName_addsAthleteAndPrints() throws InvalidCommandException {
         CoachStub coachStub = new CoachStub();
