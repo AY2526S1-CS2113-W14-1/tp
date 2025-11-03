@@ -58,8 +58,6 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
 **:information_source: Notes about the command format:**<br>
 
 * Words in `<UPPER_CASE>` are the parameters to be supplied by you.<br>
@@ -184,9 +182,8 @@ ____________________________________________________________
 
 Deletes an athlete and all associated data (sessions and exercises).
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+⚠️ **Caution:**
 This action cannot be undone. All data associated with the athlete will be permanently deleted.
-</div>
 
 **Format:** `/deleteathlete <Athlete ID>`
 
@@ -253,9 +250,8 @@ Status |  Session ID   | Date                   | Notes
 ____________________________________________________________
 ```
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+💡 **Tip:**
 `[X]` indicates a completed session, while `[ ]` indicates an incomplete session.
-</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -323,9 +319,8 @@ ____________________________________________________________
 
 Deletes a specific session and all its associated exercises.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+⚠️ **Caution:**
 This action cannot be undone. All exercises in this session will also be deleted.
-</div>
 
 **Format:** `/deletesession <Athlete ID> <Session ID>`
 
@@ -400,9 +395,7 @@ Exercise List: 3
 ____________________________________________________________
 ```
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
-`[X]` indicates a completed exercise, while `[ ]` indicates an incomplete exercise.
-</div>
+💡 **Tip:** `[X]` indicates a completed exercise, while `[ ]` indicates an incomplete exercise.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -450,9 +443,7 @@ ____________________________________________________________
 
 Deletes a specific exercise from a session.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-This action cannot be undone.
-</div>
+⚠️ **Caution:** This action cannot be undone.
 
 **Format:** `/deleteexercise <Athlete ID> <Session ID> <Exercise ID>`
 
@@ -572,9 +563,9 @@ FitnessONE data is saved in the hard disk automatically after any command that c
 
 The data file is located at `[JAR file location]/data/athletes_export.txt`.
 
-<div markdown="1" class="alert alert-info">:bulb: **Tip:** 
+💡 **Tip:** 
 FitnessONE creates the data folder and file automatically if they don't exist.
-</div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
