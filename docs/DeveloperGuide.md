@@ -84,9 +84,9 @@ Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete I
 #### UI Design Principles
 1. **Consistent Formatting**
    ```
-   Input:  /viewAhlete 0001
+   Input: /viewAthlete
    Output: Showing athlete 0001: <name> — <summary>
-   Error:  Error: Athlete not found - 0001
+   Error: Error: Athlete not found - 0001
    ```
 
 2. **Quality Assurance**
@@ -337,7 +337,6 @@ error handling:
 1. If the input contains redundant message, ListAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 2. FitnessONE.run does not call save on failure.
 
-## Appendix E: Instructions for Manual Testing (storage)
 ## Testing
 
 Testing will ensure the correctness, reliability, and stability of FitnessOne. The project uses JUnit (version 5) for automated testing and manual verification of the user-facing behavior.
@@ -402,7 +401,7 @@ Error Case: /newAthlete => “athlete name was not specified”
 ### 2. Adding a Training Session
 
 Prerequisite: An athlete exists (e.g., John Doe with ID 0001).
-Test Case:```newsession 0001 Legs```
+Test Case: ```newsession 0001 Legs```
 Expected:
 ```
 New session created:
@@ -416,7 +415,8 @@ Error Case: ```/newsession 9999 Legs``` => ```Athlete not found: 9999```
 ### 3. Adding an Exercise
 
 Prerequisite: The Athlete and session exist.
-Test Case:```newExercise 0001 001 Pushups 3 12```
+
+Test Case: ```/newExercise 0001 001 Pushups 3 12```
 
 Expected:
 ```
@@ -493,11 +493,11 @@ Error Case: ```/deleteExercise 0001 001 99``` => ```Exercise not found: 99```
 
 Prerequisite: Session 001 exists for athlete 0001.
 
-Test Case: ```/deletesession 0001 001```
+Test Case: ```/deleteSession 0001 001```
 
 Expected: ```Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)```
 
-Error Case: ```deleteSession 0001 999``` => ```Session not found: 999```
+Error Case: ```/deleteSession 0001 999``` => ```Session not found: 999```
 
 ### 8. Flagging an Athlete
 
@@ -512,7 +512,7 @@ Error Case 2: ```/flagathlete 0001 reddd ``` => ``` Invalid color: reddd```
 
 ### 9. Deleting an Athlete
 
-Test Case:``` /deleteathlete 0001```
+Test Case: ``` /deleteathlete 0001```
 Expected: ```Deleted athlete with ID 0001```
 
 Error Case: ```/deleteathlete 9999``` => ```Athlete not found: 9999```
@@ -520,7 +520,9 @@ Error Case: ```/deleteathlete 9999``` => ```Athlete not found: 9999```
 ### 10. Viewing the Leaderboard
 
 Test Case: ```/leaderboard```
+
 Expected: ```A list of athletes sorted by achievement score.```
+
 If empty: ```No athletes found, add some athletes and let them do workout!!```
 
 ### 11. Error Handling
@@ -541,7 +543,7 @@ You do not need to test every invalid variation, make sure at least one invalid 
 
 ## Instructions for Manual Testing (storage)
 
-This appendix provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
+This section provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
 
 1. Start with a fresh/known state:
 	- If you already have a `data/athletes_export.txt` file, back it up or delete it to observe creation from scratch.
