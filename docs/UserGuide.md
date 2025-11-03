@@ -78,8 +78,9 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 * Extraneous parameters for commands that do not take parameters (such as `/help`, `/listathletes`, and `bye`) will cause an error.
 
-</div>
+**All outputs are displayed in lowercase, regardless of how the input is entered (e.g., uppercase or mixed case)**
 
+</div>
 --------------------------------------------------------------------------------------------------------------------
 
 ### Athlete Management
@@ -98,8 +99,8 @@ Creates a new athlete profile with a specified name. The system automatically as
 **Expected output:**
 ```
 ____________________________________________________________
-athlete added.
-     [  ] Jonas Hardwell (0001)
+Athlete added:
+     [  ] jonas hardwell (0001)
 ____________________________________________________________
 ```
 
@@ -119,16 +120,16 @@ Displays detailed information about a specific athlete, including all their sess
 **Expected output:**
 ```
 ____________________________________________________________
-    Athlete Name: Jonas Hardwell
+    Athlete Name: jonas hardwell
     Sessions: 2
     List:
-       Session 1. | Notes: Chest day
+       Session 1. | Notes: chest day
        Exercises:
-          1. | Notes: Bench Press | sets x reps: 5 x 3
-          2. | Notes: Cable Press | sets x reps: 5 x 15
-       Session 2. | Notes: Leg day
+          1. | Notes: bench press | sets x reps: 5 x 3
+          2. | Notes: cable press | sets x reps: 5 x 15
+       Session 2. | Notes: leg day
        Exercises:
-          1. | Notes: Squat | sets x reps: 5 x 5
+          1. | Notes: squat | sets x reps: 5 x 5
 ____________________________________________________________
 ```
 
@@ -148,9 +149,9 @@ Displays a list of all registered athletes with their IDs and priority flags.
 **Expected output:**
 ```
 ____________________________________________________________
-    1. [RED] Jonas Hardwell (0001)
-    2. [YELLOW] John Doe (0002)
-    3. [ ] Jonathan Well (0003)
+    1. [RED] jonas hardwell (0001)
+    2. [YELLOW] john doe (0002)
+    3. [ ] jonathan well (0003)
 
 ____________________________________________________________
 ```
@@ -220,10 +221,10 @@ Creates a new training session for a specific athlete.
 ```
 ____________________________________________________________
 New session created:
-Athlete Name: Jonas Hardwell | ID: 0001
+Athlete Name: jonas hardwell | ID: 0001
 
 Session ID: 001
-Session Description: Leg day workout
+Session Description: leg day workout
 ____________________________________________________________
 ```
 
@@ -243,12 +244,12 @@ Displays all sessions for a specific athlete, showing completion status, date, a
 **Expected output:**
 ```
 ____________________________________________________________
-Athlete ID: 0001 | Name: Jonas Hardwell
+Athlete ID: 0001 | Name: jonas hardwell
 
 Status |  Session ID   | Date                   | Notes
-1. [ ] |  Session: 001 | Date: 29-10-2025 08:00 | Morning session
-2. [X] |  Session: 002 | Date: 29-10-2025 10:00 | Pre training warmup
-3. [ ] |  Session: 003 | Date: 29-10-2025 15:00 | Post training cool down
+1. [ ] |  Session: 001 | Date: 29-10-2025 08:00 | morning session
+2. [X] |  Session: 002 | Date: 29-10-2025 10:00 | pre training warmup
+3. [ ] |  Session: 003 | Date: 29-10-2025 15:00 | post training cool down
 ____________________________________________________________
 ```
 
@@ -272,7 +273,7 @@ Updates the training notes for a specific session.
 **Expected output:**
 ```
 ____________________________________________________________
-Successfully updated Athlete (ID: 0001) session: 001 with notes: Upper body strength training.
+Successfully updated Athlete (ID: 0001) session: 001 with notes: upper body strength training.
 ____________________________________________________________
 ```
 
@@ -292,7 +293,7 @@ Marks a session as completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 001) completed by Jonas Hardwell (ID: 0001).
+Session (ID: 001) completed by jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -312,7 +313,7 @@ Marks a previously completed session as not completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 001) was marked as not completed for Jonas Hardwell (ID: 0001).
+Session (ID: 001) has been marked as not completed for johnas hardwell (ID: 0002).
 ____________________________________________________________
 ```
 
@@ -336,7 +337,7 @@ This action cannot be undone. All exercises in this session will also be deleted
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)
+Session 001 deleted for 0002
 ____________________________________________________________
 ```
 
@@ -361,13 +362,12 @@ ____________________________________________________________
 New exercise created!
 
 Athlete (ID): 0001
-Athlete name: Jonas Hardwell
-
-Session (ID): 001
-Session Description: Chest day
+Athlete name: jonas hardwell
+Session (ID): 001 | Date: 03-11-2025 13:23
+Session Description: chest day
 
 Exercise (ID): 01
-Exercise Description: Bench Press
+Exercise Description: bench press
 sets x reps: 5 x 10
 ____________________________________________________________
 ```
@@ -389,13 +389,14 @@ Displays all exercises in a specific session.
 ```
 ____________________________________________________________
 Athlete ID: 0001
-Athlete Name: Jonas Hardwell
-Session ID: 001
-Session Note: Chest day
+Athlete Name: jonas hardwell
+Session ID: 001 | 03-11-2025 13:12
 
-1. [X] Bench Press 5 x 10
-2. [ ] Cable Fly 3 x 12
-3. [ ] Push Ups 3 x 15
+Session Note: Chest day
+Exercise List: 3
+1. [X] ID: 01 bench press 5 x 10
+2. [ ] ID: 02 cable fly 3 x 12
+3. [ ] ID: 03 push ups 3 x 15
 ____________________________________________________________
 ```
 
@@ -419,7 +420,7 @@ Marks an exercise as completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).
+Exercise (ID: 01) completed by jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -439,7 +440,7 @@ Marks a previously completed exercise as not completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Exercise (ID: 01), Session (ID: 001) has been marked as not completed for Jonas Hardwell (ID: 0001).
+Exercise (ID: 01), Session (ID: 001) has been marked as not completed for jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -463,7 +464,7 @@ This action cannot be undone.
 **Expected output:**
 ```
 ____________________________________________________________
-Deleted exercise (ID: 02) from session 001 for Jonas Hardwell (ID: 0001).
+Deleted exercise (ID: 02) from session 001 for jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -487,9 +488,9 @@ Displays a ranked list of all athletes based on their achievement scores (comple
 ____________________________________________________________
 athleteName     athleteId score
     ____________________________________________________________
-    Jonas Hardwell  0001      15
-    John Doe        0002      10
-    Jane Smith      0003      5
+    jonas hardwell  0001      15
+    john doe        0002      10
+    jane smith      0003      5
 
 ____________________________________________________________
 ```
@@ -571,10 +572,9 @@ FitnessONE data is saved in the hard disk automatically after any command that c
 
 The data file is located at `[JAR file location]/data/athletes_export.txt`.
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+<div markdown="1" class="alert alert-info">:bulb: **Tip:** 
 FitnessONE creates the data folder and file automatically if they don't exist.
 </div>
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
