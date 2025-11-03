@@ -51,11 +51,11 @@ Code Sense: [https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=sheeeesh
 
 **Fixed bugs** including exercise completion errors for non-existent exercises and infinite loop scenarios, same for undo exercise. Resolved completion command failures that caused application crashes. ALso Fixed a lot of bugs after the PED : as the storage wasn't saving and loading the flag color, there was a date time issue when loading a date it was not loading the time when it was created but the time when it was loaded,
 
-#### Tests and quality
+### Tests and quality
 Junits test added for : FlagAthlete
 
 
-#### Documentation
+### Documentation
 
 **User Guide:**
 
