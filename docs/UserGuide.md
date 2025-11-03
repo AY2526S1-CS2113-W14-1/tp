@@ -572,8 +572,8 @@ FitnessONE data is saved in the hard disk automatically after any command that c
 
 The data file is located at `[JAR file location]/data/athletes_export.txt`.
 
-<div markdown="1" class="alert alert-info">
-:bulb: **Tip:** FitnessONE creates the data folder and file automatically if they don't exist.
+<div markdown="1" class="alert alert-info">:bulb: **Tip:** 
+FitnessONE creates the data folder and file automatically if they don't exist.
 </div>
 --------------------------------------------------------------------------------------------------------------------
 
