@@ -46,7 +46,7 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 4. Open a command terminal, navigate (`cd`) into the folder you put the jar file in, and use the `java -jar FitnessONE.jar` command to run the application.
 
-5. Here's what you should see when the application starts successfully: 
+5. Here's what you should see when the application starts successfully: ![](image_for_UG/Capture d’écran 2025-11-03 à 2.00.11 PM.png)
 
 6. Type a command in the terminal and press Enter to execute it. For example:
    * `/help` : Shows a list of all available commands.
