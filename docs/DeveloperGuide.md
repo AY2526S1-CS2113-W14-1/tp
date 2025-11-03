@@ -156,7 +156,6 @@ FitnessONE provides coaches an efficient, data-driven platform for exercise logg
 - Real-time sync across devices or multi-user concurrent editing
 - Complex GUI client (this is a CLI-first tool)
 
-
 Design notes
 - Keep UI code minimal so changes to presentation do not affect logic.
 - Centralise all user strings to make updating messages and translations easier.
