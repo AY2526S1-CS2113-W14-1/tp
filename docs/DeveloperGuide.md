@@ -156,7 +156,6 @@ FitnessONE provides coaches an efficient, data-driven platform for exercise logg
 - Real-time sync across devices or multi-user concurrent editing
 - Complex GUI client (this is a CLI-first tool)
 
-
 Design notes
 - Keep UI code minimal so changes to presentation do not affect logic.
 - Centralise all user strings to make updating messages and translations easier.
@@ -444,7 +443,7 @@ Test Case: ```/completeExercise 0001 001 01```
 Expected: ```Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).```
 
 Error Case: ```/completeExercise 0001 001 99``` => ```There was an error while trying to complete the session.
-Try: /completeSession <Athlete ID> <Session ID> <Exercise ID>```
+Try: /completeSession <ATHLETE_ID> <SESSION_ID> <EXERCISE_ID>```
 
 ### 5. Mark a Session Complete
 
@@ -455,7 +454,7 @@ Test Case: ```/completeSession 0001 001```
 Expected: ```Session (ID: 001) completed by Jonas Hardwell (ID: 0001).```
 
 Error Case: ```/completeSession 0001 999``` => ```"There was an error while trying to complete the session.
-Try: /completeSession <Athlete ID> <Session ID>"```
+Try: /completeSession <ATHLETE_ID> <SESSION_ID>"```
 
 
 ### 6. Unmark an Exercise Complete

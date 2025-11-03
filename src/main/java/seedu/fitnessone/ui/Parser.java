@@ -170,7 +170,7 @@ public class Parser {
 
         if (parts.length < 4 || parts[3].trim().isEmpty()) {
             throw new InvalidCommandException("Description cannot be empty. " +
-                    "Format: /newexercise <Athlete ID> <Session ID> <Description> <sets> <reps>");
+                    "Format: /newexercise <ATHLETE_ID> <SESSION_ID> <DESCRIPTION> <SETS> <REPS>");
         }
 
         return parts[3].trim();
@@ -183,7 +183,7 @@ public class Parser {
 
         if (parts.length < 4 || parts[3].trim().isEmpty()) {
             throw new InvalidCommandException("Training notes cannot be empty. " +
-                    "Format: /updatesessionnote <Athlete ID> <Session ID> <Notes>");
+                    "Format: /updatesessionnote <ATHLETE_ID> <SESSION_ID> <NOTES>");
         }
 
         return parts[3].trim();
