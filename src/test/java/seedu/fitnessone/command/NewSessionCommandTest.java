@@ -88,9 +88,9 @@ public class NewSessionCommandTest {
     }
     @Test
     public void execute_validSessionWithoutTrainNote_addsSessionAndPrints()
-        throws InvalidCommandException, InvalidAthleteException,
-        seedu.fitnessone.exception.AthleteLimitReachedException,
-        seedu.fitnessone.exception.SessionLimitReachedException, SessionLimitReachedException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException,
+            seedu.fitnessone.exception.SessionLimitReachedException, SessionLimitReachedException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
 

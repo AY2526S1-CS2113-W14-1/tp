@@ -10,10 +10,10 @@ class SessionLimitReachedExceptionTest {
 
     @Test
     void addSession_whenAtCapacity_throwsSessionLimitReachedException() throws Exception {
-    Coach coach = new Coach();
-    // Create one athlete without invoking newAthlete to avoid checked exceptions
-    coach.addAthlete(new Athlete("0001", "Tester"));
-    Athlete athlete = coach.getAthletes().get(0);
+        Coach coach = new Coach();
+        // Create one athlete without invoking newAthlete to avoid checked exceptions
+        coach.addAthlete(new Athlete("0001", "Tester"));
+        Athlete athlete = coach.getAthletes().get(0);
         String athleteId = athlete.getAthleteID();
         // Set counter to capacity
         athlete.setSessionIdCounter(999);

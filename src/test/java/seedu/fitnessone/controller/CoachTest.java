@@ -82,7 +82,7 @@ class CoachTest {
     // addSessionToAthlete / deleteSessionFromAthlete
     @Test
     void addSessionToAthlete_deleteSessionFromAthlete() throws InvalidSessionException, InvalidAthleteException,
-        AthleteLimitReachedException, SessionLimitReachedException {
+            AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -140,7 +140,7 @@ class CoachTest {
     // accessSessionID / accessExerciseID
     @Test
     void accessSessionID_foundMissing() throws InvalidAthleteException, InvalidSessionException,
-        AthleteLimitReachedException, SessionLimitReachedException {
+            AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -155,7 +155,7 @@ class CoachTest {
 
     @Test
     void accessExerciseID_foundMissing() throws InvalidAthleteException, InvalidExerciseException,
-        AthleteLimitReachedException, SessionLimitReachedException {
+            AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();
@@ -177,8 +177,8 @@ class CoachTest {
     // deleteExerciseFromSession (normal + error path)
     @Test
     void deleteExerciseFromSession_removesNormally() throws
-        InvalidAthleteException, InvalidSessionException, InvalidExerciseException,
-        AthleteLimitReachedException, SessionLimitReachedException {
+            InvalidAthleteException, InvalidSessionException, InvalidExerciseException,
+            AthleteLimitReachedException, SessionLimitReachedException {
         coach.newAthlete("jonas hardwell");
         Athlete athlete = coach.accessAthlete("jonas hardwell");
         String id = athlete.getAthleteID();

@@ -38,8 +38,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_validRedFlag_flagsAthleteAndPrints()
-        throws InvalidCommandException, InvalidAthleteException,
-        seedu.fitnessone.exception.AthleteLimitReachedException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -58,8 +58,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_missingColor_throwsInvalidCommandException()
-        throws InvalidAthleteException, InvalidCommandException,
-        seedu.fitnessone.exception.AthleteLimitReachedException {
+            throws InvalidAthleteException, InvalidCommandException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -83,8 +83,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_invalidColor_throwsInvalidCommandException()
-        throws InvalidAthleteException, InvalidCommandException,
-        seedu.fitnessone.exception.AthleteLimitReachedException {
+            throws InvalidAthleteException, InvalidCommandException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -118,8 +118,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_caseInsensitiveColor_worksCorrectly()
-        throws InvalidCommandException, InvalidAthleteException,
-        seedu.fitnessone.exception.AthleteLimitReachedException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
@@ -138,8 +138,8 @@ public class FlagAthleteCommandTest {
 
     @Test
     public void execute_validMultipleColors_workCorrectly()
-        throws InvalidCommandException, InvalidAthleteException,
-        seedu.fitnessone.exception.AthleteLimitReachedException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
 
