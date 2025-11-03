@@ -337,7 +337,6 @@ error handling:
 1. If the input contains redundant message, ListAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 2. FitnessONE.run does not call save on failure.
 
-## Appendix E: Instructions for Manual Testing (storage)
 ## Testing
 
 Testing will ensure the correctness, reliability, and stability of FitnessOne. The project uses JUnit (version 5) for automated testing and manual verification of the user-facing behavior.
@@ -544,7 +543,7 @@ You do not need to test every invalid variation, make sure at least one invalid 
 
 ## Instructions for Manual Testing (storage)
 
-This appendix provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
+This section provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
 
 1. Start with a fresh/known state:
 	- If you already have a `data/athletes_export.txt` file, back it up or delete it to observe creation from scratch.
