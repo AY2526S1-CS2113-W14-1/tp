@@ -36,16 +36,6 @@ public class NewAthleteCommand implements Command {
 
         String athleteName = normalizeName(rawName);
 
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
-        String athleteName;
-        athleteName = inputString.substring(11).trim();
-        if (athleteName.isBlank()) {
-            throw new InvalidCommandException("Athlete name was not specified");
-        }
-        if (!athleteName.matches("[A-Za-z ]+")) {
-            throw new InvalidCommandException("Athlete name must contain only letters and spaces.");
-        }
-
         String itemToString = coachController.newAthlete(athleteName);
         view.printWithDivider("Athlete added:" + System.lineSeparator() + "     " + itemToString);
     }
