@@ -38,7 +38,7 @@ public class FlagAthleteCommand implements Command {
 
 
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidCommandException {
+    public void execute(Coach coachController, Ui view) throws InvalidCommandException, InvalidAthleteException {
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String[] parts = inputString.trim().split("\\s+");
         if (inputString.split(" ").length > 3) {
@@ -51,13 +51,9 @@ public class FlagAthleteCommand implements Command {
         if (!isValidColor(flagColor)) {
             throw new InvalidCommandException("Invalid color: " + flagColor + "\n" + NOTE);
         }
-        try {
-            String emojiFlag = colorToEmoji(flagColor);
-            coachController.flagAthlete(athleteID, emojiFlag);
-            view.printWithDivider("Athlete " + athleteID + " flagged as: " + emojiFlag);
-        } catch (InvalidAthleteException e) {
-            throw new InvalidCommandException("Athlete not found: " + athleteID);
-        }
+        String emojiFlag = colorToEmoji(flagColor);
+        coachController.flagAthlete(athleteID, emojiFlag);
+        view.printWithDivider("Athlete " + athleteID + " flagged as: " + emojiFlag);
     }
 
     @Override

@@ -4,6 +4,8 @@ package seedu.fitnessone.controller;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
+import seedu.fitnessone.exception.AthleteLimitReachedException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
@@ -43,7 +45,7 @@ public class Coach {
 
 
     public Session addSessionToAthlete(String athleteID, String sessionTrainingNotes)
-            throws InvalidAthleteException {
+            throws InvalidAthleteException, SessionLimitReachedException {
         for (Athlete athlete : athletes) {
             if (athlete.getAthleteID().equals(athleteID)) {
                 int index = athlete.getSessionID();
@@ -67,7 +69,11 @@ public class Coach {
         throw new InvalidAthleteException(athleteID);
     }
 
-    public String newAthlete(String athleteName) {
+    public String newAthlete(String athleteName) throws AthleteLimitReachedException {
+        // Enforce maximum number of athletes (9999) and ID space (4 digits)
+        if (athletes.size() >= 9999 || Athlete.peekNextIdValue() > 9999) {
+            throw new AthleteLimitReachedException();
+        }
         Athlete athlete = new Athlete(athleteName);
         athletes.add(athlete);
 

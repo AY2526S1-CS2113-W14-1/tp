@@ -7,6 +7,9 @@ import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidExerciseException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.ui.Ui;
+import seedu.fitnessone.exception.AthleteLimitReachedException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
 
 import java.util.List;
 
@@ -50,7 +53,8 @@ public class NewExerciseCommandTest {
 
     @Test
     public void execute_validCreation_createsExerciseAndPrints()
-            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException, InvalidExerciseException {
+            throws InvalidCommandException, InvalidAthleteException, InvalidSessionException, InvalidExerciseException,
+            AthleteLimitReachedException, SessionLimitReachedException, ExerciseLimitReachedException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         String athleteName = "Jonas Hardwell";
@@ -87,7 +91,8 @@ public class NewExerciseCommandTest {
 
     @Test
     public void execute_invalidSetsOrReps_printsWarning()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException,
+            AthleteLimitReachedException, SessionLimitReachedException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         String athleteName = "Jonas Hardwell";
@@ -110,7 +115,8 @@ public class NewExerciseCommandTest {
 
     @Test
     public void execute_missingFields_throwsInvalidCommandException()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException,
+            AthleteLimitReachedException, SessionLimitReachedException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
         String athleteName = "Jonas Hardwell";

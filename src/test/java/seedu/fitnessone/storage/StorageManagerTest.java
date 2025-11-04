@@ -14,14 +14,16 @@ import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.model.Exercise;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 
 public class StorageManagerTest {
 
     @Test
     public void saveAndLoad_roundTrip_preservesData() throws Exception {
         Coach coach = new Coach();
-        // create athlete, session, exercise
-        coach.newAthlete("Alice");
+        // create athlete via addAthlete to avoid AthleteLimitReachedException
+        coach.addAthlete(new Athlete("0001", "Alice"));
         Athlete a = coach.getAthletes().get(0);
         String athleteId = a.getAthleteID();
 
@@ -31,8 +33,17 @@ public class StorageManagerTest {
         } catch (seedu.fitnessone.exception.InvalidAthleteException ex) {
             fail("Unexpected InvalidAthleteException: " + ex.getMessage());
             return;
+        } catch (SessionLimitReachedException ex) {
+            fail("Unexpected SessionLimitReachedException: " + ex.getMessage());
+            return;
         }
-        Exercise e = s.addExercise("Pushups", 3, 10);
+        Exercise e;
+        try {
+            e = s.addExercise("Pushups", 3, 10);
+        } catch (ExerciseLimitReachedException ex) {
+            fail("Unexpected ExerciseLimitReachedException: " + ex.getMessage());
+            return;
+        }
 
         Path tmp = Files.createTempFile("storage-test", ".txt");
         String path = tmp.toString();
@@ -58,7 +69,7 @@ public class StorageManagerTest {
             try {
                 Files.deleteIfExists(tmp);
             } catch (IOException ignore) {
-                Exercise ee = s.addExercise("Pushups", 3, 10);
+                // Cleanup failed, ignore
             }
         }
     }

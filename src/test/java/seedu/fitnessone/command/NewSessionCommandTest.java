@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.fitnessone.controller.Coach;
 import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 import seedu.fitnessone.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,7 +64,9 @@ public class NewSessionCommandTest {
 
     @Test
     public void execute_validSession_addsSessionAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException,
+            seedu.fitnessone.exception.SessionLimitReachedException, SessionLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "jonas hardwell";
@@ -71,39 +74,44 @@ public class NewSessionCommandTest {
         NewAthleteCommand command = new NewAthleteCommand(input);
 
         command.execute(coachTest, uiStub);
-        String athleteId = coachTest.accessAthlete(athleteName).getAthleteID();
+        // Note: name gets normalized to "Jonas Hardwell" (title case)
+        String athleteId = coachTest.accessAthlete("Jonas Hardwell").getAthleteID();
         String inputNewSession = "NewSession "+ athleteId +" Legs";
         NewSessionCommand sessionCommand = new NewSessionCommand(inputNewSession);
         sessionCommand.execute(coachTest, uiStub);
-        assertEquals(2, coachTest.accessAthlete("jonas hardwell").getSessionID());
+        assertEquals(2, coachTest.accessAthlete("Jonas Hardwell").getSessionID());
         assertEquals("New session created:\n" +
-                "\tAthlete Name: jonas hardwell | ID: "+athleteId+"\n" +
+                "\tAthlete Name: Jonas Hardwell | ID: "+athleteId+"\n" +
                 "\n" +
                 "\tSession ID: 001\n" +
                 "\tSession Description: Legs\n", uiStub.lastPrinted);
     }
     @Test
     public void execute_validSessionWithoutTrainNote_addsSessionAndPrints()
-            throws InvalidCommandException, InvalidAthleteException {
+            throws InvalidCommandException, InvalidAthleteException,
+            seedu.fitnessone.exception.AthleteLimitReachedException,
+            seedu.fitnessone.exception.SessionLimitReachedException, SessionLimitReachedException {
         Coach coach = new Coach();
         UiStub ui = new UiStub();
 
         new NewAthleteCommand("newAthlete jonas hardwell").execute(coach, ui);
-        String athleteId = coach.accessAthlete("jonas hardwell").getAthleteID();
+        // Note: name gets normalized to "Jonas Hardwell" (title case)
+        String athleteId = coach.accessAthlete("Jonas Hardwell").getAthleteID();
 
         NewSessionCommand cmd = new NewSessionCommand("NewSession " + athleteId + " " + athleteId);
         cmd.execute(coach, ui);
 
-        assertEquals(2, coach.accessAthlete("jonas hardwell").getSessionID());
+        assertEquals(2, coach.accessAthlete("Jonas Hardwell").getSessionID());
         assertEquals("New session created:\n" +
-                        "\tAthlete Name: jonas hardwell | ID: " + athleteId + "\n\n" +
+                        "\tAthlete Name: Jonas Hardwell | ID: " + athleteId + "\n\n" +
                         "\tSession ID: 001\n" +
                         "\tSession Description: " + athleteId + "\n", ui.lastPrinted);
     }
 
     @Test
     public void execute_invalidSession1_addsSessionAndPrints()
-            throws InvalidCommandException {
+            throws InvalidCommandException,
+            seedu.fitnessone.exception.AthleteLimitReachedException {
         Coach coachTest = new Coach();
         UiStub uiStub = new UiStub();
         String athleteName = "jonas hardwell";

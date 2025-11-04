@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import seedu.fitnessone.exception.InvalidExerciseException;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
 
 public class Session {
     private static final DateTimeFormatter DATE_TIME_FORMAT =
@@ -70,8 +71,11 @@ public class Session {
         this.isCompleted = false;
     }
 
-    public Exercise addExercise(String description, int sets, int reps) {
-        nextExerciseIndex = (nextExerciseIndex +1) % 100;
+    public Exercise addExercise(String description, int sets, int reps) throws ExerciseLimitReachedException {
+        if (nextExerciseIndex >= 99) {
+            throw new ExerciseLimitReachedException();
+        }
+        nextExerciseIndex = (nextExerciseIndex + 1);
         Exercise newExercise = new Exercise(nextExerciseIndex, description, sets, reps);
         //assert newExercise != null : "ERROR: Session can not be null.";
         int before = this.exercises.size();

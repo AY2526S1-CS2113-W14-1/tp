@@ -5,6 +5,7 @@ import seedu.fitnessone.exception.InvalidAthleteException;
 import seedu.fitnessone.exception.InvalidCommandException;
 import seedu.fitnessone.exception.InvalidSessionException;
 import seedu.fitnessone.exception.InvalidExerciseException;
+import seedu.fitnessone.exception.ExerciseLimitReachedException;
 import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Exercise;
 import seedu.fitnessone.model.Session;
@@ -30,7 +31,8 @@ public class NewExerciseCommand implements Command {
 
     @Override
     public void execute(Coach coachController, Ui view)
-            throws InvalidAthleteException, InvalidSessionException, InvalidCommandException, InvalidExerciseException {
+            throws InvalidAthleteException, InvalidSessionException, InvalidCommandException, InvalidExerciseException,
+            ExerciseLimitReachedException {
 
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String sessionID = Parser.checkSessionIDValidity(inputString);
@@ -43,14 +45,12 @@ public class NewExerciseCommand implements Command {
 
         int last = parts.length - 1;
         int secondLast = parts.length - 2;
-        int reps;
-        int sets;
-        try {
-            reps = Integer.parseInt(parts[last]);
-            sets = Integer.parseInt(parts[secondLast]);
-        } catch (NumberFormatException e) {
+        // Validate numeric without try/catch
+        if (!parts[last].matches("\\d+") || !parts[secondLast].matches("\\d+")) {
             throw new InvalidCommandException("Sets and reps must be integers.");
         }
+        int reps = Integer.parseInt(parts[last]);
+        int sets = Integer.parseInt(parts[secondLast]);
 
         if (sets < 0 || reps < 0 ) {
             throw new InvalidCommandException("Sets and reps must be positive integers.");

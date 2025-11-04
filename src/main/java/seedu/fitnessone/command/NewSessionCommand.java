@@ -7,6 +7,7 @@ import seedu.fitnessone.model.Athlete;
 import seedu.fitnessone.model.Session;
 import seedu.fitnessone.ui.Parser;
 import seedu.fitnessone.ui.Ui;
+import seedu.fitnessone.exception.SessionLimitReachedException;
 
 public class NewSessionCommand implements Command {
     private static final String COMMAND_WORD = "/newsession";
@@ -39,7 +40,8 @@ public class NewSessionCommand implements Command {
      * @param view            The UI for displaying output.
      */
     @Override
-    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException {
+    public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException,
+            SessionLimitReachedException {
 
         String athleteID = Parser.checkAthleteIDValidity(inputString);
         String trainingNotes = findTrainingNotes(inputString);
