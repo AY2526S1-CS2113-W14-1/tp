@@ -10,6 +10,11 @@ Format inspired by [addressbook-level3](https://se-education.org/addressbook-lev
         * [Key Classes](#key-classes)
         * [Input Processing Flow](#input-processing-flow)
         * [UI Design Principles](#ui-design-principles)
+    * [Logic and Commands component](#logic-and-commands-component)
+    * [Controller component](#controller-component)
+    * [Model component](#model-component)
+    * [Storage component](#storage-component)
+    * [Common classes](#common-classes)
     * [Program Flow](#program-flow)
         * [Main Execution Loop](#main-execution-loop)
         * [Storage Operations](#storage-operations)
@@ -18,9 +23,6 @@ Format inspired by [addressbook-level3](https://se-education.org/addressbook-lev
     * [Key features (current / planned)](#key-features-current--planned)
     * [Brainstorming and references](#brainstorming-and-references)
     * [Non-goals (out of scope for current release)](#non-goals-out-of-scope-for-current-release)
-    * [Model component](#model-component)
-    * [Storage component](#storage-component)
-    * [Common classes](#common-classes)
 * [Implementation](#implementation)
     * [CompleteExercise feature](#completeexercise-feature)
     * [CompleteSession feature](#completesession-feature)
@@ -79,54 +81,68 @@ And our team members who contributed to this project:
 
 ## Design
 
-### Architecture Overview
+### Architecture
 
-The diagram below provides a comprehensive view of FitnessONE's architecture and class interactions:
+The Architecture section explains the high-level design of FitnessONE and how its components collaborate to process commands, manipulate domain state, and persist data.
 
 ![Overall Architecture](diagrams/overall_UML.png)
 
+PlantUML source (kept under version control): `diagrams/architecture.puml`.
+
+The architecture is loosely inspired by MVC:
+- View → `Ui`
+- Controller → Commands + `Coach`
+- Model → `Athlete`, `Session`, `Exercise`
+
+The diagram above summarizes the main runtime components and their dependencies.
+
+Core components
+- UI: Reads input and prints formatted output (package `seedu.fitnessone.ui`).
+- Logic: Parses commands and executes them via Command classes (package `seedu.fitnessone.command`).
+- Controller: Coordinates model operations and encapsulates domain rules (class `seedu.fitnessone.controller.Coach`).
+- Model: Domain entities and in-memory state (package `seedu.fitnessone.model` — `Athlete`, `Session`, `Exercise`).
+- Storage: Loads and saves state to the text file store (package `seedu.fitnessone.storage` — `StorageManager`).
+- Common/Exceptions: Reusable types and exception hierarchy (package `seedu.fitnessone.exception`).
+
+How components interact
+1. `FitnessONE` (entry point) starts the app, constructs `Ui`, `Parser`, `Coach`, and `StorageManager`.
+2. On startup, `StorageManager.load()` reconstructs the `Coach` state from `data/athletes_export.txt`.
+3. The main loop reads a line of user input from `Ui`, then `Parser.parse(...)` returns a `Command` instance.
+4. `Command.execute(coach, ui)` invokes controller/model methods to perform the requested operation.
+5. On successful commands that mutate state, `StorageManager.save(coach)` persists the new state.
+6. Exceptions from the controller/model are translated to user-friendly messages and printed by `Ui`.
+
+Sequence at a glance
+- Command processing loop: see Program Flow → Main Execution Loop.
+- Persistence: see Program Flow → Storage Operations (startup load and per-command save).
+
+Design choices
+- Keep UI thin; formatting and I/O only. Business logic lives in Commands and the Coach controller.
+- Centralize domain rules (limits, ID assignment, lookups) in `Coach` to avoid duplication across commands.
+- A simple line-oriented storage format ensures deterministic round-trips (`ATHLETE|...`, `SESSION|...`, `EXERCISE|...`).
+
 ### UI Component
 
-The UI component handles all user interaction through a command-line interface (CLI). It serves as the primary interface between the user and the system.
+The UI is CLI-based and is responsible for interacting with stdin/stdout. It doesn’t contain business logic.
 
-#### Responsibilities
-- Provide a command-line interface (CLI) for user interaction
-- Read raw user input, display formatted output and error messages
-- Delegate input parsing to `seedu.fitnessone.ui.Parser`
-- Forward parsed commands to the Logic component and display command results
-- UI does not contain business logic; it only formats input/output and handles presentation concerns
+Responsibilities
+- Read raw user input lines
+- Print success/error messages with consistent dividers
+- Delegate parsing to `Parser` and execution to `Command`
 
-#### Key Classes
-- `seedu.fitnessone.ui.Parser` — converts raw input strings to command objects and validates basic syntax
-- `Ui` / `TextUi` — reads input from stdin, prints to stdout, and formats messages
-- Any `Message` or `UiStrings` class — centralises user-facing strings and error messages
+Key classes
+- `seedu.fitnessone.ui.Ui` — console I/O helpers and message formatting
+- `seedu.fitnessone.ui.Parser` — converts raw strings to concrete `Command` objects; validates basic syntax and IDs
 
-#### Input Processing Flow
-1. UI reads input and passes it to `Parser.parse(...)`
-2. Parser creates a Command object which is passed to the Logic component
-3. For invalid input or domain errors (e.g. `InvalidAthleteException`), UI catches exceptions and prints user-friendly messages:
-```
-Error: Athlete not found - 0001
-Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete ID: 0001
-```
+Input processing flow
+1. `Ui` reads a line.
+2. `Parser.parse(...)` inspects the leading token (e.g., `/newathlete`) and constructs a concrete `Command`.
+3. Errors in syntax or missing parameters raise `InvalidCommandException`, which the app prints via `Ui.printWithDivider`.
 
-#### UI Design Principles
-1. **Consistent Formatting**
-   ```
-   Input: /viewAthlete
-   Output: Showing athlete 0001: <name> — <summary>
-   Error: Error: Athlete not found - 0001
-   ```
+Notes
+- Command-specific help is available by triggering a command with missing/invalid parameters.
 
-2. **Quality Assurance**
-   - Unit tests for Parser and UI formatting methods
-   - Checkstyle compliance
-   - End-to-end acceptance tests for input/output behavior
-
-3. **Design Considerations**
-   - Minimal UI code to isolate presentation changes from logic
-   - Centralized user strings for easier message updates and translations
-
+ 
 
 
 ### Program Flow
@@ -200,11 +216,70 @@ Design notes
 |v1.0|coach|create and manage athlete records; add training sessions and exercises; log daily macronutrients|track each student's training and nutrition data and preserve session history|
 |v2.0|coach|receive diet and exercise recommendations; export/import athlete data|adapt plans automatically based on tracked data and share/archive team progress|
 
+### Logic and Commands component
+
+Responsibilities
+- Interpret parsed input into domain actions
+- Validate parameters and preconditions (existence of IDs, argument counts)
+- Execute operations by calling the controller/model and return user-facing messages
+
+Key types
+- `seedu.fitnessone.command.Command` — base class with `execute(Coach coach, Ui ui)`
+- Concrete commands e.g., `NewAthleteCommand`, `ViewAthleteCommand`, `ViewSessionsCommand`, `ViewExerciseCommand`, `CompleteSessionCommand`, `CompleteExerciseCommand`, `DeleteAthleteCommand`
+
+Execution contract
+- Input: references to the live `Coach` and `Ui`, plus any arguments captured during parsing
+- Output: side-effects on the model; messages printed via `Ui`
+- Error modes: throws `InvalidCommandException` (syntax/args) or propagates domain exceptions from controller/model
+
+### Controller component
+
+Responsibilities
+- Provide a single façade (`seedu.fitnessone.controller.Coach`) over domain data
+- Enforce domain rules and limits (e.g., capacity limits; valid lookups)
+- Allocate and manage identifiers; provide indexed/filtered accessors
+
+Notes
+- Commands call `Coach` methods for retrieving/updating `Athlete`, `Session`, and `Exercise` objects.
+- Domain exceptions thrown here bubble up to the UI with user-friendly messages.
+
 ### Model component
+
+Responsibilities
+- Represent domain entities and in-memory state for athletes, sessions, and exercises
+- Provide simple getters/setters and minimal invariants (e.g., completed flags)
+
+Key classes (package `seedu.fitnessone.model`)
+- `Athlete` — name and collections of `Session`
+- `Session` — metadata and a list of `Exercise`; has a `completed` flag
+- `Exercise` — description, sets/reps and a `completed` flag
+
+Identifiers
+- IDs are centrally managed by `Coach`. Commands never construct IDs directly; they obtain and use IDs via controller/model APIs.
 
 ### Storage component
 
+Responsibilities
+- Persist and load the entire application state to/from the filesystem
+- Provide deterministic round-trip serialization for `Coach`, `Athlete`, `Session`, and `Exercise`
+
+Key class
+- `seedu.fitnessone.storage.StorageManager` — handles `load()` on startup and `save(coach)` after successful commands
+
+Format and location
+- Text-based, line-oriented format stored under `data/athletes_export.txt`
+- Representative records: `ATHLETE|...`, `SESSION|...`, `EXERCISE|...`
+
+See also
+- Program Flow → Storage Operations for startup and runtime sequences
+- Implementation → StorageManager details for edge cases and error handling
+
 ### Common classes
+
+- Exceptions: `seedu.fitnessone.exception.*` define user-visible failures (invalid IDs, limits reached, I/O errors)
+- Messages: user-facing strings are centralized in the UI/command layer for consistent formatting
+
+Class diagram (PlantUML source): `diagrams/components_class.puml`
 
 ## Implementation
 
