@@ -91,6 +91,8 @@ Creates a new athlete profile with a specified name. The system automatically as
 
 **Format:** `/newathlete <ATHLETE_NAME>`
 
+**Note:** FitnessONE automatically capitalizes the first letter of each word in athlete names. For special name formatting requirements (e.g., "van Gogh", "de la Cruz", "diCaprio", "O'Neill", "McKenzie"), you can manually edit the name in the data file located at `[JAR file location]/data/athletes_export.txt`.
+
 **Example:**
 ```
 /newathlete Jonas Hardwell
