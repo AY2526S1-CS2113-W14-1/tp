@@ -139,9 +139,15 @@ The sequence diagram above shows how FitnessONE processes commands in its main l
 
 #### Storage Operations
 
-![Storage sequence diagram](diagrams/storage_sequence.png)
+Startup (load on app start):
 
-This diagram illustrates the data persistence flow, showing startup loading and per-command saving operations.
+![Storage setup sequence](diagrams/storage_setup.png)
+
+Runtime (save after each successful command):
+
+![Storage runtime sequence](diagrams/storage_runtime.png)
+
+These diagrams illustrate the data persistence flow: the first covers startup loading behavior, and the second shows per-command saving operations.
 
 ## Product scope
 

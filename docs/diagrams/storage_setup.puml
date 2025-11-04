@@ -1,0 +1,25 @@
+@startuml
+title Storage Setup (Startup Load)
+actor User
+participant Ui
+participant App as "FitnessONE"
+participant Storage as "StorageManager"
+participant Coach
+participant File as "data/athletes_export.txt"
+
+== Startup: construct app and load saved data ==
+User -> Ui : open app / console
+Ui -> App : start()
+App -> Storage : load()
+alt file exists & non-empty
+    Storage -> File : read all lines
+    Storage -> Storage : parse lines (ATHLETE / SESSION / EXERCISE)
+    Storage -> Coach : create athletes/sessions/exercises
+    Storage -> Storage : fix id counters (session/exercise)
+    Storage --> App : return Coach (populated)
+else file missing or empty
+    Storage --> App : return empty Coach
+end
+App -> Ui : showWelcome()
+App -> Ui : print("Loaded saved athletes data." or "No saved data")
+@enduml
