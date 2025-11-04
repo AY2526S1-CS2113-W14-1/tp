@@ -34,10 +34,15 @@ public class NewSessionCommand implements Command {
     }
 
     /**
-     * Executes the command to add session to a certain athlete and display the message.
+     * Creates a new training session for the specified athlete.
+     * Validates the athlete ID, extracts the session description, and adds the session
+     * to the athlete's record. Displays success message with session details including
+     * the athlete name, athlete ID, new session ID, and description.
      *
-     * @param coachController The task list.
-     * @param view            The UI for displaying output.
+     * @param coachController The coach controller managing all athletes
+     * @param view The UI component for displaying results
+     * @throws InvalidAthleteException If the athlete ID does not exist in the system
+     * @throws InvalidCommandException If the athlete ID or session description is invalid
      */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidAthleteException, InvalidCommandException,

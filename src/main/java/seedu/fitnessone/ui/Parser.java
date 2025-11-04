@@ -74,6 +74,14 @@ public class Parser {
      * -----------------------------------
      * USE THESE
      */
+    /**
+     * Validates and extracts the 4-digit athlete ID from a command string.
+     * Expects the athlete ID to be the second whitespace-separated token.
+     *
+     * @param inputString The full command string
+     * @return The validated athlete ID (4 digits)
+     * @throws InvalidCommandException If the ID is missing, malformed, or contains non-digits
+     */
     public static String checkAthleteIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         inputString = inputString.trim().replaceAll("\\s+", " ");
@@ -103,6 +111,14 @@ public class Parser {
     }
 
 
+    /**
+     * Validates and extracts the 3-digit session ID from a command string.
+     * Expects the session ID to be the third whitespace-separated token.
+     *
+     * @param inputString The full command string
+     * @return The validated session ID (3 digits)
+     * @throws InvalidCommandException If the ID is missing, malformed, or contains non-digits
+     */
     public static String checkSessionIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         inputString = inputString.trim().replaceAll("\\s+", " ");
@@ -133,6 +149,14 @@ public class Parser {
         return sessionID;
     }
 
+    /**
+     * Validates and extracts the 2-digit exercise ID from a command string.
+     * Expects the exercise ID to be the fourth whitespace-separated token.
+     *
+     * @param inputString The full command string
+     * @return The validated exercise ID (2 digits)
+     * @throws InvalidCommandException If the ID is missing, malformed, or contains non-digits
+     */
     public static String checkExerciseIDValidity(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         inputString = inputString.trim().replaceAll("\\s+", " ");
@@ -164,6 +188,14 @@ public class Parser {
         return exerciseID;
     }
 
+    /**
+     * Extracts the exercise description from a command string.
+     * Expects the description to start at the fourth token and continue to the end.
+     *
+     * @param inputString The full command string
+     * @return The exercise description (all text after the third whitespace)
+     * @throws InvalidCommandException If the description is missing or empty
+     */
     public static String onlyDescription(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)
@@ -177,6 +209,14 @@ public class Parser {
     }
 
 
+    /**
+     * Extracts the training notes from a session update command.
+     * Expects the notes to start at the fourth token and continue to the end.
+     *
+     * @param inputString The full command string
+     * @return The training notes (all text after the third whitespace)
+     * @throws InvalidCommandException If the notes are missing or empty
+     */
     public static String isTrainingNotes(String inputString) throws InvalidCommandException {
         inputString = inputString.trim();
         String[] parts = inputString.split("\\s+", 4); // parts[3] is the remainder (notes)

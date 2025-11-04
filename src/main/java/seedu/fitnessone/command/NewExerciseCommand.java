@@ -29,6 +29,20 @@ public class NewExerciseCommand implements Command {
         this.inputString = inputString;
     }
 
+    /**
+     * Creates a new exercise and adds it to the specified session.
+     * Validates the athlete ID, session ID, and exercise details (description, sets, reps).
+     * Parses the exercise description to extract sets and reps from the last two tokens,
+     * with the remaining text as the exercise description. Displays success message with
+     * full details including athlete, session, and exercise information.
+     *
+     * @param coachController The coach controller managing all athletes and sessions
+     * @param view The UI component for displaying results
+     * @throws InvalidAthleteException If the athlete ID does not exist in the system
+     * @throws InvalidSessionException If the session ID does not exist for the athlete
+     * @throws InvalidCommandException If the input format is invalid or sets/reps are not positive integers
+     * @throws InvalidExerciseException If adding the exercise violates exercise limit (99 per session)
+     */
     @Override
     public void execute(Coach coachController, Ui view)
             throws InvalidAthleteException, InvalidSessionException, InvalidCommandException, InvalidExerciseException,

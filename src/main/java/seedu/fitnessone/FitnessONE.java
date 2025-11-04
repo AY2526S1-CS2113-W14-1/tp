@@ -20,6 +20,12 @@ public class FitnessONE {
     private Coach coachController;
     private final StorageManager storage;
 
+    /**
+     * Constructs a new FitnessONE application instance.
+     * Initializes the UI, storage manager, and attempts to load saved athlete data
+     * from the data file. If loading fails (file missing or corrupted), starts with
+     * an empty coach controller and displays an error message to the user.
+     */
     public FitnessONE() {
         view = new Ui();
         storage = new StorageManager("data/athletes_export.txt");
@@ -40,6 +46,14 @@ public class FitnessONE {
         }
     }
 
+    /**
+     * Runs the main command loop of the FitnessONE application.
+     * Continuously reads user input, parses commands, executes them, and handles exceptions.
+     * After each successful command execution, persists the current state to the data file.
+     * Continues until the user executes an exit command. Catches and displays error messages
+     * for all expected exception types (InvalidCommand, InvalidID, InvalidSession, 
+     * InvalidExercise, InvalidAthlete).
+     */
     private void run() {
         boolean isExit = false;
         while (!isExit) {
@@ -88,7 +102,10 @@ public class FitnessONE {
     }
 
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry point for the FitnessONE fitness tracking application.
+     * Creates a new FitnessONE instance and starts the command loop.
+     *
+     * @param args Command-line arguments (not used)
      */
     public static void main(String[] args) {
         new FitnessONE().run();

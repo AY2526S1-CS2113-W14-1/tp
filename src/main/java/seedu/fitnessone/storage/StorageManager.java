@@ -31,6 +31,14 @@ public class StorageManager {
     /**
      * Validate that an ID is strictly numeric and of the expected length.
      * Returns the integer value if valid, otherwise records a parse error and returns null.
+     *
+     * @param rawId The ID string to validate
+     * @param expectedLength Required number of digits
+     * @param lineNumber Line number in file for error reporting
+     * @param parseErrors List to accumulate error messages
+     * @param line The full line from the file for context
+     * @param fieldName Description of the field being validated (e.g., "Athlete ID")
+     * @return The parsed integer if valid, or null if validation fails
      */
     private Integer validateNumericId(
             String rawId, int expectedLength, int lineNumber,
@@ -73,6 +81,11 @@ public class StorageManager {
 
     /**
      * Load Coach data from storage. Caller should handle IOException.
+     * Performs robust parsing with detailed error reporting. Invalid entries are
+     * skipped, and ID counters are adjusted to prevent future collisions.
+     *
+     * @return A Coach object populated with loaded athlete data, or empty if no data file exists
+     * @throws IOException If there is an error reading the file
      */
     public Coach load() throws IOException {
         Coach coach = new Coach();
@@ -333,7 +346,11 @@ public class StorageManager {
     }
 
     /**
-     * Save Coach data to storage. Caller should handle IOException.
+     * Save Coach data to storage. Writes all athletes, sessions, and exercises
+     * to a pipe-delimited file format. Caller should handle IOException.
+     *
+     * @param coach The Coach object containing all data to persist
+     * @throws IOException If there is an error writing to the file
      */
     public void save(Coach coach) throws IOException {
         assert filePath != null : "Storage filePath must not be null";

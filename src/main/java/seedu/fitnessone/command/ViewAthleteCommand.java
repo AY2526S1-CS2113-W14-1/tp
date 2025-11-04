@@ -25,6 +25,17 @@ public class ViewAthleteCommand implements Command {
 
 
 
+    /**
+     * Displays detailed information about the specified athlete.
+     * Shows the athlete's ID, name, total session count, and a nested list of all
+     * sessions with their exercises. Each session displays its notes and all associated
+     * exercises with their descriptions, sets, reps, and completion status.
+     *
+     * @param coachController The coach controller managing all athletes
+     * @param view The UI component for displaying results
+     * @throws InvalidCommandException If the command format is invalid (too many arguments)
+     * @throws InvalidAthleteException If the athlete ID does not exist in the system
+     */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException,
             InvalidAthleteException {
