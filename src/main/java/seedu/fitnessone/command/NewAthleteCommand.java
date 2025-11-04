@@ -22,6 +22,15 @@ public class NewAthleteCommand implements Command {
 
     }
 
+    /**
+     * Creates a new athlete in the system with the specified name.
+     * Extracts the athlete name from the input string, validates it, and adds the athlete
+     * to the coach's roster. Displays success message with the new athlete's details.
+     *
+     * @param coachController The coach controller managing all athletes
+     * @param view The UI component for displaying results
+     * @throws InvalidCommandException If the athlete name is blank or not specified
+     */
     @Override
     public void execute(Coach coachController, Ui view) throws InvalidCommandException, AthleteLimitReachedException {
         // Guard: ensure there is a name after the command word
