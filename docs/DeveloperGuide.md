@@ -85,7 +85,7 @@ And our team members who contributed to this project:
 
 The Architecture section explains the high-level design of FitnessONE and how its components collaborate to process commands, manipulate domain state, and persist data.
 
-![Overall Architecture](diagrams/overall_UML.png)
+![Overall Architecture](diagrams/architecture.png)
 
 PlantUML source (kept under version control): `diagrams/architecture.puml`.
 
@@ -142,7 +142,70 @@ Input processing flow
 Notes
 - Command-specific help is available by triggering a command with missing/invalid parameters.
 
- 
+ ### Logic and Commands component
+
+Responsibilities
+- Interpret parsed input into domain actions
+- Validate parameters and preconditions (existence of IDs, argument counts)
+- Execute operations by calling the controller/model and return user-facing messages
+
+Key types
+- `seedu.fitnessone.command.Command` — base class with `execute(Coach coach, Ui ui)`
+- Concrete commands e.g., `NewAthleteCommand`, `ViewAthleteCommand`, `ViewSessionsCommand`, `ViewExerciseCommand`, `CompleteSessionCommand`, `CompleteExerciseCommand`, `DeleteAthleteCommand`
+
+Execution contract
+- Input: references to the live `Coach` and `Ui`, plus any arguments captured during parsing
+- Output: side-effects on the model; messages printed via `Ui`
+- Error modes: throws `InvalidCommandException` (syntax/args) or propagates domain exceptions from controller/model
+
+### Controller component
+
+Responsibilities
+- Provide a single façade (`seedu.fitnessone.controller.Coach`) over domain data
+- Enforce domain rules and limits (e.g., capacity limits; valid lookups)
+- Allocate and manage identifiers; provide indexed/filtered accessors
+
+Notes
+- Commands call `Coach` methods for retrieving/updating `Athlete`, `Session`, and `Exercise` objects.
+- Domain exceptions thrown here bubble up to the UI with user-friendly messages.
+
+### Model component
+
+Responsibilities
+- Represent domain entities and in-memory state for athletes, sessions, and exercises
+- Provide simple getters/setters and minimal invariants (e.g., completed flags)
+
+Key classes (package `seedu.fitnessone.model`)
+- `Athlete` — name and collections of `Session`
+- `Session` — metadata and a list of `Exercise`; has a `completed` flag
+- `Exercise` — description, sets/reps and a `completed` flag
+
+Identifiers
+- IDs are centrally managed by `Coach`. Commands never construct IDs directly; they obtain and use IDs via controller/model APIs.
+
+### Storage component
+
+Responsibilities
+- Persist and load the entire application state to/from the filesystem
+- Provide deterministic round-trip serialization for `Coach`, `Athlete`, `Session`, and `Exercise`
+
+Key class
+- `seedu.fitnessone.storage.StorageManager` — handles `load()` on startup and `save(coach)` after successful commands
+
+Format and location
+- Text-based, line-oriented format stored under `data/athletes_export.txt`
+- Representative records: `ATHLETE|...`, `SESSION|...`, `EXERCISE|...`
+
+See also
+- Program Flow → Storage Operations for startup and runtime sequences
+- Implementation → StorageManager details for edge cases and error handling
+
+### Common classes
+
+- Exceptions: `seedu.fitnessone.exception.*` define user-visible failures (invalid IDs, limits reached, I/O errors)
+- Messages: user-facing strings are centralized in the UI/command layer for consistent formatting
+
+Class diagram (PlantUML source): `diagrams/components_class.puml`
 
 
 ### Program Flow
@@ -216,72 +279,10 @@ Design notes
 |v1.0|coach|create and manage athlete records; add training sessions and exercises; log daily macronutrients|track each student's training and nutrition data and preserve session history|
 |v2.0|coach|receive diet and exercise recommendations; export/import athlete data|adapt plans automatically based on tracked data and share/archive team progress|
 
-### Logic and Commands component
-
-Responsibilities
-- Interpret parsed input into domain actions
-- Validate parameters and preconditions (existence of IDs, argument counts)
-- Execute operations by calling the controller/model and return user-facing messages
-
-Key types
-- `seedu.fitnessone.command.Command` — base class with `execute(Coach coach, Ui ui)`
-- Concrete commands e.g., `NewAthleteCommand`, `ViewAthleteCommand`, `ViewSessionsCommand`, `ViewExerciseCommand`, `CompleteSessionCommand`, `CompleteExerciseCommand`, `DeleteAthleteCommand`
-
-Execution contract
-- Input: references to the live `Coach` and `Ui`, plus any arguments captured during parsing
-- Output: side-effects on the model; messages printed via `Ui`
-- Error modes: throws `InvalidCommandException` (syntax/args) or propagates domain exceptions from controller/model
-
-### Controller component
-
-Responsibilities
-- Provide a single façade (`seedu.fitnessone.controller.Coach`) over domain data
-- Enforce domain rules and limits (e.g., capacity limits; valid lookups)
-- Allocate and manage identifiers; provide indexed/filtered accessors
-
-Notes
-- Commands call `Coach` methods for retrieving/updating `Athlete`, `Session`, and `Exercise` objects.
-- Domain exceptions thrown here bubble up to the UI with user-friendly messages.
-
-### Model component
-
-Responsibilities
-- Represent domain entities and in-memory state for athletes, sessions, and exercises
-- Provide simple getters/setters and minimal invariants (e.g., completed flags)
-
-Key classes (package `seedu.fitnessone.model`)
-- `Athlete` — name and collections of `Session`
-- `Session` — metadata and a list of `Exercise`; has a `completed` flag
-- `Exercise` — description, sets/reps and a `completed` flag
-
-Identifiers
-- IDs are centrally managed by `Coach`. Commands never construct IDs directly; they obtain and use IDs via controller/model APIs.
-
-### Storage component
-
-Responsibilities
-- Persist and load the entire application state to/from the filesystem
-- Provide deterministic round-trip serialization for `Coach`, `Athlete`, `Session`, and `Exercise`
-
-Key class
-- `seedu.fitnessone.storage.StorageManager` — handles `load()` on startup and `save(coach)` after successful commands
-
-Format and location
-- Text-based, line-oriented format stored under `data/athletes_export.txt`
-- Representative records: `ATHLETE|...`, `SESSION|...`, `EXERCISE|...`
-
-See also
-- Program Flow → Storage Operations for startup and runtime sequences
-- Implementation → StorageManager details for edge cases and error handling
-
-### Common classes
-
-- Exceptions: `seedu.fitnessone.exception.*` define user-visible failures (invalid IDs, limits reached, I/O errors)
-- Messages: user-facing strings are centralized in the UI/command layer for consistent formatting
-
-Class diagram (PlantUML source): `diagrams/components_class.puml`
 
 ## Implementation
+
+![Overall Architecture](diagrams/overall_UML.png)
 
 This section describes some noteworthy details on how certain features are implemented. In general, the caller is the run method in FitnessONE; it reads user input, passes it to Parser.parse() to obtain a Command, invokes Command.execute(), then persists state.
 

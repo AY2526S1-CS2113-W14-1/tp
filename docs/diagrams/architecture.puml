@@ -1,33 +1,23 @@
 @startuml
+' Minimal Architecture Diagram: Command and interactions
 skinparam rectangle {
-  BackgroundColor<<UI>> #44b65d
-  BackgroundColor<<Logic>> #3357c2
-  BackgroundColor<<Model>> #c03632
-  BackgroundColor<<Storage>> #c8a117
-  BackgroundColor<<Main>> #999999
-  BackgroundColor<<Exception>> #bbbbbb
+  BackgroundColor Command #3357c2
+  BackgroundColor Parser #44b65d
+  BackgroundColor Ui #44b65d
+  BackgroundColor Coach #c03632
+  BackgroundColor StorageManager #c8a117
 }
 
-rectangle "user" as user #ea4545
-rectangle "ui" <<UI>> as ui
-rectangle "logic" <<Logic>> as logic
-rectangle "model" <<Model>> as model
-rectangle "storage" <<Storage>> as storage
-rectangle "main" <<Main>> as main
-rectangle "exception" <<Exception>> as exception
+rectangle "Command" as Command
+rectangle "Parser" as Parser
+rectangle "Ui" as Ui
+rectangle "Coach" as Coach
+rectangle "StorageManager" as StorageManager
 
-' Layout: main at top, ui/logic/model/exception in middle, storage at bottom, user at left
-main -down-> logic
-main -down-> model
-main -down-> storage
-user -right-> ui
-ui -right-> logic
-logic -down-> model
-ui -down-> model
-model -down-> storage
-logic -right-> storage
-logic -right-> exception
-ui -down-> exception
-storage -down-> [File/Data] #63ef7f
+Parser ..> Command : creates
+Ui ..> Command : executes
+Command --> Coach : uses
+Coach --> StorageManager : save/load
+Ui ..> Parser
 
 @enduml
