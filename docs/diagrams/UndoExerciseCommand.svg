@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1010px" preserveAspectRatio="none" style="width:1985px;height:1010px;background:#FFFFFF;" version="1.1" viewBox="0 0 1985 1010" width="1985px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="501" x="743.25" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="491" x="748.25" y="27.9951">UndoExercise Sequence Diagram (Parser passes parsed args)</text><rect fill="#FFFFFF" height="769.9297" style="stroke:#181818;stroke-width:1.0;" width="10" x="307" y="149.7266"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="949" y="178.8594"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="949" y="615.8516"/><rect fill="#FFFFFF" height="87.3984" style="stroke:#181818;stroke-width:1.0;" width="10" x="1001.5" y="237.125"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1373.5" y="266.2578"/><rect fill="#FFFFFF" height="291.3281" style="stroke:#181818;stroke-width:1.0;" width="10" x="1373.5" y="353.6563"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1635.5" y="382.7891"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1635.5" y="441.0547"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1709" y="499.3203"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1789.5" y="557.5859"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1899.5" y="815.2578"/><rect fill="none" height="252.6719" style="stroke:#000000;stroke-width:1.5;" width="1733.5" x="245" y="659.9844"/><rect fill="none" height="46.2656" style="stroke:#000000;stroke-width:1.5;" width="722.5" x="255" y="859.3906"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="24" x2="24" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="312" x2="312" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="953.5" x2="953.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1006.5" x2="1006.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1378.5" x2="1378.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1640.5" x2="1640.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1713.5" x2="1713.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1794.5" x2="1794.5" y1="118.5938" y2="929.6563"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1904.5" x2="1904.5" y1="118.5938" y2="929.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="5" y="115.292">User</text><ellipse cx="24" cy="50.7969" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M24,58.7969 L24,85.7969 M11,66.7969 L37,66.7969 M24,85.7969 L11,100.7969 M24,85.7969 L37,100.7969 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="5" y="941.6514">User</text><ellipse cx="24" cy="953.4531" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M24,961.4531 L24,988.4531 M11,969.4531 L37,969.4531 M24,988.4531 L11,1003.4531 M24,988.4531 L37,1003.4531 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94" x="265" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="272" y="107.292">FitnessONE</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94" x="265" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="272" y="948.6514">FitnessONE</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="27" x="940.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="13" x="947.5" y="107.292">Ui</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="27" x="940.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="13" x="947.5" y="948.6514">Ui</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="58" x="977.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="984.5" y="107.292">Parser</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="58" x="977.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="984.5" y="948.6514">Parser</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="180" x="1288.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="1295.5" y="107.292">UndoExerciseCommand</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="180" x="1288.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="1295.5" y="948.6514">UndoExerciseCommand</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="58" x="1611.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="1618.5" y="107.292">Coach</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="58" x="1611.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="1618.5" y="948.6514">Coach</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69" x="1679.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="1686.5" y="107.292">Session</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69" x="1679.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="1686.5" y="948.6514">Session</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="72" x="1758.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="1765.5" y="107.292">Exercise</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="72" x="1758.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="1765.5" y="948.6514">Exercise</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128" x="1840.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="1847.5" y="107.292">StorageManager</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128" x="1840.5" y="928.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="1847.5" y="948.6514">StorageManager</text><rect fill="#FFFFFF" height="769.9297" style="stroke:#181818;stroke-width:1.0;" width="10" x="307" y="149.7266"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="949" y="178.8594"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="949" y="615.8516"/><rect fill="#FFFFFF" height="87.3984" style="stroke:#181818;stroke-width:1.0;" width="10" x="1001.5" y="237.125"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1373.5" y="266.2578"/><rect fill="#FFFFFF" height="291.3281" style="stroke:#181818;stroke-width:1.0;" width="10" x="1373.5" y="353.6563"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1635.5" y="382.7891"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1635.5" y="441.0547"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1709" y="499.3203"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1789.5" y="557.5859"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1899.5" y="815.2578"/><polygon fill="#181818" points="295,145.7266,305,149.7266,295,153.7266,299,149.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="24" x2="301" y1="149.7266" y2="149.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="264" x="31" y="144.6606">(user types "/undoexercise 0001 003 02")</text><polygon fill="#181818" points="937,174.8594,947,178.8594,937,182.8594,941,178.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="943" y1="178.8594" y2="178.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="324" y="173.7935">readCommand()</text><polygon fill="#181818" points="328,203.9922,318,207.9922,328,211.9922,324,207.9922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322" x2="953" y1="207.9922" y2="207.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="183" x="334" y="202.9263">"/undoexercise 0001 003 02"</text><polygon fill="#181818" points="989.5,233.125,999.5,237.125,989.5,241.125,993.5,237.125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="995.5" y1="237.125" y2="237.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="229" x="324" y="232.0591">parse("/undoexercise 0001 003 02")</text><polygon fill="#181818" points="1361.5,262.2578,1371.5,266.2578,1361.5,270.2578,1365.5,266.2578" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1011.5" x2="1367.5" y1="266.2578" y2="266.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="343" x="1018.5" y="261.1919">&lt;&lt;create&gt;&gt; UndoExerciseCommand("0001 003 02")</text><polygon fill="#181818" points="1022.5,291.3906,1012.5,295.3906,1022.5,299.3906,1018.5,295.3906" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1016.5" x2="1377.5" y1="295.3906" y2="295.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="1028.5" y="290.3247">constructed</text><polygon fill="#181818" points="328,320.5234,318,324.5234,328,328.5234,324,324.5234" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322" x2="1005.5" y1="324.5234" y2="324.5234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="212" x="334" y="319.4575">UndoExerciseCommand instance</text><polygon fill="#181818" points="1361.5,349.6563,1371.5,353.6563,1361.5,357.6563,1365.5,353.6563" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="1367.5" y1="353.6563" y2="353.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="196" x="324" y="348.5903">execute(coachController, view)</text><polygon fill="#181818" points="1623.5,378.7891,1633.5,382.7891,1623.5,386.7891,1627.5,382.7891" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1383.5" x2="1629.5" y1="382.7891" y2="382.7891"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158" x="1390.5" y="377.7231">accessAthlete(athleteID)</text><polygon fill="#181818" points="1394.5,407.9219,1384.5,411.9219,1394.5,415.9219,1390.5,411.9219" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1388.5" x2="1639.5" y1="411.9219" y2="411.9219"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="1400.5" y="406.856">Athlete instance</text><polygon fill="#181818" points="1623.5,437.0547,1633.5,441.0547,1623.5,445.0547,1627.5,441.0547" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1383.5" x2="1629.5" y1="441.0547" y2="441.0547"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="232" x="1390.5" y="435.9888">accessSessionID(Athlete, sessionID)</text><polygon fill="#181818" points="1394.5,466.1875,1384.5,470.1875,1394.5,474.1875,1390.5,470.1875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1388.5" x2="1639.5" y1="470.1875" y2="470.1875"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="108" x="1400.5" y="465.1216">Session instance</text><polygon fill="#181818" points="1697,495.3203,1707,499.3203,1697,503.3203,1701,499.3203" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1383.5" x2="1703" y1="499.3203" y2="499.3203"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="1390.5" y="494.2544">getExercises()</text><polygon fill="#181818" points="1394.5,524.4531,1384.5,528.4531,1394.5,532.4531,1390.5,528.4531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1388.5" x2="1713" y1="528.4531" y2="528.4531"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="1400.5" y="523.3872">ArrayList&lt;Exercise&gt;</text><polygon fill="#181818" points="1777.5,553.5859,1787.5,557.5859,1777.5,561.5859,1781.5,557.5859" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1383.5" x2="1783.5" y1="557.5859" y2="557.5859"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="1390.5" y="552.52">setNotCompleted()</text><polygon fill="#181818" points="1394.5,582.7188,1384.5,586.7188,1394.5,590.7188,1390.5,586.7188" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1388.5" x2="1793.5" y1="586.7188" y2="586.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="1400.5" y="581.6528">done</text><polygon fill="#181818" points="970,611.8516,960,615.8516,970,619.8516,966,615.8516" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="964" x2="1372.5" y1="615.8516" y2="615.8516"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="358" x="976" y="610.7856">printWithDivider("Exercise ... marked as not completed")</text><polygon fill="#181818" points="35,640.9844,25,644.9844,35,648.9844,31,644.9844" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="29" x2="953" y1="644.9844" y2="644.9844"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="128" x="41" y="639.9185">display confirmation</text><path d="M245,659.9844 L309,659.9844 L309,667.1172 L299,677.1172 L245,677.1172 L245,659.9844 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="252.6719" style="stroke:#000000;stroke-width:1.5;" width="1733.5" x="245" y="659.9844"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19" x="260" y="673.0513">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="275" x="324" y="672.1948">[invalid input (wrong format / missing IDs)]</text><polygon fill="#181818" points="942,694.25,952,698.25,942,702.25,946,698.25" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="948" y1="698.25" y2="698.25"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="309" x="324" y="693.1841">printWithDivider("InvalidCommandException: ...")</text><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="245" x2="1978.5" y1="707.25" y2="707.25"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="214" x="250" y="717.4604">[invalid athlete/session/exercise]</text><polygon fill="#181818" points="1628.5,738.1875,1638.5,742.1875,1628.5,746.1875,1632.5,742.1875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1378.5" x2="1634.5" y1="742.1875" y2="742.1875"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="238" x="1385.5" y="737.1216">accessAthlete / accessSessionID fails</text><polygon fill="#181818" points="942,767.3203,952,771.3203,942,775.3203,946,771.3203" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="948" y1="771.3203" y2="771.3203"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="613" x="324" y="766.2544">printWithDivider("InvalidAthleteException / InvalidSessionException / InvalidCommandException")</text><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="245" x2="1978.5" y1="780.3203" y2="780.3203"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="61" x="250" y="790.5308">[success]</text><polygon fill="#181818" points="1887.5,811.2578,1897.5,815.2578,1887.5,819.2578,1891.5,815.2578" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="1893.5" y1="815.2578" y2="815.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="324" y="810.1919">save(coachController)</text><polygon fill="#181818" points="328,840.3906,318,844.3906,328,848.3906,324,844.3906" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="322" x2="1903.5" y1="844.3906" y2="844.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138" x="334" y="839.3247">success / IOException</text><path d="M255,859.3906 L319,859.3906 L319,866.5234 L309,876.5234 L255,876.5234 L255,859.3906 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="46.2656" style="stroke:#000000;stroke-width:1.5;" width="722.5" x="255" y="859.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19" x="270" y="872.4575">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="121" x="334" y="871.6011">[save IOException]</text><polygon fill="#181818" points="942,893.6563,952,897.6563,942,901.6563,946,897.6563" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="948" y1="897.6563" y2="897.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="299" x="324" y="892.5903">printWithDivider("Failed to save data: &lt;msg&gt;")</text><!--MD5=[15fa2201a87ebe3d1a1901412c1e3382]
+@startuml
+title UndoExercise Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant UndoExerciseCommand
+participant Coach
+participant Session
+participant Exercise
+participant StorageManager
+
+User -> FitnessONE: (user types "/undoexercise 0001 003 02")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui - -> FitnessONE: "/undoexercise 0001 003 02"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/undoexercise 0001 003 02")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> UndoExerciseCommand: <<create>> UndoExerciseCommand("0001 003 02")
+activate UndoExerciseCommand
+UndoExerciseCommand - -> Parser: constructed
+deactivate UndoExerciseCommand
+Parser - -> FitnessONE: UndoExerciseCommand instance
+deactivate Parser
+
+FitnessONE -> UndoExerciseCommand: execute(coachController, view)
+activate UndoExerciseCommand
+UndoExerciseCommand -> Coach: accessAthlete(athleteID)
+activate Coach
+Coach - -> UndoExerciseCommand: Athlete instance
+deactivate Coach
+
+UndoExerciseCommand -> Coach: accessSessionID(Athlete, sessionID)
+activate Coach
+Coach - -> UndoExerciseCommand: Session instance
+deactivate Coach
+
+UndoExerciseCommand -> Session: getExercises()
+activate Session
+Session - -> UndoExerciseCommand: ArrayList<Exercise>
+deactivate Session
+
+UndoExerciseCommand -> Exercise: setNotCompleted()
+activate Exercise
+Exercise - -> UndoExerciseCommand: done
+deactivate Exercise
+
+UndoExerciseCommand -> Ui: printWithDivider("Exercise ... marked as not completed")
+activate Ui
+Ui - -> User: display confirmation
+deactivate Ui
+deactivate UndoExerciseCommand
+
+alt invalid input (wrong format / missing IDs)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: ...")
+else invalid athlete/session/exercise
+    UndoExerciseCommand -> Coach: accessAthlete / accessSessionID fails
+    FitnessONE -> Ui: printWithDivider("InvalidAthleteException / InvalidSessionException / InvalidCommandException")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager - -> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml
+
+@startuml
+title UndoExercise Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant UndoExerciseCommand
+participant Coach
+participant Session
+participant Exercise
+participant StorageManager
+
+User -> FitnessONE: (user types "/undoexercise 0001 003 02")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui - -> FitnessONE: "/undoexercise 0001 003 02"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/undoexercise 0001 003 02")
+activate Parser
+Parser -> UndoExerciseCommand: <<create>> UndoExerciseCommand("0001 003 02")
+activate UndoExerciseCommand
+UndoExerciseCommand - -> Parser: constructed
+deactivate UndoExerciseCommand
+Parser - -> FitnessONE: UndoExerciseCommand instance
+deactivate Parser
+
+FitnessONE -> UndoExerciseCommand: execute(coachController, view)
+activate UndoExerciseCommand
+UndoExerciseCommand -> Coach: accessAthlete(athleteID)
+activate Coach
+Coach - -> UndoExerciseCommand: Athlete instance
+deactivate Coach
+
+UndoExerciseCommand -> Coach: accessSessionID(Athlete, sessionID)
+activate Coach
+Coach - -> UndoExerciseCommand: Session instance
+deactivate Coach
+
+UndoExerciseCommand -> Session: getExercises()
+activate Session
+Session - -> UndoExerciseCommand: ArrayList<Exercise>
+deactivate Session
+
+UndoExerciseCommand -> Exercise: setNotCompleted()
+activate Exercise
+Exercise - -> UndoExerciseCommand: done
+deactivate Exercise
+
+UndoExerciseCommand -> Ui: printWithDivider("Exercise ... marked as not completed")
+activate Ui
+Ui - -> User: display confirmation
+deactivate Ui
+deactivate UndoExerciseCommand
+
+alt invalid input (wrong format / missing IDs)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: ...")
+else invalid athlete/session/exercise
+    UndoExerciseCommand -> Coach: accessAthlete / accessSessionID fails
+    FitnessONE -> Ui: printWithDivider("InvalidAthleteException / InvalidSessionException / InvalidCommandException")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager - -> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

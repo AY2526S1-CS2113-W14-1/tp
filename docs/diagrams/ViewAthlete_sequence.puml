@@ -1,0 +1,97 @@
+@startuml
+title ViewAthlete Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant ViewAthleteCommand
+participant Coach
+participant Athlete
+participant Session
+participant Exercise
+
+User -> FitnessONE: (user types "/viewathlete 0001")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/viewathlete 0001"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/viewathlete 0001")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> ViewAthleteCommand: <<create>> ViewAthleteCommand("0001")
+activate ViewAthleteCommand
+ViewAthleteCommand --> Parser: constructed
+deactivate ViewAthleteCommand
+Parser --> FitnessONE: ViewAthleteCommand instance
+deactivate Parser
+
+FitnessONE -> ViewAthleteCommand: execute(coachController, view)
+activate ViewAthleteCommand
+ViewAthleteCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> ViewAthleteCommand: Athlete instance
+deactivate Coach
+
+ViewAthleteCommand -> Athlete: getSessions()
+activate Athlete
+Athlete --> ViewAthleteCommand: List<Session>
+deactivate Athlete
+
+alt athlete has sessions
+    ViewAthleteCommand -> Ui: divider()
+    activate Ui
+    Ui --> User: display divider
+    deactivate Ui
+
+    loop for each session
+        ViewAthleteCommand -> Session: getTrainingNotes()
+        activate Session
+        Session --> ViewAthleteCommand: trainingNotes
+        deactivate Session
+
+        ViewAthleteCommand -> Session: getExercises()
+        activate Session
+        Session --> ViewAthleteCommand: List<Exercise>
+        deactivate Session
+
+        loop for each exercise
+            ViewAthleteCommand -> Exercise: getExerciseDescription()
+            activate Exercise
+            Exercise --> ViewAthleteCommand: description
+            deactivate Exercise
+
+            ViewAthleteCommand -> Exercise: getSets()
+            activate Exercise
+            Exercise --> ViewAthleteCommand: sets
+            deactivate Exercise
+
+            ViewAthleteCommand -> Exercise: getReps()
+            activate Exercise
+            Exercise --> ViewAthleteCommand: reps
+            deactivate Exercise
+        end
+
+        ViewAthleteCommand -> Ui: println(session and exercises info)
+        activate Ui
+        Ui --> User: display session and exercises info
+        deactivate Ui
+    end
+
+    ViewAthleteCommand -> Ui: divider()
+    activate Ui
+    Ui --> User: display divider
+    deactivate Ui
+else no sessions
+    ViewAthleteCommand -> Ui: println("No sessions")
+    activate Ui
+    Ui --> User: display "No sessions"
+    deactivate Ui
+end
+
+deactivate ViewAthleteCommand
+deactivate FitnessONE
+@enduml

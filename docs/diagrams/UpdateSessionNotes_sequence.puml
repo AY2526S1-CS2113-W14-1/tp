@@ -1,0 +1,69 @@
+@startuml
+title UpdateSessionNotes Sequence Diagram (Parser passes parsed args)
+
+actor User
+participant FitnessONE
+participant Ui
+participant Parser
+participant UpdateSessionNotesCommand
+participant Coach
+participant StorageManager
+
+User -> FitnessONE: (user types "/updatesessionnote 0001 001 Chest-Day")
+activate FitnessONE
+
+FitnessONE -> Ui: readCommand()
+activate Ui
+Ui --> FitnessONE: "/updatesessionnote 0001 001 Chest-Day"
+deactivate Ui
+
+FitnessONE -> Parser: parse("/updatesessionnote 0001 001 Chest-Day")
+activate Parser
+' Parser parses arguments first, then constructs command with parsed params
+Parser -> UpdateSessionNotesCommand: <<create>> UpdateSessionNotesCommand("0001 001 Chest-Day")
+activate UpdateSessionNotesCommand
+UpdateSessionNotesCommand --> Parser: constructed
+deactivate UpdateSessionNotesCommand
+Parser --> FitnessONE: UpdateSessionNotesCommand instance
+deactivate Parser
+
+FitnessONE -> UpdateSessionNotesCommand: execute(coachController, view)
+activate UpdateSessionNotesCommand
+UpdateSessionNotesCommand -> Coach: accessAthleteID("0001")
+activate Coach
+Coach --> UpdateSessionNotesCommand: Athlete instance
+deactivate Coach
+
+UpdateSessionNotesCommand -> Coach: accessSessionID(Athlete, "001")
+activate Coach
+Coach --> UpdateSessionNotesCommand: Session instance
+deactivate Coach
+
+UpdateSessionNotesCommand -> Session: setTrainingNotes("Chest-Day")
+activate Session
+Session --> UpdateSessionNotesCommand: confirmation
+deactivate Session
+
+UpdateSessionNotesCommand -> Ui: printWithDivider("Successfully updated Athlete ...")
+activate Ui
+Ui --> User: display confirmation
+deactivate Ui
+deactivate UpdateSessionNotesCommand
+
+alt invalid input (e.g., missing Athlete ID or Session ID)
+    FitnessONE -> Ui: printWithDivider("InvalidCommandException: ...")
+else athlete/session not found
+    FitnessONE -> Ui: printWithDivider("InvalidAthleteException / InvalidSessionException: ...")
+else success
+    FitnessONE -> StorageManager: save(coachController)
+    activate StorageManager
+    StorageManager --> FitnessONE: success / IOException
+    deactivate StorageManager
+
+    alt save IOException
+        FitnessONE -> Ui: printWithDivider("Failed to save data: <msg>")
+    end
+end
+
+deactivate FitnessONE
+@enduml

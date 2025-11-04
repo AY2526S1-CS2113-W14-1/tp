@@ -285,6 +285,194 @@ Class diagram (PlantUML source): `diagrams/components_class.puml`
 
 This section describes some noteworthy details on how certain features are implemented. In general, the caller is the run method in FitnessONE; it reads user input, passes it to Parser.parse() to obtain a Command, invokes Command.execute(), then persists state.
 
+### NewAthlete feature
+
+Purpose:
+Show how the application handles a user request to create a new athlete, which is implemented by NewAthleteCommand.
+
+Sequence Diagram
+![NewAthlete diagram](diagrams/NewAthleteCommand.svg)
+
+Step-by-step explanation (map to code):
+
+1. FitnessONE.run calls view.readCommand() to get the raw input string from the user (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...).
+3. Parser identifies the command keyword /newathlete, parses the arguments (e.g., "Jonas Hardwell"), and constructs a NewAthleteCommand instance via new NewAthleteCommand("Jonas Hardwell").
+4. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by FitnessONE and dynamically dispatched to NewAthleteCommand.execute.
+5. Inside execute, NewAthleteCommand calls coachController.newAthlete("Jonas Hardwell") to create a new athlete and add it to the current coach’s athlete list.
+6. NewAthleteCommand then prints a confirmation message through view.printWithDivider, showing that the athlete has been successfully added.
+7. Control returns to FitnessONE.run; the method then persists the updated coach data by calling storage.save(coachController) and reports any I/O errors to the Ui if necessary.
+
+Error handling:
+1. If the command arguments are missing (e.g., athlete name not provided), Parser throws an InvalidCommandException, which is caught and displayed by Ui.printWithDivider.
+2. If the creation fails due to an internal logic error, NewAthleteCommand.execute throws an exception that is similarly caught and displayed.
+3. FitnessONE.run does not call save when command execution fails.
+
+### NewExercise feature
+
+Purpose: show how the application handles a user request to add a new exercise to an existing session, which is implemented by NewExerciseCommand.
+
+Sequence Diagram
+![NewExercise diagram](diagrams/NewExercise.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which parses the arguments (Athlete ID, Session ID, Exercise Description, sets, reps) and constructs a NewExerciseCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to NewExerciseCommand.execute.
+4. NewExerciseCommand.execute requests the Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
+5. The command calls session.addExercise(description, sets, reps) to create a new Exercise object.
+6. NewExerciseCommand prints confirmation via view.printWithDivider, displaying the newly added exercise details along with Athlete and Session info.
+7. Control returns to FitnessONE.run; run persists state with storage.save(coachController) and reports any I/O errors to the Ui.
+
+Error handling:
+1. If the Athlete or Session is not found, Coach throws InvalidAthleteException or InvalidSessionException.
+2. If the input parameters are invalid (e.g., missing fields or sets/reps are not integers), NewExerciseCommand throws InvalidCommandException.
+3. These exceptions are caught and wrapped/displayed via Ui.printWithDivider.
+4. FitnessONE.run does not call save on failure.
+5. If saving fails due to an IOException, Ui.printWithDivider displays the error message.
+
+### NewSession feature
+
+Purpose: show how the application handles a user request to add a new session for an existing athlete, which is implemented by NewSessionCommand.
+
+Sequence Diagram
+![NewSession diagram](diagrams/NewSessionCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs a NewSessionCommand instance with the parsed parameters.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to NewSessionCommand.execute.
+4. NewSessionCommand.execute calls coachController.accessAthleteID(athleteID) to get the Athlete object.
+5. The command then calls coachController.addSessionToAthlete(athleteID, trainingNotes) to create a new Session object and add it to the athlete.
+6. NewSessionCommand prints a confirmation message via view.printWithDivider(...).
+7. Control returns to FitnessONE.run; run persists state with StorageManager.save(coachController) and reports any I/O errors to the Ui.
+
+Error handling:
+1. If the athlete ID is invalid or missing, Coach throws InvalidAthleteException; if the command input is malformed, NewSessionCommand throws InvalidCommandException.
+2. FitnessONE wraps these into messages displayed via Ui.printWithDivider(...).
+3. If saving via StorageManager fails (IOException), the error is displayed via Ui.printWithDivider(...).
+4. FitnessONE.run does not call save on failure.
+
+### UndoExercise feature
+
+Purpose: show how the application handles a user request to mark a previously completed exercise as not completed, implemented by UndoExerciseCommand.
+
+Sequence Diagram
+![UndoExercise diagram](diagrams/UndoExerciseCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs an UndoExerciseCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by FitnessONE and dynamically dispatched to UndoExerciseCommand.execute.
+4. UndoExerciseCommand.execute: it calls Coach.accessAthlete(athleteID) to get the Athlete, then Coach.accessSessionID(Athlete, sessionID) to get the Session.
+5. The command iterates session.getExercises(), matches the exerciseID, and calls exercise.setNotCompleted() when found.
+6. The command prints confirmation via view.printWithDivider.
+7. Control returns to FitnessONE.run; run persists state with StorageManager.save(coachController) and reports any I/O errors to the Ui.
+
+Error handling:
+1. If the input format is invalid, UndoExerciseCommand throws InvalidCommandException, and Ui.printWithDivider displays the message.
+2. If the athlete, session, or exercise is not found, Coach throws InvalidAthleteException / InvalidSessionException / InvalidExerciseException; the error is caught and displayed via Ui.printWithDivider.
+3. FitnessONE.run does not call save on failure.
+
+### UndoSession feature
+
+Purpose: Mark a previously completed session as not completed. Implemented by UndoSessionCommand.
+
+Sequence Diagram
+![UndoSession diagram](diagrams/UndoSessionCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs an UndoSessionCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to UndoSessionCommand.execute.
+4. UndoSessionCommand.execute: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID), calls session.setNotCompleted() to mark the session as not completed, and prints confirmation via view.printWithDivider.
+5. Control returns to FitnessONE.run; run persists state with StorageManager.save(coachController) and reports any I/O errors to the Ui.
+
+Error handling:
+1. If the athlete or session is not found, Coach throws InvalidAthleteException / InvalidSessionException.
+2. UndoSessionCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
+
+### UpdateSessionNotes feature
+Purpose: Show how the application handles a user request to update the training notes of a session, implemented by UpdateSessionNotesCommand.
+
+Sequence Diagram
+![UpdateSession diagram](diagrams/UpdateSessionCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs an UpdateSessionNotesCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to UpdateSessionNotesCommand.execute.
+4. UpdateSessionNotesCommand.execute calls coachController.accessAthleteID(athleteID) to retrieve the Athlete, then calls coachController.accessSessionID(athlete, sessionID) to retrieve the Session. The command then calls session.setTrainingNotes(sessionNotes) to update the notes and prints confirmation via view.printWithDivider(...).
+5. Control returns to FitnessONE.run; if the command was successful, StorageManager.save(coachController) is invoked to persist changes.
+
+Error handling:
+1. If the athlete or session is not found, Coach throws InvalidAthleteException / InvalidSessionException.
+2. If the input string is invalid, Parser or command throws InvalidCommandException.
+3. Exceptions are wrapped or caught in FitnessONE.run() and displayed via Ui.printWithDivider(...).
+4. On failure, StorageManager.save is not called.
+
+### ViewAthlete feature
+
+Purpose: show how the application handles a user request to view an athlete’s sessions and exercises, which is implemented by ViewAthleteCommand.
+
+Sequence Diagram
+![ViewAthlete diagram](diagrams/ViewAthleteCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs a ViewAthleteCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to ViewAthleteCommand.execute.
+4. ViewAthleteCommand.execute: it asks Coach for the Athlete (coachController.accessAthleteID), then calls athlete.getSessions() to retrieve all sessions.
+5. The command iterates through each session and prints session.getTrainingNotes(). For each session, it iterates through session.getExercises(), printing exercise.getExerciseDescription(), exercise.getSets(), and exercise.getReps() via view.println(...).
+6. Control returns to FitnessONE.run. Since this command is read-only, no state persistence (StorageManager.save) is invoked.
+
+Error handling:
+1. If the athlete ID is invalid or not found, Coach throws InvalidAthleteException.
+2. ViewAthleteCommand wraps or propagates this to InvalidCommandException, and Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
+
+### ViewExercise feature
+
+Purpose: show how the application handles a user request to view all exercises in a specified session of an athlete, which is implemented by ViewExerciseCommand.
+
+Sequence Diagram
+![ViewExercise diagram](diagrams/ViewExerciseCommand.svg)
+
+Step-by-step explanation (map to code):
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs a ViewExerciseCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to ViewExerciseCommand.execute.
+4. ViewExerciseCommand.execute: it asks Coach for the Athlete (coachController.accessAthleteID) and then for the Session (coachController.accessSessionID).
+5. The command iterates over session.getExercises() to retrieve each Exercise’s information and prints the details via view.printWithDivider and view.println.
+6. Control returns to FitnessONE.run; since this command does not modify state, no persistence via StorageManager.save is needed.
+
+Error handling:
+1. If the athlete or session is not found, Coach throws InvalidAthleteException or InvalidSessionException.
+2. ViewExerciseCommand wraps this into InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
+3. FitnessONE.run does not call save on failure.
+
+### ViewSessions feature
+
+Purpose: show how the application handles a user request to view all sessions of a specified athlete, implemented by ViewSessionsCommand.
+
+Sequence Diagram
+![ViewSessions diagram](diagrams/ViewSessionsCommand.svg)
+
+Step-by-step explanation (map to code):
+
+1. FitnessONE.run calls view.readCommand() to get the raw string (Ui.readCommand).
+2. FitnessONE passes the raw string to Parser.parse(...), which constructs a ViewSessionsCommand instance.
+3. FitnessONE invokes c.execute(coachController, view). This call is statically dispatched by the caller (FitnessONE) and dynamically dispatched to ViewSessionsCommand.execute.
+4. ViewSessionsCommand.resolve: it asks Coach for the Athlete (coachController.accessAthleteID) and then retrieves the list of sessions (athlete.getSessions()).
+5. The command iterates through the list of sessions, formats the status, session ID, date, and notes, and prints each session via view.println(...).
+6. Control returns to FitnessONE.run; run persists state with storage.save(coachController) if applicable and reports any I/O errors to the Ui.
+
+Error handling:
+1. If the input string is malformed (too many arguments), ViewSessionsCommand throws InvalidCommandException.
+2. If the athlete ID is invalid or the athlete does not exist, Coach throws InvalidAthleteException; the exception is displayed by Ui.printWithDivider.
+3. On any failure, FitnessONE.run does not call save.
+
 ### CompleteExercise feature
 
 Purpose: show how the application handles a user request to complete a single exercise, which is implemented by CompleteExerciseCommand.
