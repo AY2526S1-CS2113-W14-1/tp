@@ -46,7 +46,9 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 4. Open a command terminal, navigate (`cd`) into the folder you put the jar file in, and use the `java -jar FitnessONE.jar` command to run the application.
 
-5. Type a command in the terminal and press Enter to execute it. For example:
+5. Here's what you should see when the application starts successfully: ![](image_for_UG/FitnessONE.png)
+
+6. Type a command in the terminal and press Enter to execute it. For example:
    * `/help` : Shows a list of all available commands.
    * `/newathlete John Doe` : Adds a new athlete named "John Doe".
    * `/listathletes` : Lists all athletes.
@@ -58,18 +60,16 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
 **:information_source: Notes about the command format:**<br>
 
 * Words in `<UPPER_CASE>` are the parameters to be supplied by you.<br>
-  e.g. in `/newathlete <Athlete Name>`, `<Athlete Name>` is a parameter which can be used as `/newathlete John Doe`.
+  e.g. in `/newathlete <ATHLETE_NAME>`, `<ATHLETE_NAME>` is a parameter which can be used as `/newathlete John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g. `<Athlete Name> [Color]` can be used as `John Doe red` or as `John Doe`.
+  e.g. `<ATHLETE_NAME> [COLOR]` can be used as `John Doe red` or as `John Doe`.
 
 * Parameters must be in the specified order.<br>
-  e.g. if the command specifies `/newexercise <Athlete ID> <Session ID> <Description> <Sets> <Reps>`, the order must be followed.
+  e.g. if the command specifies `/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS>`, the order must be followed.
 
 * **ID Formats:**
   * Athlete ID: 4 digits (e.g., `0001`)
@@ -78,8 +78,9 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 * Extraneous parameters for commands that do not take parameters (such as `/help`, `/listathletes`, and `bye`) will cause an error.
 
-</div>
+**All outputs are displayed in lowercase, regardless of how the input is entered (e.g., uppercase or mixed case)**
 
+</div>
 --------------------------------------------------------------------------------------------------------------------
 
 ### Athlete Management
@@ -88,7 +89,7 @@ FitnessONE is a **desktop application for fitness coaches to manage multiple ath
 
 Creates a new athlete profile with a specified name. The system automatically assigns a unique 4-digit athlete ID.
 
-**Format:** `/newathlete <Athlete Name>`
+**Format:** `/newathlete <ATHLETE_NAME>`
 
 **Example:**
 ```
@@ -98,8 +99,8 @@ Creates a new athlete profile with a specified name. The system automatically as
 **Expected output:**
 ```
 ____________________________________________________________
-athlete added.
-     [  ] Jonas Hardwell (0001)
+Athlete added:
+     [  ] jonas hardwell (0001)
 ____________________________________________________________
 ```
 
@@ -109,7 +110,7 @@ ____________________________________________________________
 
 Displays detailed information about a specific athlete, including all their sessions and exercises.
 
-**Format:** `/viewathlete <Athlete ID>`
+**Format:** `/viewathlete <ATHLETE_ID> `
 
 **Example:**
 ```
@@ -119,16 +120,16 @@ Displays detailed information about a specific athlete, including all their sess
 **Expected output:**
 ```
 ____________________________________________________________
-    Athlete Name: Jonas Hardwell
+    Athlete Name: jonas hardwell
     Sessions: 2
     List:
-       Session 1. | Notes: Chest day
+       Session 1. | Notes: chest day
        Exercises:
-          1. | Notes: Bench Press | sets x reps: 5 x 3
-          2. | Notes: Cable Press | sets x reps: 5 x 15
-       Session 2. | Notes: Leg day
+          1. | Notes: bench press | sets x reps: 5 x 3
+          2. | Notes: cable press | sets x reps: 5 x 15
+       Session 2. | Notes: leg day
        Exercises:
-          1. | Notes: Squat | sets x reps: 5 x 5
+          1. | Notes: squat | sets x reps: 5 x 5
 ____________________________________________________________
 ```
 
@@ -148,9 +149,9 @@ Displays a list of all registered athletes with their IDs and priority flags.
 **Expected output:**
 ```
 ____________________________________________________________
-    1. [RED] Jonas Hardwell (0001)
-    2. [YELLOW] John Doe (0002)
-    3. [ ] Jonathan Well (0003)
+    1. [RED] jonas hardwell (0001)
+    2. [YELLOW] john doe (0002)
+    3. [ ] jonathan well (0003)
 
 ____________________________________________________________
 ```
@@ -161,7 +162,7 @@ ____________________________________________________________
 
 Assigns a color flag to an athlete for priority tracking.
 
-**Format:** `/flagathlete <Athlete ID> <Color>`
+**Format:** `/flagathlete <ATHLETE_ID>  <COLOR>`
 
 **Supported colors:** `red`, `yellow`, `green`
 
@@ -183,11 +184,10 @@ ____________________________________________________________
 
 Deletes an athlete and all associated data (sessions and exercises).
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+⚠️ **Caution:**
 This action cannot be undone. All data associated with the athlete will be permanently deleted.
-</div>
 
-**Format:** `/deleteathlete <Athlete ID>`
+**Format:** `/deleteathlete <ATHLETE_ID> `
 
 **Example:**
 ```
@@ -209,7 +209,7 @@ ____________________________________________________________
 
 Creates a new training session for a specific athlete.
 
-**Format:** `/newsession <Athlete ID> <Session Notes>`
+**Format:** `/newsession <ATHLETE_ID>  <Session Notes>`
 
 **Example:**
 ```
@@ -220,10 +220,10 @@ Creates a new training session for a specific athlete.
 ```
 ____________________________________________________________
 New session created:
-Athlete Name: Jonas Hardwell | ID: 0001
+Athlete Name: jonas hardwell | ID: 0001
 
 Session ID: 001
-Session Description: Leg day workout
+Session Description: leg day workout
 ____________________________________________________________
 ```
 
@@ -233,7 +233,7 @@ ____________________________________________________________
 
 Displays all sessions for a specific athlete, showing completion status, date, and notes.
 
-**Format:** `/viewsessions <Athlete ID>`
+**Format:** `/viewsessions <ATHLETE_ID> `
 
 **Example:**
 ```
@@ -243,18 +243,17 @@ Displays all sessions for a specific athlete, showing completion status, date, a
 **Expected output:**
 ```
 ____________________________________________________________
-Athlete ID: 0001 | Name: Jonas Hardwell
+Athlete ID: 0001 | Name: jonas hardwell
 
 Status |  Session ID   | Date                   | Notes
-1. [ ] |  Session: 001 | Date: 29-10-2025 08:00 | Morning session
-2. [X] |  Session: 002 | Date: 29-10-2025 10:00 | Pre training warmup
-3. [ ] |  Session: 003 | Date: 29-10-2025 15:00 | Post training cool down
+1. [ ] |  Session: 001 | Date: 29-10-2025 08:00 | morning session
+2. [X] |  Session: 002 | Date: 29-10-2025 10:00 | pre training warmup
+3. [ ] |  Session: 003 | Date: 29-10-2025 15:00 | post training cool down
 ____________________________________________________________
 ```
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+💡 **Tip:**
 `[X]` indicates a completed session, while `[ ]` indicates an incomplete session.
-</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -262,7 +261,7 @@ ____________________________________________________________
 
 Updates the training notes for a specific session.
 
-**Format:** `/updatesessionnote <Athlete ID> <Session ID> <New Notes>`
+**Format:** `/updatesessionnote <ATHLETE_ID>  <SESSION_ID> <New Notes>`
 
 **Example:**
 ```
@@ -272,7 +271,7 @@ Updates the training notes for a specific session.
 **Expected output:**
 ```
 ____________________________________________________________
-Successfully updated Athlete (ID: 0001) session: 001 with notes: Upper body strength training.
+Successfully updated Athlete (ID: 0001) session: 001 with notes: upper body strength training.
 ____________________________________________________________
 ```
 
@@ -282,7 +281,7 @@ ____________________________________________________________
 
 Marks a session as completed.
 
-**Format:** `/completesession <Athlete ID> <Session ID>`
+**Format:** `/completesession <ATHLETE_ID>  <SESSION_ID>`
 
 **Example:**
 ```
@@ -292,7 +291,7 @@ Marks a session as completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 001) completed by Jonas Hardwell (ID: 0001).
+Session (ID: 001) completed by jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -302,7 +301,7 @@ ____________________________________________________________
 
 Marks a previously completed session as not completed.
 
-**Format:** `/undosession <Athlete ID> <Session ID>`
+**Format:** `/undosession <ATHLETE_ID>  <SESSION_ID>`
 
 **Example:**
 ```
@@ -312,7 +311,7 @@ Marks a previously completed session as not completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 001) was marked as not completed for Jonas Hardwell (ID: 0001).
+Session (ID: 001) has been marked as not completed for johnas hardwell (ID: 0002).
 ____________________________________________________________
 ```
 
@@ -322,11 +321,10 @@ ____________________________________________________________
 
 Deletes a specific session and all its associated exercises.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+⚠️ **Caution:**
 This action cannot be undone. All exercises in this session will also be deleted.
-</div>
 
-**Format:** `/deletesession <Athlete ID> <Session ID>`
+**Format:** `/deletesession <ATHLETE_ID>  <SESSION_ID>`
 
 **Example:**
 ```
@@ -336,7 +334,7 @@ This action cannot be undone. All exercises in this session will also be deleted
 **Expected output:**
 ```
 ____________________________________________________________
-Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)
+Session 001 deleted for 0002
 ____________________________________________________________
 ```
 
@@ -348,7 +346,7 @@ ____________________________________________________________
 
 Adds a new exercise to a specific session with sets and reps.
 
-**Format:** `/newexercise <Athlete ID> <Session ID> <Exercise Description> <Sets> <Reps>`
+**Format:** `/newexercise <ATHLETE_ID>  <SESSION_ID> <Exercise Description> <SETS> <REPS>`
 
 **Example:**
 ```
@@ -361,13 +359,12 @@ ____________________________________________________________
 New exercise created!
 
 Athlete (ID): 0001
-Athlete name: Jonas Hardwell
-
-Session (ID): 001
-Session Description: Chest day
+Athlete name: jonas hardwell
+Session (ID): 001 | Date: 03-11-2025 13:23
+Session Description: chest day
 
 Exercise (ID): 01
-Exercise Description: Bench Press
+Exercise Description: bench press
 sets x reps: 5 x 10
 ____________________________________________________________
 ```
@@ -378,7 +375,7 @@ ____________________________________________________________
 
 Displays all exercises in a specific session.
 
-**Format:** `/viewexercises <Athlete ID> <Session ID>`
+**Format:** `/viewexercises <ATHLETE_ID>  <SESSION_ID>`
 
 **Example:**
 ```
@@ -389,19 +386,18 @@ Displays all exercises in a specific session.
 ```
 ____________________________________________________________
 Athlete ID: 0001
-Athlete Name: Jonas Hardwell
-Session ID: 001
-Session Note: Chest day
+Athlete Name: jonas hardwell
+Session ID: 001 | 03-11-2025 13:12
 
-1. [X] Bench Press 5 x 10
-2. [ ] Cable Fly 3 x 12
-3. [ ] Push Ups 3 x 15
+Session Note: Chest day
+Exercise List: 3
+1. [X] ID: 01 bench press 5 x 10
+2. [ ] ID: 02 cable fly 3 x 12
+3. [ ] ID: 03 push ups 3 x 15
 ____________________________________________________________
 ```
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
-`[X]` indicates a completed exercise, while `[ ]` indicates an incomplete exercise.
-</div>
+💡 **Tip:** `[X]` indicates a completed exercise, while `[ ]` indicates an incomplete exercise.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -409,7 +405,7 @@ ____________________________________________________________
 
 Marks an exercise as completed.
 
-**Format:** `/completeexercise <Athlete ID> <Session ID> <Exercise ID>`
+**Format:** `/completeexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`
 
 **Example:**
 ```
@@ -419,7 +415,7 @@ Marks an exercise as completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).
+Exercise (ID: 01) completed by jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -429,7 +425,7 @@ ____________________________________________________________
 
 Marks a previously completed exercise as not completed.
 
-**Format:** `/undoexercise <Athlete ID> <Session ID> <Exercise ID>`
+**Format:** `/undoexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`
 
 **Example:**
 ```
@@ -439,7 +435,7 @@ Marks a previously completed exercise as not completed.
 **Expected output:**
 ```
 ____________________________________________________________
-Exercise (ID: 01), Session (ID: 001) has been marked as not completed for Jonas Hardwell (ID: 0001).
+Exercise (ID: 01), Session (ID: 001) has been marked as not completed for jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -449,11 +445,9 @@ ____________________________________________________________
 
 Deletes a specific exercise from a session.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-This action cannot be undone.
-</div>
+⚠️ **Caution:** This action cannot be undone.
 
-**Format:** `/deleteexercise <Athlete ID> <Session ID> <Exercise ID>`
+**Format:** `/deleteexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`
 
 **Example:**
 ```
@@ -463,7 +457,7 @@ This action cannot be undone.
 **Expected output:**
 ```
 ____________________________________________________________
-Deleted exercise (ID: 02) from session 001 for Jonas Hardwell (ID: 0001).
+Deleted exercise (ID: 02) from session 001 for jonas hardwell (ID: 0001).
 ____________________________________________________________
 ```
 
@@ -487,9 +481,9 @@ Displays a ranked list of all athletes based on their achievement scores (comple
 ____________________________________________________________
 athleteName     athleteId score
     ____________________________________________________________
-    Jonas Hardwell  0001      15
-    John Doe        0002      10
-    Jane Smith      0003      5
+    jonas hardwell  0001      15
+    john doe        0002      10
+    jane smith      0003      5
 
 ____________________________________________________________
 ```
@@ -513,26 +507,26 @@ ____________________________________________________________
 FitnessONE - Available Commands
 
 === ATHLETE COMMANDS ===
-/newathlete <Name> - Create a new athlete
-/viewathlete <Athlete ID> - View athlete details
+/newathlete <ATHLETE_NAME> - Create a new athlete
+/viewathlete <ATHLETE_ID>  - View athlete details
 /listathletes - List all athletes
-/deleteathlete <Athlete ID> - Delete an athlete
-/flagathlete <Athlete ID> <Color> - Flag an athlete
+/deleteathlete <ATHLETE_ID>  - Delete an athlete
+/flagathlete <ATHLETE_ID>  <COLOR> - Flag an athlete
 
 === SESSION COMMANDS ===
-/newsession <Athlete ID> <Notes> - Create a new session
-/deletesession <Athlete ID> <Session ID> - Delete a session
-/completesession <Athlete ID> <Session ID> - Complete a session
-/viewsessions <Athlete ID> - View all sessions
-/updatesessionnote <Athlete ID> <Session ID> <Notes> - Update notes
-/undosession <Athlete ID> <Session ID> - Undo completion
+/newsession <ATHLETE_ID>  <NOTES> - Create a new session
+/deletesession <ATHLETE_ID>  <SESSION_ID> - Delete a session
+/completesession <ATHLETE_ID>  <SESSION_ID> - Complete a session
+/viewsessions <ATHLETE_ID>  - View all sessions
+/updatesessionnote <ATHLETE_ID>  <SESSION_ID> <NOTES> - Update notes
+/undosession <ATHLETE_ID>  <SESSION_ID> - Undo completion
 
 === EXERCISE COMMANDS ===
-/newexercise <Athlete ID> <Session ID> <Description> <Sets> <Reps> - Create exercise
-/deleteexercise <Athlete ID> <Session ID> <Exercise ID> - Delete exercise
-/viewexercises <Athlete ID> <Session ID> - View all exercises
-/completeexercise <Athlete ID> <Session ID> <Exercise ID> - Complete exercise
-/undoexercise <Athlete ID> <Session ID> <Exercise ID> - Undo completion
+/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS> - Create exercise
+/deleteexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID> - Delete exercise
+/viewexercises <ATHLETE_ID>  <SESSION_ID> - View all exercises
+/completeexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID> - Complete exercise
+/undoexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID> - Undo completion
 
 === OTHER COMMANDS ===
 /help - Show this help message
@@ -571,9 +565,8 @@ FitnessONE data is saved in the hard disk automatically after any command that c
 
 The data file is located at `[JAR file location]/data/athletes_export.txt`.
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+💡 **Tip:** 
 FitnessONE creates the data folder and file automatically if they don't exist.
-</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -598,24 +591,24 @@ A: Yes, each athlete is uniquely identified by their athlete ID, not their name.
 
 ## Command Summary
 
-| Action | Command | Example |
-|--------|---------|---------|
-| **Add athlete** | `/newathlete <Name>` | `/newathlete Jonas Hardwell` |
-| **View athlete** | `/viewathlete <Athlete ID>` | `/viewathlete 0001` |
-| **List athletes** | `/listathletes` | `/listathletes` |
-| **Flag athlete** | `/flagathlete <Athlete ID> <Color>` | `/flagathlete 0001 red` |
-| **Delete athlete** | `/deleteathlete <Athlete ID>` | `/deleteathlete 0001` |
-| **Add session** | `/newsession <Athlete ID> <Notes>` | `/newsession 0001 Leg day` |
-| **View sessions** | `/viewsessions <Athlete ID>` | `/viewsessions 0001` |
-| **Update session notes** | `/updatesessionnote <Athlete ID> <Session ID> <Notes>` | `/updatesessionnote 0001 001 Upper body` |
-| **Complete session** | `/completesession <Athlete ID> <Session ID>` | `/completesession 0001 001` |
-| **Undo session** | `/undosession <Athlete ID> <Session ID>` | `/undosession 0001 001` |
-| **Delete session** | `/deletesession <Athlete ID> <Session ID>` | `/deletesession 0001 001` |
-| **Add exercise** | `/newexercise <Athlete ID> <Session ID> <Description> <Sets> <Reps>` | `/newexercise 0001 001 Bench Press 5 10` |
-| **View exercises** | `/viewexercises <Athlete ID> <Session ID>` | `/viewexercises 0001 001` |
-| **Complete exercise** | `/completeexercise <Athlete ID> <Session ID> <Exercise ID>` | `/completeexercise 0001 001 01` |
-| **Undo exercise** | `/undoexercise <Athlete ID> <Session ID> <Exercise ID>` | `/undoexercise 0001 001 01` |
-| **Delete exercise** | `/deleteexercise <Athlete ID> <Session ID> <Exercise ID>` | `/deleteexercise 0001 001 01` |
-| **View leaderboard** | `/leaderboard` | `/leaderboard` |
-| **View help** | `/help` | `/help` |
-| **Exit** | `bye` | `bye` |
+| Action                   | Command                                                               | Example                                  |
+|--------------------------|-----------------------------------------------------------------------|------------------------------------------|
+| **Add athlete**          | `/newathlete <ATHLETE_NAME>`                                          | `/newathlete Jonas Hardwell`             |
+| **View athlete**         | `/viewathlete <ATHLETE_ID> `                                          | `/viewathlete 0001`                      |
+| **List athletes**        | `/listathletes`                                                       | `/listathletes`                          |
+| **Flag athlete**         | `/flagathlete <ATHLETE_ID>  <COLOR>`                                  | `/flagathlete 0001 red`                  |
+| **Delete athlete**       | `/deleteathlete <ATHLETE_ID> `                                        | `/deleteathlete 0001`                    |
+| **Add session**          | `/newsession <ATHLETE_ID>  <NOTES>`                                   | `/newsession 0001 Leg day`               |
+| **View sessions**        | `/viewsessions <ATHLETE_ID> `                                         | `/viewsessions 0001`                     |
+| **Update session notes** | `/updatesessionnote <ATHLETE_ID>  <SESSION_ID> <NOTES>`               | `/updatesessionnote 0001 001 Upper body` |
+| **Complete session**     | `/completesession <ATHLETE_ID>  <SESSION_ID>`                         | `/completesession 0001 001`              |
+| **Undo session**         | `/undosession <ATHLETE_ID>  <SESSION_ID>`                             | `/undosession 0001 001`                  |
+| **Delete session**       | `/deletesession <ATHLETE_ID>  <SESSION_ID>`                           | `/deletesession 0001 001`                |
+| **Add exercise**         | `/newexercise <ATHLETE_ID>  <SESSION_ID> <DESCRIPTION> <SETS> <REPS>` | `/newexercise 0001 001 Bench Press 5 10` |
+| **View exercises**       | `/viewexercises <ATHLETE_ID>  <SESSION_ID>`                           | `/viewexercises 0001 001`                |
+| **Complete exercise**    | `/completeexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`          | `/completeexercise 0001 001 01`          |
+| **Undo exercise**        | `/undoexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`              | `/undoexercise 0001 001 01`              |
+| **Delete exercise**      | `/deleteexercise <ATHLETE_ID>  <SESSION_ID> <EXERCISE_ID>`            | `/deleteexercise 0001 001 01`            |
+| **View leaderboard**     | `/leaderboard`                                                        | `/leaderboard`                           |
+| **View help**            | `/help`                                                               | `/help`                                  |
+| **Exit**                 | `bye`                                                                 | `bye`                                    |

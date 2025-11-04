@@ -36,7 +36,7 @@ public class UndoSessionCommand implements Command {
         Athlete athlete = coachController.accessAthleteID(athleteID);
         Session session = coachController.accessSessionID(athlete, sessionID);
 
-        if(session.isCompleted()) {
+        if (session.isCompleted()) {
             session.setNotCompleted();
             view.printWithDivider("Session (ID: " + sessionID + ") has been marked as not completed for "
                     + athlete.getAthleteName() + " (ID: " + athleteID + ").");

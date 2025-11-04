@@ -3,35 +3,64 @@ Format inspired by [addressbook-level3](https://se-education.org/addressbook-lev
 
 ## Table of Contents
 * [Acknowledgements](#acknowledgements)
-* [Setting up, getting started](#setting-up-getting-started)
 * [Design](#design)
-  * [Architecture](#architecture)
-  * [UI component](#ui-component)
-  * [Logic component](#logic-component)
-  * [Model component](#model-component)
-  * [Storage component](#storage-component)
-  * [Common classes](#common-classes)
+    * [Architecture Overview](#architecture-overview)
+    * [UI Component](#ui-component)
+        * [Responsibilities](#responsibilities)
+        * [Key Classes](#key-classes)
+        * [Input Processing Flow](#input-processing-flow)
+        * [UI Design Principles](#ui-design-principles)
+    * [Program Flow](#program-flow)
+        * [Main Execution Loop](#main-execution-loop)
+        * [Storage Operations](#storage-operations)
+* [Product scope](#product-scope)
+    * [Target user profile](#target-user-profile)
+    * [Key features (current / planned)](#key-features-current--planned)
+    * [Brainstorming and references](#brainstorming-and-references)
+    * [Non-goals (out of scope for current release)](#non-goals-out-of-scope-for-current-release)
+    * [Model component](#model-component)
+    * [Storage component](#storage-component)
+    * [Common classes](#common-classes)
 * [Implementation](#implementation)
-  * [CompleteExercise feature](#CompleteExercise-feature)
-  * [CompleteSession feature](#CompleteSession-feature)
-  * [DeleteAthlete feature](#DeleteAthlete-feature)
-  * [DeleteExercise feature](#DeleteExercise-feature)
-  * [DeleteSession feature](#Deletesession-feature)
-  * [Exit feature](#Exit-feature)
-  * [FlagAthlete feature](#FlagAthlete-feature)
-  * [Leaderboard feature](#Leaderboard-feature)
-  * [ListAthlete feature](#ListAthlete-feature)
-* [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-* [Appendix: Requirements](#appendix-requirements)
-  * [Product scope](#product-scope)
-  * [User stories](#user-stories)
-  * [Use cases](#use-cases)
-  * [Non-Functional Requirements](#non-functional-requirements)
-  * [Glossary](#glossary)
-* [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-  * [Launch and shutdown](#launch-and-shutdown)
-  * [Deleting a person](#deleting-a-person)
-  * [Saving data](#saving-data)
+    * [CompleteExercise feature](#completeexercise-feature)
+    * [CompleteSession feature](#completesession-feature)
+    * [DeleteAthlete feature](#deleteathlete-feature)
+    * [DeleteExercise feature](#deleteexercise-feature)
+    * [DeleteSession feature](#deletesession-feature)
+    * [Exit feature](#exit-feature)
+    * [FlagAthlete feature](#flagathlete-feature)
+    * [Leaderboard feature](#leaderboard-feature)
+    * [ListAthlete feature](#listathlete-feature)
+* [Testing](#testing)
+* [Appendix E: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)
+    * [Launch and shutdown](#launch-and-shutdown)
+* [Instructions for Manual Testing (storage)](#instructions-for-manual-testing-storage)
+    * [Product scope](#product-scope-1)
+        * [Target User profile](#target-user-profile-1)
+        * [Value Proposition](#value-proposition)
+    * [User Stories](#user-stories)
+    * [Use cases](#use-cases)
+        * [Use Case: Add a New Athlete](#use-case-add-a-new-athlete)
+        * [Use Case: Delete an Athlete](#use-case-delete-an-athlete)
+        * [Use Case: Add a New Session](#use-case-add-a-new-session)
+        * [Use Case: Delete a Session](#use-case-delete-a-session)
+        * [Add an Exercise](#add-an-exercise)
+        * [Use Case: Delete an Exercise](#use-case-delete-an-exercise)
+        * [Use Case: Complete an Exercise](#use-case-complete-an-exercise)
+        * [Use Case: Complete a Session](#use-case-complete-a-session)
+        * [Use Case: Undo an Exercise](#use-case-undo-an-exercise)
+        * [Use Case: Complete a Session](#use-case-complete-a-session-1)
+        * [Use Case: Flag an Athlete](#use-case-flag-an-athlete)
+        * [Use Case: List All Athletes](#use-case-list-all-athletes)
+        * [Use Case: View Athlete Details](#use-case-view-athlete-details)
+        * [Use Case: View All Sessions for an Athlete](#use-case-view-all-sessions-for-an-athlete)
+        * [Use Case: View All Exercises in a Session](#use-case-view-all-exercises-in-a-session)
+        * [Use Case: Update Session Notes](#use-case-update-session-notes)
+        * [Use Case: View Help (List All Commands)](#use-case-view-help-list-all-commands)
+        * [Use Case: View Leaderboard](#use-case-view-leaderboard)
+        * [Use Case: Persist and Restore Coach Data](#use-case-persist-and-restore-coach-data)
+    * [Non-Functional Requirements](#non-functional-requirements)
+    * [Glossary](#glossary)
 
 ## Acknowledgements
 
@@ -84,9 +113,9 @@ Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete I
 #### UI Design Principles
 1. **Consistent Formatting**
    ```
-   Input:  /viewAhlete 0001
+   Input: /viewAthlete
    Output: Showing athlete 0001: <name> — <summary>
-   Error:  Error: Athlete not found - 0001
+   Error: Error: Athlete not found - 0001
    ```
 
 2. **Quality Assurance**
@@ -155,7 +184,6 @@ FitnessONE provides coaches an efficient, data-driven platform for exercise logg
 
 - Real-time sync across devices or multi-user concurrent editing
 - Complex GUI client (this is a CLI-first tool)
-
 
 Design notes
 - Keep UI code minimal so changes to presentation do not affect logic.
@@ -337,7 +365,6 @@ error handling:
 1. If the input contains redundant message, ListAthleteCommand throws InvalidCommandException (or the error is handled in run()), then Ui.printWithDivider displays the message.
 2. FitnessONE.run does not call save on failure.
 
-## Appendix E: Instructions for Manual Testing (storage)
 ## Testing
 
 Testing will ensure the correctness, reliability, and stability of FitnessOne. The project uses JUnit (version 5) for automated testing and manual verification of the user-facing behavior.
@@ -382,13 +409,23 @@ For the tests themselves we split them up first of all in different components t
   - Handling invalid inputs and ensuring helpful error messages are displayed
 
 
-## Appendix E: Instructions for Manual Testing
-
-This section guides testers through manual validation of FitnessOne’s core features.
-Ensure that the JAR file has been correctly built (e.g., FitnessOne.jar) and run in a terminal:
+## Appendix: Instructions for Manual Testing
+### Launch and shutdown
+This section will assist and guide testers through manual validation of FitnessOne’s core features.
+Make sure that the JAR file has been correctly built (e.g., FitnessOne.jar) and can be run in a terminal:
 ```
 java -jar FitnessOne.jar
 ```
+
+To shutdown the program simply type the command:
+```bye```
+
+this will lead to the program terminating.
+
+### Notes
+Copy and paste the commands one by one to verify command parsing and UI responses are correct.
+You do not need to test every invalid variation, make sure at least one invalid example per command behaves correctly.
+
 
 ### 1. Adding an Athlete
 
@@ -397,12 +434,15 @@ Test Case: ```/newAthlete Jonas Hardwell```
 Expected: ```New athlete created: Jonas Hardwell```
 
 Notes: Name cannot be blank.
-Error Case: /newAthlete → “athlete name was not specified”
+
+Error Case: ```/newAthlete``` => ```athlete name was not specified```
 
 ### 2. Adding a Training Session
 
 Prerequisite: An athlete exists (e.g., John Doe with ID 0001).
-Test Case:```newsession 0001 Legs```
+
+Test Case: ```newsession 0001 Legs```
+
 Expected:
 ```
 New session created:
@@ -411,12 +451,13 @@ Athlete Name: jonas hardwell | ID: 0001
 Session ID: 002
 Session Description: legs
 ```
-Error Case: ```/newsession 9999 Legs``` → ```Athlete not found: 9999```
+Error Case: ```/newsession 9999 Legs``` => ```Athlete not found: 9999```
 
 ### 3. Adding an Exercise
 
-Prerequisite: Athlete and session exist.
-Test Case:```newExercise 0001 001 Pushups 3 12```
+Prerequisite: The Athlete and session exist.
+
+Test Case: ```/newExercise 0001 001 Pushups 3 12```
 
 Expected:
 ```
@@ -433,7 +474,7 @@ Exercise Description: leg-press
 sets x reps: 5 x 15
 ```
 
-Error Case: ```newExercise 0001 001 Pushups five 12``` → ```Sets and reps must be integers.```
+Error Case: ```newExercise 0001 001 Pushups five 12``` => ```Sets and reps must be integers.```
 
 ### 4. Mark an Exercise Complete
 
@@ -443,8 +484,8 @@ Test Case: ```/completeExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01) completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/completeExercise 0001 001 99``` → ```There was an error while trying to complete the session.
-Try: /completeSession <Athlete ID> <Session ID> <Exercise ID>```
+Error Case: ```/completeExercise 0001 001 99``` => ```There was an error while trying to complete the session.
+Try: /completeSession <ATHLETE_ID> <SESSION_ID> <EXERCISE_ID>```
 
 ### 5. Mark a Session Complete
 
@@ -454,8 +495,8 @@ Test Case: ```/completeSession 0001 001```
 
 Expected: ```Session (ID: 001) completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/completeSession 0001 999``` → ```"There was an error while trying to complete the session.
-Try: /completeSession <Athlete ID> <Session ID>"```
+Error Case: ```/completeSession 0001 999``` => ```"There was an error while trying to complete the session.
+Try: /completeSession <ATHLETE_ID> <SESSION_ID>"```
 
 
 ### 6. Unmark an Exercise Complete
@@ -466,7 +507,7 @@ Test Case: ```/undoExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01) has been marked as not completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/undoExercise 0001 001 99``` → ```Exercise not found: 99```
+Error Case: ```/undoExercise 0001 001 99``` => ```Exercise not found: 99```
 
 ### 7. Unmark a Session Complete
 
@@ -476,7 +517,7 @@ Test Case: ```/undoSession 0001 001```
 
 Expected: ```Session (ID: 001) has been marked as not completed by Jonas Hardwell (ID: 0001).```
 
-Error Case: ```/undoSession 0001 999``` → ```Session not found: 999```
+Error Case: ```/undoSession 0001 999``` => ```Session not found: 999```
 
 ### 6. Deleting an Exercise
 
@@ -486,18 +527,18 @@ Test Case: ```/deleteExercise 0001 001 01```
 
 Expected: ```Exercise (ID: 01), for Session (ID: 001) deleted for Jonas Hardwell (ID: 0001)```
 
-Error Case: ```/deleteExercise 0001 001 99``` → ```Exercise not found: 99```
+Error Case: ```/deleteExercise 0001 001 99``` => ```Exercise not found: 99```
 
 
 ### 7. Deleting a Session
 
 Prerequisite: Session 001 exists for athlete 0001.
 
-Test Case: ```/deletesession 0001 001```
+Test Case: ```/deleteSession 0001 001```
 
 Expected: ```Session (ID: 003) deleted for Jonas Hardwell (ID: 0001)```
 
-Error Case: ```deleteSession 0001 999``` → ```Session not found: 999```
+Error Case: ```/deleteSession 0001 999``` => ```Session not found: 999```
 
 ### 8. Flagging an Athlete
 
@@ -507,20 +548,24 @@ Test Case: ```/flagathlete 0001 Red```
 
 Expected: ```Athlete 0001 flagged as: Red  ```
 
-Error Case 1: ```/flagathlete 9999 Red ``` → ``` Athlete not found: 9999```
-Error Case 2: ```/flagathlete 0001 reddd ``` → ``` Invalid color: reddd```
+Error Case 1: ```/flagathlete 9999 Red ``` => ``` Athlete not found: 9999```
+
+Error Case 2: ```/flagathlete 0001 reddd ``` => ``` Invalid color: reddd```
 
 ### 9. Deleting an Athlete
 
-Test Case:``` /deleteathlete 0001```
+Test Case: ``` /deleteathlete 0001```
+
 Expected: ```Deleted athlete with ID 0001```
 
-Error Case: ```/deleteathlete 9999``` → ```Athlete not found: 9999```
+Error Case: ```/deleteathlete 9999``` => ```Athlete not found: 9999```
 
 ### 10. Viewing the Leaderboard
 
 Test Case: ```/leaderboard```
+
 Expected: ```A list of athletes sorted by achievement score.```
+
 If empty: ```No athletes found, add some athletes and let them do workout!!```
 
 ### 11. Error Handling
@@ -535,13 +580,9 @@ Expected:
 Invalid Command. Type /help for a list of available commands.
 ```
 
-### Notes
-Copy-paste commands one by one to verify command parsing and UI responses.
-You need not test every invalid variation—just ensure at least one invalid example per command behaves correctly.
-
 ## Instructions for Manual Testing (storage)
 
-This appendix provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
+This section provides a short path a tester can follow to verify the storage feature (startup load and save-on-command).
 
 1. Start with a fresh/known state:
 	- If you already have a `data/athletes_export.txt` file, back it up or delete it to observe creation from scratch.
@@ -573,14 +614,6 @@ This appendix provides a short path a tester can follow to verify the storage fe
 
 If any of the above steps fail, capture the console output and the contents of `data/athletes_export.txt` and file an issue with those artifacts.
 
-#### Proposed Implementation
-
-#### Design considerations
-
-### [Proposed] Data archiving
-
-## Appendix: Requirements
-
 ### Product scope
 
 #### Target User profile:
@@ -609,35 +642,36 @@ FitnessONE empowers coaches to manage and monitor athletes’ progress more effi
 
 ### User Stories
 
-| Version | As a...       | I want to...             | So that I can...                                                        |
-| :-----: | :------------ | :----------------------- | :---------------------------------------------------------------------- |
-|   v1.0  | Fitness coach | add a new athlete        | start tracking their sessions and performance individually              |
-|   v1.0  | Fitness coach | view athlete details     | see all sessions and exercises for a specific athlete                   |
-|   v1.0  | Fitness coach | list all athletes        | get an overview of everyone I’m coaching                                |
-|   v1.0  | Fitness coach | delete an athlete        | remove clients who are no longer active                                 |
-|   v1.0  | Fitness coach | create a new session     | plan structured workouts for an athlete                                 |
-|   v1.0  | Fitness coach | delete a session         | remove outdated or incorrect training sessions                          |
-|   v1.0  | Fitness coach | complete a session       | mark training sessions as done to track athlete progress                |
-|   v1.0  | Fitness coach | view all sessions        | review past and upcoming workouts for an athlete                        |
-|   v1.0  | Fitness coach | update session notes     | adjust or add relevant details after a session                          |
-|   v1.0  | Fitness coach | undo session completion  | correct mistakes when marking sessions as completed                     |
-|   v1.0  | Fitness coach | create an exercise       | define specific workouts within a session                               |
-|   v1.0  | Fitness coach | delete an exercise       | remove invalid or outdated exercises from a session                     |
-|   v1.0  | Fitness coach | view all exercises       | review what an athlete must perform in a given session                  |
-|   v1.0  | Fitness coach | complete an exercise     | track the completion status of each workout                             |
-|   v1.0  | Fitness coach | undo exercise completion | revert accidental completions for accuracy                              |
-|   v2.0  | Fitness coach | view the leaderboard     | compare athletes’ performance and identify top performers               |
-|   v2.0  | Fitness coach | view the help menu       | understand how to use all available commands                            |
-|   v2.0  | Fitness coach | flag athletes            | prioritize athletes based on training urgency or performance level      |
-|   v2.0  | Fitness coach | save all athlete data, sessions, and exercises   | persist my athletes’ progress and training plans for later use |
-|   v2.0  | Fitness coach | load saved athlete data, sessions, and exercises | restore all information without re-entering it manually        |
+| Version | As a...       | I want to...                                     | So that I can...                                                   |
+|:-------:| :------------ |:-------------------------------------------------|:-------------------------------------------------------------------|
+|  v1.0   | Fitness coach | add a new athlete                                | start tracking their sessions and performance individually         |
+|  v1.0   | Fitness coach | view athlete details                             | see all sessions and exercises for a specific athlete              |
+|  v1.0   | Fitness coach | list all athletes                                | get an overview of everyone I’m coaching                           |
+|  v1.0   | Fitness coach | delete an athlete                                | remove clients who are no longer active                            |
+|  v1.0   | Fitness coach | create a new session                             | plan structured workouts for an athlete                            |
+|  v1.0   | Fitness coach | delete a session                                 | remove outdated or incorrect training sessions                     |
+|  v1.0   | Fitness coach | complete a session                               | mark training sessions as done to track athlete progress           |
+|  v1.0   | Fitness coach | view all sessions                                | review past and upcoming workouts for an athlete                   |
+|  v1.0   | Fitness coach | update session notes                             | adjust or add relevant details after a session                     |
+|  v1.0   | Fitness coach | undo session completion                          | correct mistakes when marking sessions as completed                |
+|  v1.0   | Fitness coach | create an exercise                               | define specific workouts within a session                          |
+|  v1.0   | Fitness coach | delete an exercise                               | remove invalid or outdated exercises from a session                |
+|  v1.0   | Fitness coach | view all exercises                               | review what an athlete must perform in a given session             |
+|  v1.0   | Fitness coach | complete an exercise                             | track the completion status of each workout                        |
+|  v1.0   | Fitness coach | undo exercise completion                         | revert accidental completions for accuracy                         |
+|  v2.0   | Fitness coach | view the leaderboard                             | compare athletes’ performance and identify top performers          |
+|  v2.0   | Fitness coach | view the help menu                               | understand how to use all available commands                       |
+|  v2.0   | Fitness coach | flag athletes                                    | prioritize athletes based on training urgency or performance level |
+|  v2.0   | Fitness coach | save all athlete data, sessions, and exercises   | persist my athletes’ progress and training plans for later use     |
+|  v2.0   | Fitness coach | load saved athlete data, sessions, and exercises | restore all information without re-entering it manually            |
+|  v2.1   | Fitness coach | run the app smoothly without any major bugs      | can use the app properly                                           |
 
 
 ### Use cases
 
 For all use cases below, the System is FitnessONE and the Actor is the user, unless otherwise specified.
 
-#### Use Case: Use Case: Add a New Athlete
+#### Use Case: Add a New Athlete
 
 MSS
 
@@ -1020,11 +1054,3 @@ A CLI feature that lists all available commands and their usage, helping users u
 **StorageManager**  
 The component responsible for persisting and restoring data. It handles saving/loading athlete profiles, sessions, exercises, and leaderboard information, ensuring data integrity.
 
-
-## Appendix: Instructions for manual testing
-
-### Launch and shutdown
-
-### Deleting a person
-
-### Saving data

@@ -21,3 +21,10 @@
 - Tests and quality
     - JUnit tests added for: `CompleteExercise`, `DeleteAthlete`, `CompleteSession`, `NewExercise`, `Coach`, `Parser`, `Athlete` and `Session`.
     - Added tests covering ID validation and parser error cases.
+
+- User Guide
+  - Added documentation for several command features, reworked them as needed when updating the code.
+  - Given clear input and output documentation for several features.
+
+- Designer Guide
+ - Provided the full test section for the DG, and everything related to it.

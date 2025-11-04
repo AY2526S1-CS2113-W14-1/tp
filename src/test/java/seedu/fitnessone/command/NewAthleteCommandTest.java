@@ -2,6 +2,7 @@ package seedu.fitnessone.command;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.fitnessone.controller.Coach;
@@ -52,6 +53,8 @@ public class NewAthleteCommandTest {
         InvalidCommandException ex = assertThrows(InvalidCommandException.class, () -> cmd.execute(coach, ui));
         assertEquals("Unknown command: 'Athlete name was not specified. Usage: /newathlete <Athlete Name>'." +
                 " Type /help to see available commands.", ex.getMessage());
+        assertEquals("Unknown command: 'Athlete name was not specified'. " +
+                "Type /help to see available commands.", ex.getMessage());
     }
 
     @Test
@@ -63,9 +66,10 @@ public class NewAthleteCommandTest {
         InvalidCommandException ex = assertThrows(InvalidCommandException.class, () -> cmd.execute(coach, ui));
         assertEquals("Unknown command: 'Athlete name was not specified. Usage: /newathlete <Athlete Name>'." +
                 " Type /help to see available commands.", ex.getMessage());
+
     }
 
-    /*@Test
+    @Test
     public void execute_validName_addsAthleteAndPrints() throws InvalidCommandException {
         CoachStub coachStub = new CoachStub();
         UiStub uiStub = new UiStub();
@@ -76,6 +80,6 @@ public class NewAthleteCommandTest {
         command.execute(coachStub, uiStub);
 
         assertEquals(athleteName, coachStub.lastAddedAthlete);
-        assertEquals("athlete added." + System.lineSeparator() + "     " + athleteName, uiStub.lastPrinted);
-    }*/
+        assertEquals("Athlete added:" + System.lineSeparator() + "     " + athleteName, uiStub.lastPrinted);
+    }
 }
