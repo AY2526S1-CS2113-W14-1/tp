@@ -96,13 +96,32 @@ The architecture is loosely inspired by MVC:
 
 The diagram above summarizes the main runtime components and their dependencies.
 
-Core components
+#### Responsibilities
+- Provide a command-line interface (CLI) for user interaction
+- Read raw user input, display formatted output and error messages
+- Delegate input parsing to `seedu.fitnessone.ui.Parser`
+- Forward parsed commands to the Logic component and display command results
+- UI does not contain business logic; it only formats input/output and handles presentation concerns
+
+#### Key Classes
+- `seedu.fitnessone.ui.Parser` — converts raw input strings to command objects and validates basic syntax
+- `Ui` / `TextUi` — reads input from stdin, prints to stdout, and formats messages
+- Any `Message` or `UiStrings` class — centralises user-facing strings and error messages
 - UI: Reads input and prints formatted output (package `seedu.fitnessone.ui`).
 - Logic: Parses commands and executes them via Command classes (package `seedu.fitnessone.command`).
 - Controller: Coordinates model operations and encapsulates domain rules (class `seedu.fitnessone.controller.Coach`).
 - Model: Domain entities and in-memory state (package `seedu.fitnessone.model` — `Athlete`, `Session`, `Exercise`).
 - Storage: Loads and saves state to the text file store (package `seedu.fitnessone.storage` — `StorageManager`).
 - Common/Exceptions: Reusable types and exception hierarchy (package `seedu.fitnessone.exception`).
+
+#### Input Processing Flow
+1. UI reads input and passes it to `Parser.parse(...)`
+2. Parser creates a Command object which is passed to the Logic component
+3. For invalid input or domain errors (e.g. `InvalidAthleteException`), UI catches exceptions and prints user-friendly messages:
+```
+Error: Athlete not found - 0001
+Caused by: seedu.fitnessone.exception.InvalidAthleteException: Invalid Athlete ID: 0001
+```
 
 How components interact
 1. `FitnessONE` (entry point) starts the app, constructs `Ui`, `Parser`, `Coach`, and `StorageManager`.
